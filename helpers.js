@@ -8,6 +8,24 @@
 (function () {
     "use strict";
 
+    function stealthConfiguration(value) {
+        return {configurable : true, enumerable : false, writable : true, value : value};
+    }
+
+    Object.defineProperty(Object.prototype, 'getPrototypeChain', stealthConfiguration(
+        function () {
+            var
+                self = this,
+                res = [self];
+
+            while (self) {
+                res.unshift(self = Object.getPrototypeOf(self));
+            }
+
+            return res;
+        })
+    );
+
     var helpersMap = {
         /**
          * @param controlNameOrId имя или идентификатор
@@ -49,7 +67,7 @@
     };
 
     var global = (0 || eval)('this');
-    for (var name in helpersMap) {
+    for (let name in helpersMap) {
         if (helpersMap.hasOwnProperty(name)) {
             global[name] = helpersMap[name];
         }
