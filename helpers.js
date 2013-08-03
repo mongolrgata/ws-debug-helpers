@@ -26,10 +26,51 @@
         })
     );
 
+    Object.defineProperty(Array.prototype, 'toConsole', stealthConfiguration(
+        function () {
+            // TODO
+        })
+    );
+
+    /**
+     * Определение метода toString для всех классов платформы,
+     * чтобы их имена выводились в консоли Firebug, а не просто Object{...}
+     *
+     * setInterval потому, что модули платформы грузятся по необходимости, а не все сразу
+     */
+    setInterval(function defineToString() {
+        for (let className in $ws.proto) {
+            if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
+                let objectClassName = '[object ' + className + ']';
+
+                $ws.proto[className].prototype.toString = function () {
+                    return objectClassName;
+                }
+            }
+        }
+
+        return defineToString;
+    }.call(), 1000);
+
+    /**
+     * Разделение полного имени метода на имя обекта БЛ и имя метода
+     * @param {string} fullMethodName полное имя метода (вместе с именем объекта БЛ через точку)
+     * @returns {{objectName: {string}, methodName: {string}}}
+     */
+    function splitMethodName(fullMethodName) {
+        var splitName = fullMethodName.split('.');
+
+        return {
+            objectName : splitName[0],
+            methodName : splitName[1]
+        }
+    }
+
     var helpersMap = {
         /**
+         * Получение контрола по имени или идентификатору (с приоритетом по имени). Не кидает исключения, если контрол не найден
          * @param controlNameOrId имя или идентификатор
-         * @returns {$ws.proto.Control}
+         * @returns {undefined|$ws.proto.Control}
          */
         damnControl : function (controlNameOrId) {
             if ($ws.single.ControlStorage.containsByName(controlNameOrId)) {
@@ -49,8 +90,8 @@
          * @returns {$ws.proto.Deferred}
          */
         BLObjectC : function (fullMethodName, params, type, ...args) {
-            var splitName = fullMethodName.split('.');
-            return $ws.proto.ClientBLObject.prototype.call.apply(new $ws.proto.BLObject(splitName[0]), [splitName[1], params || {}, $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]].concat(args));
+            var splitName = splitMethodName(fullMethodName);
+            return $ws.proto.ClientBLObject.prototype.call.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}, $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]].concat(args));
         },
 
         /**
@@ -61,8 +102,8 @@
          * @returns {$ws.proto.Deferred}
          */
         BLObjectQ : function (fullMethodName, params, ...args) {
-            var splitName = fullMethodName.split('.');
-            return $ws.proto.ClientBLObject.prototype.query.apply(new $ws.proto.BLObject(splitName[0]), [splitName[1], params || {}].concat(args));
+            var splitName = splitMethodName(fullMethodName);
+            return $ws.proto.ClientBLObject.prototype.query.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}].concat(args));
         }
     };
 
