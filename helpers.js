@@ -37,12 +37,13 @@
      */
     setInterval(function defineToString() {
         if ($ws && $ws.proto)
-            for (let className in $ws.proto)
+            for (var className in $ws.proto)
                 if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
-                    let objectClassName = '[object ' + className + ']';
-                    $ws.proto[className].prototype.toString = function () {
-                        return objectClassName;
-                    }
+                    $ws.proto[className].prototype.toString = (function (test) {
+                        return function () {
+                            return '[object ' + test + ']';
+                        };
+                    })(className);
                 }
 
         return defineToString;
@@ -106,9 +107,9 @@
         selectControlGUI : function () {
             var storage = $ws.single.ControlStorage.getControls();
 
-            for (let key in storage)
+            for (var key in storage)
                 if (storage.hasOwnProperty(key) && typeof(storage[key].getContainer) === 'function') {
-                    let
+                    var
                         control = storage[key],
                         controlContainer = control.getContainer();
 
@@ -127,12 +128,13 @@
                             $(this).css('background', 'transparent');
                         }
                     ).click(
+                        {control : control},
                         function (event) {
                             event.stopPropagation();
                             $('.ws-debug-helpers.div-cover').remove();
 
                             // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
-                            console.log(control);
+                            console.log(event.data.control);
                         }
                     ).addClass('ws-debug-helpers div-cover'));
                 }
@@ -151,7 +153,7 @@
                 control = damnControl(controlNameOrId),
                 controlEvents = control._events; // TODO Dr. HAX негодует
 
-            for (let eventName in controlEvents)
+            for (var eventName in controlEvents)
                 if (controlEvents.hasOwnProperty(eventName))
                     control.subscribe(eventName, function (eventObject) {
                         // TODO доработать формат
@@ -161,7 +163,7 @@
     };
 
     var global = (0 || eval)('this');
-    for (let name in helpersMap) {
+    for (var name in helpersMap) {
         if (helpersMap.hasOwnProperty(name))
             global[name] = helpersMap[name];
     }
