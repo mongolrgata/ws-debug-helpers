@@ -17,9 +17,8 @@
             var
                 self = this,
                 res = [self];
-            while (self) {
+            while (self)
                 res.unshift(self = Object.getPrototypeOf(self));
-            }
             return res;
         })
     );
@@ -32,29 +31,26 @@
 
     /**
      * Определение метода toString для всех классов платформы,
-     * чтобы в консоли Firebug выводились их имена, а не просто Object{...}
+     * чтобы в консоли Firebug выводились их имена, а не просто Object {...}
      *
      * setInterval потому, что модули платформы грузятся по необходимости, а не все сразу
      */
     setInterval(function defineToString() {
-        if ($ws && $ws.proto) {
-            for (let className in $ws.proto) {
+        if ($ws && $ws.proto)
+            for (let className in $ws.proto)
                 if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
                     let objectClassName = '[object ' + className + ']';
-
                     $ws.proto[className].prototype.toString = function () {
                         return objectClassName;
                     }
                 }
-            }
-        }
 
         return defineToString;
     }.call(), 2000);
 
     /**
-     * Разделение полного имени метода на имя обекта БЛ и имя метода
-     * @param {String} fullMethodName полное имя метода (вместе с именем объекта БЛ через точку)
+     * Разделение полного имени метода БЛ на имя объекта и имя метода
+     * @param {String} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
      * @returns {{objectName: {String}, methodName: {String}}}
      */
     function splitMethodName(fullMethodName) {
@@ -62,13 +58,14 @@
         return {
             objectName : splitName[0],
             methodName : splitName[1]
-        }
+        };
     }
 
+    /** @lends window */
     var helpersMap = {
         /**
-         * Получение контрола по имени или идентификатору (с приоритетом по имени). Не кидает исключения, если контрол не найден
-         * @param controlNameOrId имя или идентификатор
+         * Получение контрола по имени или идентификатору (с приоритетом по имени). Не кидает исключение, если контрол не найден
+         * @param controlNameOrId имя или идентификатор контрола
          * @returns {undefined|$ws.proto.Control}
          */
         damnControl : function (controlNameOrId) {
@@ -80,7 +77,7 @@
 
         /**
          * Вызов метода БЛ
-         * @param {String} fullMethodName полное имя метода (вместе с именем объекта БЛ через точку)
+         * @param {String} fullMethodName полное имя метода БЛ
          * @param {Object} [params={}] аргументы
          * @param {'asis'|'record'|'recordset'} [type='asis'] тип результата
          * @param args
@@ -93,7 +90,7 @@
 
         /**
          * Вызов списочного метода БЛ
-         * @param {String} fullMethodName полное имя списочного метода (вместе с именем объекта БЛ через точку)
+         * @param {String} fullMethodName полное имя списочного метода БЛ
          * @param {Object} [params={}] фильтр
          * @param args
          * @returns {$ws.proto.Deferred}
@@ -103,10 +100,13 @@
             return $ws.proto.ClientBLObject.prototype.query.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}].concat(args));
         },
 
-        controlSelectGUI : function () {
+        /**
+         * Выбор контрола мышкой (подобно Firebug)
+         */
+        selectControlGUI : function () {
             var storage = $ws.single.ControlStorage.getControls();
 
-            for (let key in storage) {
+            for (let key in storage)
                 if (storage.hasOwnProperty(key) && typeof(storage[key].getContainer) === 'function') {
                     let
                         control = storage[key],
@@ -129,12 +129,34 @@
                     ).click(
                         function (event) {
                             event.stopPropagation();
-                            $('.div-cover').remove();
+                            $('.ws-debug-helpers.div-cover').remove();
+
+                            // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
                             console.log(control);
                         }
-                    ).addClass('div-cover'));
+                    ).addClass('ws-debug-helpers div-cover'));
                 }
-            }
+        },
+
+        /**
+         * Вывод в консоль оповещений о наступлении какого-либо события у контрола
+         * @param {String} [controlNameOrId] имя или идентификатор контрола
+         */
+        logControlEventsGUI : function (controlNameOrId) {
+            if (arguments.length === 0)
+                if ((controlNameOrId = prompt('Введите имя или идентификатор контрола')) === null)
+                    return;
+
+            var
+                control = damnControl(controlNameOrId),
+                controlEvents = control._events; // TODO Dr. HAX негодует
+
+            for (let eventName in controlEvents)
+                if (controlEvents.hasOwnProperty(eventName))
+                    control.subscribe(eventName, function (eventObject) {
+                        // TODO доработать формат
+                        console.log(this.getName(), eventObject._eventName); // TODO Dr. HAX негодует
+                    });
         }
     };
 
@@ -145,6 +167,6 @@
     }
 
     $(document).ready(function () {
-        // TODO
+        // nothing to do here
     });
 })();
