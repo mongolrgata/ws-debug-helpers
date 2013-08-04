@@ -38,13 +38,12 @@
     setInterval(function defineToString() {
         if ($ws && $ws.proto)
             for (var className in $ws.proto)
-                if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
-                    $ws.proto[className].prototype.toString = (function (test) {
+                if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString'))
+                    $ws.proto[className].prototype.toString = (function (objectClassName) {
                         return function () {
-                            return '[object ' + test + ']';
+                            return objectClassName;
                         };
-                    })(className);
-                }
+                    })('[object ' + className + ']');
 
         return defineToString;
     }.call(), 2000);

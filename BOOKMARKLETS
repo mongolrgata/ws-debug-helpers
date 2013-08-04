@@ -1,0 +1,6 @@
+- Immolate Improved
+javascript:(function(){$.getScript("https://raw.github.com/mongolrgata/ws-debug-helpers/no-let/helpers.js");})();
+- selectControlGUI
+javascript:(function(){selectControlGUI();})();
+- logControlEventsGUI
+javascript:(function(){logControlEventsGUI();})();
