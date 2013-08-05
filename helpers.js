@@ -36,14 +36,14 @@
      * setInterval потому, что модули платформы грузятся по необходимости, а не все сразу
      */
     setInterval(function defineToString() {
-        if ($ws && $ws.proto)
-            for (var className in $ws.proto)
-                if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString'))
-                    $ws.proto[className].prototype.toString = (function (objectClassName) {
-                        return function () {
-                            return objectClassName;
-                        };
-                    })('[object ' + className + ']');
+        if (typeof($ws) !== 'undefined' && $ws.proto)
+            for (let className in $ws.proto)
+                if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
+                    let objectClassName = '[object ' + className + ']';
+                    $ws.proto[className].prototype.toString = function () {
+                        return objectClassName;
+                    }
+                }
 
         return defineToString;
     }.call(), 2000);
@@ -106,9 +106,9 @@
         selectControlGUI : function () {
             var storage = $ws.single.ControlStorage.getControls();
 
-            for (var key in storage)
+            for (let key in storage)
                 if (storage.hasOwnProperty(key) && typeof(storage[key].getContainer) === 'function') {
-                    var
+                    let
                         control = storage[key],
                         controlContainer = control.getContainer();
 
@@ -127,13 +127,12 @@
                             $(this).css('background', 'transparent');
                         }
                     ).click(
-                        {control : control},
                         function (event) {
                             event.stopPropagation();
                             $('.ws-debug-helpers.div-cover').remove();
 
                             // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
-                            console.log(event.data.control);
+                            console.log(control);
                         }
                     ).addClass('ws-debug-helpers div-cover'));
                 }
@@ -152,7 +151,7 @@
                 control = damnControl(controlNameOrId),
                 controlEvents = control._events; // TODO Dr. HAX негодует
 
-            for (var eventName in controlEvents)
+            for (let eventName in controlEvents)
                 if (controlEvents.hasOwnProperty(eventName))
                     control.subscribe(eventName, function (eventObject) {
                         // TODO доработать формат
@@ -162,7 +161,7 @@
     };
 
     var global = (0 || eval)('this');
-    for (var name in helpersMap) {
+    for (let name in helpersMap) {
         if (helpersMap.hasOwnProperty(name))
             global[name] = helpersMap[name];
     }

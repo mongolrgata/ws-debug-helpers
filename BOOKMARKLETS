@@ -1,5 +1,5 @@
 - Immolate Improved
-javascript:(function(){$.getScript("https://raw.github.com/mongolrgata/ws-debug-helpers/no-let/helpers.js");})();
+javascript:(function(){$('<script/>').attr({type:'application/javascript;version=1.8',src:'https://raw.github.com/mongolrgata/ws-debug-helpers/master/helpers.js'}).appendTo('head');})();
 - selectControlGUI
 javascript:(function(){selectControlGUI();})();
 - logControlEventsGUI
