@@ -36,7 +36,7 @@
      * setInterval потому, что модули платформы грузятся по необходимости, а не все сразу
      */
     setInterval(function defineToString() {
-        if (typeof($ws) !== 'undefined' && $ws.proto)
+        if (typeof($ws) !== 'undefined' && $ws.proto) {
             for (let className in $ws.proto)
                 if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
                     let objectClassName = '[object ' + className + ']';
@@ -44,9 +44,10 @@
                         return objectClassName;
                     }
                 }
-
+            updateClassHierarchy();
+        }
         return defineToString;
-    }.call(), 2000);
+    }.call(), 10000);
 
     /**
      * Разделение полного имени метода БЛ на имя объекта и имя метода
@@ -59,6 +60,13 @@
             objectName : splitName[0],
             methodName : splitName[1]
         };
+    }
+
+    /**
+     * TODO описание
+     */
+    function updateClassHierarchy() {
+        // TODO
     }
 
     /** @lends window */
@@ -112,29 +120,35 @@
                         control = storage[key],
                         controlContainer = control.getContainer();
 
-                    controlContainer.append($('<div/>').css({
-                        position : 'absolute',
-                        bottom   : 0,
-                        left     : 0,
-                        right    : 0,
-                        top      : 0
-                    }).mouseover(
-                        function () {
-                            $(this).css('background', 'rgba(255,0,0,0.5)');
-                        }
-                    ).mouseout(
-                        function () {
-                            $(this).css('background', 'transparent');
-                        }
-                    ).click(
-                        function (event) {
-                            event.stopPropagation();
-                            $('.ws-debug-helpers.div-cover').remove();
+                    controlContainer.append(
+                        $('<div/>').css(
+                            {
+                                position : 'absolute',
+                                bottom   : 0,
+                                left     : 0,
+                                right    : 0,
+                                top      : 0
+                            }
+                        ).bind(
+                            {
+                                mouseenter : function () {
+                                    $(this).css('background', 'rgba(255,0,0,0.5)');
+                                },
 
-                            // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
-                            console.log(control);
-                        }
-                    ).addClass('ws-debug-helpers div-cover'));
+                                mouseleave : function () {
+                                    $(this).css('background', 'transparent');
+                                },
+
+                                click : function (event) {
+                                    event.stopPropagation();
+                                    $('.ws-debug-helpers.div-cover').remove();
+
+                                    // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
+                                    console.log(control);
+                                }
+                            }
+                        ).addClass('ws-debug-helpers div-cover')
+                    );
                 }
         },
 
