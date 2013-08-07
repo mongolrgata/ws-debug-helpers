@@ -38,7 +38,7 @@
     setInterval(function defineToString() {
         if (typeof($ws) !== 'undefined' && $ws.proto) {
             for (let className in $ws.proto)
-                if ($ws.proto.hasOwnProperty(className) && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
+                if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function' && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
                     let objectClassName = '[object ' + className + ']';
                     $ws.proto[className].prototype.toString = function () {
                         return objectClassName;
@@ -66,7 +66,18 @@
      * TODO описание
      */
     function updateClassHierarchy() {
-        // TODO
+        var classHierarchy = {};
+
+        for (let classNameA in $ws.proto)
+            if ($ws.proto.hasOwnProperty(classNameA) && typeof($ws.proto[classNameA]) === 'function') {
+                classHierarchy[classNameA] = [];
+
+                for (let classNameB in $ws.proto)
+                    if ($ws.proto.hasOwnProperty(classNameB) && $ws.proto[classNameA].prototype instanceof $ws.proto[classNameB])
+                        classHierarchy[classNameA].push(classNameB);
+            }
+
+        // TODO сохранение в локальном хранилище
     }
 
     /** @lends window */
