@@ -1,0 +1,2 @@
+- букмарклет «Immolate Improved» срабатывает не всегда; найти универсальный способ подключать helpers.js на страницу в любой момент
+- возможно стоит как-то разделить defineToString и updateClassHierarchy и дать каждому свой setInterval

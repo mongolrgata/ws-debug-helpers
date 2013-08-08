@@ -17,8 +17,11 @@
             var
                 self = this,
                 res = [self];
-            while (self)
+
+            while (self) {
                 res.unshift(self = Object.getPrototypeOf(self));
+            }
+
             return res;
         })
     );
@@ -37,15 +40,19 @@
      */
     setInterval(function defineToString() {
         if (typeof($ws) !== 'undefined' && $ws.proto) {
-            for (let className in $ws.proto)
+            for (let className in $ws.proto) {
                 if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function' && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
                     let objectClassName = '[object ' + className + ']';
+
                     $ws.proto[className].prototype.toString = function () {
                         return objectClassName;
                     }
                 }
+            }
+
             updateClassHierarchy();
         }
+
         return defineToString;
     }.call(), 10000);
 
@@ -56,10 +63,7 @@
      */
     function splitMethodName(fullMethodName) {
         var splitName = fullMethodName.split('.');
-        return {
-            objectName : splitName[0],
-            methodName : splitName[1]
-        };
+        return {objectName : splitName[0], methodName : splitName[1]};
     }
 
     /**
@@ -68,14 +72,19 @@
     function updateClassHierarchy() {
         var classHierarchy = {};
 
-        for (let classNameA in $ws.proto)
-            if ($ws.proto.hasOwnProperty(classNameA) && typeof($ws.proto[classNameA]) === 'function') {
+        for (let classNameA in $ws.proto) {
+            if ($ws.proto.hasOwnProperty(classNameA) && typeof $ws.proto[classNameA] === 'function') {
                 classHierarchy[classNameA] = [];
 
-                for (let classNameB in $ws.proto)
-                    if ($ws.proto.hasOwnProperty(classNameB) && $ws.proto[classNameA].prototype instanceof $ws.proto[classNameB])
-                        classHierarchy[classNameA].push(classNameB);
+                for (let classNameB in $ws.proto) {
+                    if ($ws.proto.hasOwnProperty(classNameB) && typeof $ws.proto[classNameB] === 'function') {
+                        if ($ws.proto[classNameA].prototype instanceof $ws.proto[classNameB]) {
+                            classHierarchy[classNameA].push(classNameB);
+                        }
+                    }
+                }
             }
+        }
 
         // TODO сохранение в локальном хранилище
     }
@@ -87,7 +96,7 @@
          * @param controlNameOrId имя или идентификатор контрола
          * @returns {undefined|$ws.proto.Control}
          */
-        damnControl : function (controlNameOrId) {
+        damnControl : function damnControl(controlNameOrId) {
             if ($ws.single.ControlStorage.containsByName(controlNameOrId))
                 return $ws.single.ControlStorage.getByName(controlNameOrId);
             if ($ws.single.ControlStorage.contains(controlNameOrId))
@@ -102,7 +111,7 @@
          * @param args
          * @returns {$ws.proto.Deferred}
          */
-        BLObjectC : function (fullMethodName, params, type, ...args) {
+        BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
             var splitName = splitMethodName(fullMethodName);
             return $ws.proto.ClientBLObject.prototype.call.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}, $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]].concat(args));
         },
@@ -114,7 +123,7 @@
          * @param args
          * @returns {$ws.proto.Deferred}
          */
-        BLObjectQ : function (fullMethodName, params, ...args) {
+        BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
             var splitName = splitMethodName(fullMethodName);
             return $ws.proto.ClientBLObject.prototype.query.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}].concat(args));
         },
@@ -122,10 +131,10 @@
         /**
          * Выбор контрола мышкой (подобно Firebug)
          */
-        selectControlGUI : function () {
+        selectControlGUI : function selectControlGUI() {
             var storage = $ws.single.ControlStorage.getControls();
 
-            for (let key in storage)
+            for (let key in storage) {
                 if (storage.hasOwnProperty(key) && typeof(storage[key].getContainer) === 'function') {
                     let
                         control = storage[key],
@@ -161,6 +170,7 @@
                         ).addClass('ws-debug-helpers div-cover')
                     );
                 }
+            }
         },
 
         /**
@@ -168,27 +178,32 @@
          * @param {String} [controlNameOrId] имя или идентификатор контрола
          */
         logControlEventsGUI : function (controlNameOrId) {
-            if (arguments.length === 0)
-                if ((controlNameOrId = prompt('Введите имя или идентификатор контрола')) === null)
+            if (arguments.length === 0) {
+                if ((controlNameOrId = prompt('Введите имя или идентификатор контрола')) === null) {
                     return;
+                }
+            }
 
             var
                 control = damnControl(controlNameOrId),
                 controlEvents = control._events; // TODO Dr. HAX негодует
 
-            for (let eventName in controlEvents)
-                if (controlEvents.hasOwnProperty(eventName))
+            for (let eventName in controlEvents) {
+                if (controlEvents.hasOwnProperty(eventName)) {
                     control.subscribe(eventName, function (eventObject) {
                         // TODO доработать формат
                         console.log(this.getName(), eventObject._eventName); // TODO Dr. HAX негодует
                     });
+                }
+            }
         }
     };
 
     var global = (0 || eval)('this');
     for (let name in helpersMap) {
-        if (helpersMap.hasOwnProperty(name))
+        if (helpersMap.hasOwnProperty(name)) {
             global[name] = helpersMap[name];
+        }
     }
 
     $(document).ready(function () {
