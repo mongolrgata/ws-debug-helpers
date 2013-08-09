@@ -8,29 +8,29 @@
 (function () {
     "use strict";
 
-    function stealthPropertyConfiguration(value) {
-        return {configurable : true, enumerable : false, writable : true, value : value};
+    function defineStealthProperty(prototype, propertyName, value) {
+        if (propertyName in prototype) {
+            console.warn('Попытка %s свойство %s.%s', prototype.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', prototype.toString(), propertyName);
+        }
+
+        Object.defineProperty(prototype, propertyName, {configurable : true, enumerable : false, writable : true, value : value});
     }
 
-    Object.defineProperty(Object.prototype, 'getPrototypeChain', stealthPropertyConfiguration(
-        function () {
-            var
-                self = this,
-                res = [self];
+    defineStealthProperty(Object.prototype, 'getPrototypeChain', function () {
+        var
+            self = this,
+            res = [self];
 
-            while (self) {
-                res.unshift(self = Object.getPrototypeOf(self));
-            }
+        while (self) {
+            res.unshift(self = Object.getPrototypeOf(self));
+        }
 
-            return res;
-        })
-    );
+        return res;
+    });
 
-    Object.defineProperty(Array.prototype, 'toConsole', stealthPropertyConfiguration(
-        function () {
-            // TODO
-        })
-    );
+    defineStealthProperty(Array.prototype, 'toConsole', function () {
+        // TODO
+    });
 
     /**
      * Определение метода toString для всех классов платформы,
@@ -41,11 +41,13 @@
     setInterval(function defineToString() {
         if (typeof($ws) !== 'undefined' && $ws.proto) {
             for (let className in $ws.proto) {
-                if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function' && !$ws.proto[className].prototype.hasOwnProperty('toString')) {
-                    let objectClassName = '[object ' + className + ']';
+                if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function') {
+                    if (!$ws.proto[className].prototype.hasOwnProperty('toString')) {
+                        let objectClassName = '[object ' + className + ']';
 
-                    $ws.proto[className].prototype.toString = function () {
-                        return objectClassName;
+                        $ws.proto[className].prototype.toString = function () {
+                            return objectClassName;
+                        }
                     }
                 }
             }
@@ -202,6 +204,10 @@
     var global = (0 || eval)('this');
     for (let name in helpersMap) {
         if (helpersMap.hasOwnProperty(name)) {
+            if (name in global) {
+                // TODO предупреждение (как в defineStealthProperty)
+            }
+
             global[name] = helpersMap[name];
         }
     }
