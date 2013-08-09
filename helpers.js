@@ -166,7 +166,7 @@
                                     $('.ws-debug-helpers.div-cover').remove();
 
                                     // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
-                                    console.log(control);
+                                    console.log(control, '"' + control.getName() + '"');
                                 }
                             }
                         ).addClass('ws-debug-helpers div-cover')
