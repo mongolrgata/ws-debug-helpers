@@ -8,12 +8,18 @@
 (function () {
     "use strict";
 
-    function defineStealthProperty(prototype, propertyName, value) {
-        if (propertyName in prototype) {
-            console.warn('Попытка %s свойство %s.%s', prototype.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', prototype.toString(), propertyName);
+    /**
+     * TODO описание
+     * @param {Object} object объект
+     * @param {String} propertyName имя свойства
+     * @param {*} value значение свойства
+     */
+    function defineStealthProperty(object, propertyName, value) {
+        if (propertyName in object) {
+            console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
         }
 
-        Object.defineProperty(prototype, propertyName, {configurable : true, enumerable : false, writable : true, value : value});
+        Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : value});
     }
 
     defineStealthProperty(Object.prototype, 'getPrototypeChain', function () {
@@ -51,27 +57,15 @@
                     }
                 }
             }
-
-            updateClassHierarchy();
         }
 
         return defineToString;
-    }.call(), 10000);
-
-    /**
-     * Разделение полного имени метода БЛ на имя объекта и имя метода
-     * @param {String} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
-     * @returns {{objectName: {String}, methodName: {String}}}
-     */
-    function splitMethodName(fullMethodName) {
-        var splitName = fullMethodName.split('.');
-        return {objectName : splitName[0], methodName : splitName[1]};
-    }
+    }.call(), 1000);
 
     /**
      * TODO описание
      */
-    function updateClassHierarchy() {
+    setInterval(function updateClassHierarchy() {
         var classHierarchy = {};
 
         for (let classNameA in $ws.proto) {
@@ -88,7 +82,19 @@
             }
         }
 
-        // TODO сохранение в локальном хранилище
+        // TODO сохранение в localStorage
+
+        return updateClassHierarchy;
+    }.call(), 20000);
+
+    /**
+     * Разделение полного имени метода БЛ на имя объекта и имя метода
+     * @param {String} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
+     * @returns {{objectName: {String}, methodName: {String}}}
+     */
+    function splitMethodName(fullMethodName) {
+        var splitName = fullMethodName.split('.');
+        return {objectName : splitName[0], methodName : splitName[1]};
     }
 
     /** @lends window */
@@ -204,15 +210,12 @@
     var global = (0 || eval)('this');
     for (let name in helpersMap) {
         if (helpersMap.hasOwnProperty(name)) {
-            if (name in global) {
-                // TODO предупреждение (как в defineStealthProperty)
-            }
-
-            global[name] = helpersMap[name];
+            defineStealthProperty(global, name, helpersMap[name]);
         }
     }
 
     $(document).ready(function () {
-        // nothing to do here
+        // TODO ну ты понел
+        console.log('Свистелки и перделки загружены');
     });
 })();
