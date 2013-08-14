@@ -14,6 +14,7 @@
      * @param {Object} object объект
      * @param {String} propertyName имя свойства
      * @param {*} value значение свойства
+     * @private
      */
     function _defineStealthProperty(object, propertyName, value) {
         // TODO доработать вывод имени объекта (вариант с object.toString() не торт, например, для Array.prototype)
@@ -45,12 +46,23 @@
 
     //region Установка «таймеров»
     /**
+     *
+     * @param foo
+     * @param delay
+     * @private
+     */
+    function _setIntervalImmediate(foo, delay) {
+        setInterval(foo, delay);
+        foo();
+    }
+
+    /**
      * Определение метода toString для всех классов платформы,
      * чтобы в консоли Firebug выводились их имена, а не просто Object {...}
      *
-     * setInterval потому, что модули платформы грузятся по необходимости, а не все сразу
+     * _setIntervalImmediate потому, что модули платформы грузятся по необходимости, а не все сразу
      */
-    setInterval(function _defineToString() {
+    _setIntervalImmediate(function () {
         if (typeof($ws) !== 'undefined' && $ws.proto) {
             for (let className in $ws.proto) {
                 if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function') {
@@ -64,14 +76,12 @@
                 }
             }
         }
-
-        return _defineToString;
-    }.call(), 1000);
+    }, 1000);
 
     /**
      * TODO описание
      */
-    setInterval(function _updateClassHierarchy() {
+    _setIntervalImmediate(function () {
         var classHierarchy = {};
 
         for (let classNameA in $ws.proto) {
@@ -89,15 +99,14 @@
         }
 
         // TODO сохранение в localStorage
-
-        return _updateClassHierarchy;
-    }.call(), 20000);
+    }, 20000);
     //endregion
 
     /**
      * Разделение полного имени метода БЛ на имя объекта и имя метода
      * @param {String} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
      * @returns {{objectName: {String}, methodName: {String}}}
+     * @private
      */
     function _splitMethodName(fullMethodName) {
         var splitName = fullMethodName.split('.');
