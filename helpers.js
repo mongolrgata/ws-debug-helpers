@@ -8,13 +8,17 @@
 (function () {
     "use strict";
 
+    //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
      * TODO описание
      * @param {Object} object объект
      * @param {String} propertyName имя свойства
      * @param {*} value значение свойства
      */
-    function defineStealthProperty(object, propertyName, value) {
+    function _defineStealthProperty(object, propertyName, value) {
+        // TODO доработать вывод имени объекта (вариант с object.toString() не торт, например, для Array.prototype)
+        // см. http://stackoverflow.com/questions/8024149/is-it-possible-to-get-the-non-enumerable-inherited-property-names-of-an-object
+        // Object.getOwnPropertyNames — FTW!
         if (propertyName in object) {
             console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
         }
@@ -22,7 +26,7 @@
         Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : value});
     }
 
-    defineStealthProperty(Object.prototype, 'getPrototypeChain', function () {
+    _defineStealthProperty(Object.prototype, 'getPrototypeChain', function () {
         var
             self = this,
             res = [self];
@@ -34,17 +38,19 @@
         return res;
     });
 
-    defineStealthProperty(Array.prototype, 'toConsole', function () {
+    _defineStealthProperty(Array.prototype, 'toConsole', function () {
         // TODO
     });
+    //endregion
 
+    //region Установка «таймеров»
     /**
      * Определение метода toString для всех классов платформы,
      * чтобы в консоли Firebug выводились их имена, а не просто Object {...}
      *
      * setInterval потому, что модули платформы грузятся по необходимости, а не все сразу
      */
-    setInterval(function defineToString() {
+    setInterval(function _defineToString() {
         if (typeof($ws) !== 'undefined' && $ws.proto) {
             for (let className in $ws.proto) {
                 if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function') {
@@ -59,13 +65,13 @@
             }
         }
 
-        return defineToString;
+        return _defineToString;
     }.call(), 1000);
 
     /**
      * TODO описание
      */
-    setInterval(function updateClassHierarchy() {
+    setInterval(function _updateClassHierarchy() {
         var classHierarchy = {};
 
         for (let classNameA in $ws.proto) {
@@ -84,15 +90,16 @@
 
         // TODO сохранение в localStorage
 
-        return updateClassHierarchy;
+        return _updateClassHierarchy;
     }.call(), 20000);
+    //endregion
 
     /**
      * Разделение полного имени метода БЛ на имя объекта и имя метода
      * @param {String} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
      * @returns {{objectName: {String}, methodName: {String}}}
      */
-    function splitMethodName(fullMethodName) {
+    function _splitMethodName(fullMethodName) {
         var splitName = fullMethodName.split('.');
         return {objectName : splitName[0], methodName : splitName[1]};
     }
@@ -120,7 +127,7 @@
          * @returns {$ws.proto.Deferred}
          */
         BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
-            var splitName = splitMethodName(fullMethodName);
+            var splitName = _splitMethodName(fullMethodName);
             return $ws.proto.ClientBLObject.prototype.call.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}, $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]].concat(args));
         },
 
@@ -132,7 +139,7 @@
          * @returns {$ws.proto.Deferred}
          */
         BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
-            var splitName = splitMethodName(fullMethodName);
+            var splitName = _splitMethodName(fullMethodName);
             return $ws.proto.ClientBLObject.prototype.query.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}].concat(args));
         },
 
@@ -210,7 +217,7 @@
     var global = (0 || eval)('this');
     for (let name in helpersMap) {
         if (helpersMap.hasOwnProperty(name)) {
-            defineStealthProperty(global, name, helpersMap[name]);
+            _defineStealthProperty(global, name, helpersMap[name]);
         }
     }
 
