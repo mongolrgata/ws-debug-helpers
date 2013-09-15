@@ -5,6 +5,7 @@
  * Time: 22:40
  */
 
+;
 (function () {
     "use strict";
 
@@ -63,9 +64,13 @@
      * _setIntervalImmediate потому, что модули платформы грузятся по необходимости, а не все сразу
      */
     _setIntervalImmediate(function () {
-        if (typeof($ws) !== 'undefined' && $ws.proto) {
+        if (typeof $ws !== 'undefined' && $ws.proto) {
             for (let className in $ws.proto) {
-                if ($ws.proto.hasOwnProperty(className) && typeof($ws.proto[className]) === 'function') {
+                if ($ws.proto.hasOwnProperty(className) && typeof $ws.proto[className] === 'function') {
+                    if (typeof $ws.proto[className].prototype.constructor === 'function') {
+                        $ws.proto[className].prototype.constructor = _anonymize($ws.proto[className].prototype.constructor);
+                    }
+
                     if (!$ws.proto[className].prototype.hasOwnProperty('toString')) {
                         let objectClassName = '[object ' + className + ']';
 
@@ -101,6 +106,17 @@
         // TODO сохранение в localStorage
     }, 20000);
     //endregion
+
+    /**
+     * «Анонимизация» функции
+     * @param {*} foo
+     * @returns {Function}
+     */
+    function _anonymize(foo) {
+        return function () {
+            return foo.apply(arguments);
+        }
+    }
 
     /**
      * Разделение полного имени метода БЛ на имя объекта и имя метода
@@ -159,7 +175,7 @@
             var storage = $ws.single.ControlStorage.getControls();
 
             for (let key in storage) {
-                if (storage.hasOwnProperty(key) && typeof(storage[key].getContainer) === 'function') {
+                if (storage.hasOwnProperty(key) && typeof storage[key].getContainer === 'function') {
                     let
                         control = storage[key],
                         controlContainer = control.getContainer();
