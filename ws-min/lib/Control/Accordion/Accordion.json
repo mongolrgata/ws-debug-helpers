@@ -1,0 +1,113 @@
+{
+   "name"   : "Accordion",
+   "title"  : "Аккордион",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "collapseContent":{
+               "title": "Закрывать группу по клику",
+               "type": "boolean",
+               "default": false
+            },
+            "instantLoad":{
+               "title": "Загружать все группы при инициализации",
+               "type": "boolean",
+               "default": false
+            },
+            "openAll":{
+               "title": "Открывать несколько групп",
+               "type": "boolean",
+               "default": false
+            },
+            "dragToTop":{
+               "title": "Активная группа наверху",
+               "type": "boolean",
+               "default": false
+            },
+            "hideActiveLabel":{
+               "title": "Скрывать заголовок активной группы",
+               "type": "boolean",
+               "default": false
+            },
+            "elements":{
+               "title":"Массив конфигураций групп аккордеона",
+               "editor":"SBIS3.GENIE.EDITORS"
+            },
+            "autoHeight":{
+               "title": "Авто-высота",
+               "type": "boolean",
+               "default": false
+            },
+            "autoWidth":{
+               "title": "Авто-ширина",
+               "type": "boolean",
+               "default": false
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": "ws-accordion"
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onBeforeGroupOpen": {
+               "title": "перед открытием группы",
+               "editor": "handler"
+            },
+            "onGroupOpen": {
+               "title": "после открытия группы",
+               "editor": "handler"
+            },
+            "onGroupContentLoaded": {
+               "title": "после загрузки контента группы",
+               "editor": "handler"
+            },
+            "onLabelClick": {
+               "title": "при клике по заголовку группы",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

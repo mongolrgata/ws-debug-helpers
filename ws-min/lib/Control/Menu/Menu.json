@@ -1,0 +1,111 @@
+{
+   "name"   : "Menu",
+   "title"  : "Меню",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "type":{
+               "title": "тип меню",
+               "type": {
+                  "" : "контекстное меню",
+                  "main": "основное меню"
+               },
+               "default": ""
+            },
+            "data":{
+               "title": "описание пунктов меню",
+               "type": "array"
+            },
+            "params": {
+               "title": "параметры меню",
+               "options": {
+                  "showDelay": {
+                     "title": "ожидание до открытия меню",
+                     "type": "number"
+                  },
+                  "hideDelay": {
+                     "title": "ожидание до закрытия меню",
+                     "type": "number"
+                  },
+                  "hoverOpenDelay": {
+                     "title": "ожидание до открытия верхнего уровня меню",
+                     "type": "number"
+                  }
+               }
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onActivated": {
+               "title": "при клике на пункт меню",
+               "editor": "handler"
+            },
+            "onClose": {
+               "title": "при закрытии меню",
+               "editor": "handler"
+            },
+            "onOpen": {
+               "title": "при открытии меню",
+               "editor": "handler"
+            },
+            "onMouseEnter": {
+               "title": "при наведении мыши на меню",
+               "editor": "handler"
+            },
+            "onMouseLeave": {
+               "title": "при перемещении мыши с меню",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

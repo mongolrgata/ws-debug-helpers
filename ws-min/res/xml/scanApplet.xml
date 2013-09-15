@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<ws-template sbisName="Сканирование" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" windowName="Сканирование" responsible="Шилов Д.А." last_changed="Шилов Д.А." hasAccessArray="false" border="false" highlightFirstError="false" width="751" height="400" title="Сканирование" editor="jinnee" resizable="true" windowState="maximized" isApplication="true" windowStyle="" minHeight="0" minWidth="0" origWidth="751" origHeight="400" onAfterShow="/resources/WI.SBIS/hdl/scanApplet/onAfterLoad" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+	<style><![CDATA[
+#div_YgLn03IlQ9l
+{
+background: transparent none;
+bottom: 0px;
+height: auto!important;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_15p2qHov7Fd .ws-art-border-table-helper td
+{
+border-top-width: 0px;
+}
+#div_15p2qHov7Fd .ws-art-helper
+{
+border-width: 0px;
+bottom: 0;
+left: 0;
+margin: 0;
+padding: 0;
+position: absolute;
+right: 0;
+top: 0;
+}
+#div_Drr9jZAHGu8
+{
+bottom: 0px;
+height: auto!important;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_1XYXCS4ZDwp
+{
+bottom: 7px;
+height: 24px;
+position: absolute;
+right: 156px;
+width: 108px;
+}
+#div_Cju9IsMSQxp
+{
+bottom: 7px;
+height: 24px;
+position: absolute;
+right: 40px;
+width: 108px;
+}
+#div_IK1Qmi6WOcI
+{
+bottom: 8px;
+height: auto!important;
+left: 256px;
+position: absolute;
+right: 8px;
+top: 48px;
+width: auto!important;
+}
+#div_QAWTaJZacfq
+{
+bottom: 8px;
+height: auto!important;
+left: 8px;
+position: absolute;
+top: 88px;
+width: 240px;
+}
+#div_dHlibhiHSEE
+{
+bottom: auto;
+height: 14px;
+left: 0;
+line-height: 1.2em;
+position: absolute;
+right: auto;
+text-align: left;
+top: -14px;
+white-space: nowrap;
+width: 100px;
+}
+#div_pOPHDDRNYgM select
+{
+color: #000000;
+text-align: left;
+}
+#div_vyzFRNp76it .btn
+{
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 11px!important;
+font-weight: normal;
+line-height: 1.2em;
+text-align: center;
+white-space: nowrap;
+}
+#div_ULM5jKnMY2N
+{
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 19px;
+font-weight: normal;
+height: 23px;
+line-height: 1.2em;
+overflow: hidden;
+text-align: left;
+white-space: normal;
+}
+#div_ULM5jKnMY2N pre
+{
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 19px;
+font-weight: normal;
+text-align: left;
+}
+#div_ULM5jKnMY2N
+{
+height: 23px;
+left: 20px;
+margin-top: -11px;
+position: absolute;
+top: 50%;
+width: 129px;
+}
+#div_IOaEZyzd9zN
+{
+height: 24px;
+left: 8px;
+position: absolute;
+top: 56px;
+width: 240px;
+}
+#div_vyzFRNp76it
+{
+height: 24px;
+position: absolute;
+right: 8px;
+top: 8px;
+width: 24px;
+}
+#div_pOPHDDRNYgM
+{
+height: 24px;
+position: relative;
+width: 240px;
+}
+#div_15p2qHov7Fd
+{
+height: 40px;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_1XYXCS4ZDwp .btn,#div_Cju9IsMSQxp .btn
+{
+line-height: 1.2em;
+text-align: center;
+white-space: nowrap;
+}
+#div_QAWTaJZacfq
+{
+min-height: 50px;
+}]]></style>
+	<div wsControl="true" type="Control/Area/Grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoWidth="true" autoHeight="true" origWidth="Auto" origHeight="Auto" class=" dt_unfixedWidth dt_unfixedHeight" id="div_YgLn03IlQ9l" alignMargin="0,0,0,0">
+		<configuration>
+			<option name="tabindex" value="4"></option>
+			<option name="autoHeight" value="true" type="boolean"></option>
+			<option name="autoWidth" value="true" type="boolean"></option>
+			<option name="minHeight" value="0"></option>
+			<option name="minWidth" value="0"></option>
+			<option name="width" value="100%"></option>
+			<option name="height" value="100%"></option>
+			<option name="name" value=""></option>
+			<option name="imgAlign" value="left"></option>
+			<option name="rows" type="array">
+				<option type="array">
+					<option value="1"></option>
+					<option value="-0"></option>
+				</option>
+			</option>
+			<option name="columns" type="array">
+				<option type="array">
+					<option value="1"></option>
+					<option value="-0"></option>
+				</option>
+			</option>
+			<option name="minSizes">
+				<option name="rows" type="array">
+					<option value="0"></option>
+				</option>
+				<option name="columns" type="array">
+					<option value="0"></option>
+				</option>
+			</option>
+			<option name="maxSizes">
+				<option name="rows" type="array">
+					<option value="0"></option>
+				</option>
+				<option name="columns" type="array">
+					<option value="0"></option>
+				</option>
+			</option>
+			<option name="cells">
+				<option name="A0">
+					<option name="id" value="#cell_4NNax2N4A6b"></option>
+				</option>
+			</option>
+			<option name="display" type="array">
+				<option type="array">
+					<option value="A0"></option>
+				</option>
+			</option>
+		</configuration>
+		<div class="dt_cell dt_grid_cell_1_1" id="cell_4NNax2N4A6b">
+			<div wsControl="true" type="Control/HTMLChunk" sbisName="image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoWidth="true" autoHeight="true" id="div_IK1Qmi6WOcI" alignMargin="48,8,8,256" parentId="div_YgLn03IlQ9l">
+				<configuration>
+					<option name="autoHeight" value="true" type="boolean"></option>
+					<option name="autoWidth" value="true" type="boolean"></option>
+					<option name="minHeight" value="0"></option>
+					<option name="minWidth" value="0"></option>
+					<option name="name" value="image"></option>
+					<option name="text" type="cdata"><![CDATA[<div id="scanApplet" style="width: 100%; height: 100%; z-index:-100" ></div>]]></option>
+					<option name="tabindex" value="5"></option>
+				</configuration>
+			</div>
+			<div wsControl="true" type="Control/DataView/TableView" sbisName="ScanStack" HorizontalAlignment="Left" VerticalAlignment="Stretch" autoHeight="true" id="div_QAWTaJZacfq" alignMargin="88,0,8,8" parentId="div_YgLn03IlQ9l">
+				<configuration>
+					<option name="name" value="ScanStack"></option>
+					<option name="autoHeight" value="true" type="boolean"></option>
+					<option name="minHeight" value="50"></option>
+					<option name="multiSelect" value="false" type="boolean"></option>
+					<option name="allowAdd" value="false" type="boolean"></option>
+					<option name="editMode" value="thisPage"></option>
+					<option name="colorMarkedColumns" type="array"></option>
+					<option name="display">
+						<option name="width" value="100%"></option>
+						<option name="height" value="100%"></option>
+						<option name="cutLongRows" value="false" type="boolean"></option>
+						<option name="usePaging" value=""></option>
+						<option name="showPaging" type="boolean" value="false"></option>
+						<option name="hasZebra" value="false" type="boolean"></option>
+						<option name="useSorting" value="false" type="boolean"></option>
+						<option name="showHead" value="false" type="boolean"></option>
+						<option name="ladder" type="array"></option>
+						<option name="resultText" value=""></option>
+						<option name="showRecordsCount" value="false" type="boolean"></option>
+						<option name="rowOptions" value="true" type="boolean"></option>
+						<option name="emptyHtml" type="cdata"><![CDATA[Нет сканов]]></option>
+						<option name="columns" type="array">
+							<option>
+								<option name="title" value="Название"></option>
+								<option name="width" value="196"></option>
+								<option name="isSortable" value="false" type="boolean"></option>
+							</option>
+						</option>
+						<option name="mainRowOptions">
+							<option name="delete" value="true" type="boolean"></option>
+						</option>
+					</option>
+					<option name="dataSource">
+						<option name="firstRequest" type="boolean" value="false"></option>
+						<option name="readerParams">
+							<option name="createMethodName" value="Создать"></option>
+							<option name="readMethodName" value="Прочитать"></option>
+							<option name="updateMethodName" value="Записать"></option>
+							<option name="destroyMethodName" value="Удалить"></option>
+						</option>
+					</option>
+					<option name="handlers">
+						<option name="onSetCursor" value="/resources/WI.SBIS/hdl/scanApplet/onSetCursor" type="function"></option>
+						<option name="onDeleteStart" value="/resources/WI.SBIS/hdl/scanApplet/onDelStarted" type="function"></option>
+					</option>
+					<option name="tabindex" value="6"></option>
+				</configuration>
+			</div>
+			<div class="ws-labeled-control ws-non-control" origWidth="240" origHeight="24" VerticalAlignment="Top" HorizontalAlignment="Left" id="div_IOaEZyzd9zN" alignMargin="56,0,0,8">
+				<div sbisName="Устройства" HorizontalAlignment="Left" VerticalAlignment="Top" origWidth="100" origHeight="14" class="ws-field-label ws-field-binding-top" id="div_dHlibhiHSEE" alignMargin="0,0,0,0">
+					<label for="fld-Сканеры">
+						<span>Устройства</span>
+					</label>
+				</div>
+				<div wsControl="true" type="Control/Field:FieldDropdown" sbisName="Сканеры" HorizontalAlignment="Left" VerticalAlignment="Top" id="div_pOPHDDRNYgM" alignMargin="0,0,0,0" parentId="div_YgLn03IlQ9l">
+					<configuration>
+						<option name="tabindex" value="4"></option>
+						<option name="name" value="Сканеры"></option>
+						<option name="extendedTooltip" value="false" type="boolean"></option>
+						<option name="value" value="-1"></option>
+						<option name="data">
+							<option name="keys" type="array">
+								<option value="-1"></option>
+							</option>
+							<option name="values" type="array">
+								<option value="Идет поиск сканеров..."></option>
+							</option>
+						</option>
+						<option name="wordWrap" value="false" type="boolean"></option>
+						<option name="handlers">
+							<option name="onChange" value="/resources/WI.SBIS/hdl/scanApplet/onChangeScanner" type="function"></option>
+						</option>
+						<option name="width" value="100%"></option>
+						<option name="height" value="100%"></option>
+					</configuration>
+				</div>
+			</div>
+			<div class="dt_cell_border"></div>
+		</div>
+	</div>
+	<div class="ws-art-border ws-non-control" sbisName="windowTitleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Top" autoWidth="true" origHeight="40" id="div_15p2qHov7Fd" alignMargin="0,0,0,0">
+		<div class="ws-art-helper">
+			<div wsControl="true" type="Control/Area/Grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoWidth="true" autoHeight="true" class=" dt_unfixedWidth dt_unfixedHeight" id="div_Drr9jZAHGu8" alignMargin="0,0,0,0">
+				<configuration>
+					<option name="tabindex" value="1"></option>
+					<option name="autoHeight" value="true" type="boolean"></option>
+					<option name="autoWidth" value="true" type="boolean"></option>
+					<option name="width" value="100%"></option>
+					<option name="height" value="100%"></option>
+					<option name="imgAlign" value="left"></option>
+					<option name="rows" type="array">
+						<option type="array">
+							<option value="1"></option>
+							<option value="-0"></option>
+						</option>
+					</option>
+					<option name="columns" type="array">
+						<option type="array">
+							<option value="1"></option>
+							<option value="-0"></option>
+						</option>
+					</option>
+					<option name="minSizes">
+						<option name="rows" type="array">
+							<option value="0"></option>
+						</option>
+						<option name="columns" type="array">
+							<option value="0"></option>
+						</option>
+					</option>
+					<option name="maxSizes">
+						<option name="rows" type="array">
+							<option value="0"></option>
+						</option>
+						<option name="columns" type="array">
+							<option value="0"></option>
+						</option>
+					</option>
+					<option name="cells">
+						<option name="A0">
+							<option name="id" value="#cell_2Km6MJlxT8F"></option>
+						</option>
+					</option>
+					<option name="display" type="array">
+						<option type="array">
+							<option value="A0"></option>
+						</option>
+					</option>
+				</configuration>
+				<div class="dt_cell dt_grid_cell_1_1" id="cell_2Km6MJlxT8F">
+					<div sbisName="windowTitle" HorizontalAlignment="Left" VerticalAlignment="Center" origWidth="129" origHeight="23" name="windowTitle" title="" class="ws-text-container  ws-text-valign-top ws-non-control" id="div_ULM5jKnMY2N" alignMargin="0,0,0,20">
+						<span>
+							<span><pre>Сканирование</pre></span>
+						</span>
+					</div>
+					<div wsControl="true" type="Control/Field:FieldButton" sbisName="Сканировать" HorizontalAlignment="Right" VerticalAlignment="Bottom" id="div_1XYXCS4ZDwp" alignMargin="0,156,7,0" parentId="div_Drr9jZAHGu8">
+						<configuration>
+							<option name="tabindex" value="3"></option>
+							<option name="width" value="100%"></option>
+							<option name="height" value="100%"></option>
+							<option name="name" value="Сканировать"></option>
+							<option name="imgAlign" value="left"></option>
+							<option name="renderStyle" value="classic"></option>
+							<option name="isDefault" value="true" type="boolean"></option>
+							<option name="press" value="false" type="boolean"></option>
+							<option name="caption" value="Сканировать"></option>
+							<option name="handlers">
+								<option name="onActivated" value="/resources/WI.SBIS/hdl/scanApplet/onButtonScanner" type="function"></option>
+							</option>
+						</configuration>
+					</div>
+					<div wsControl="true" type="Control/Field:FieldButton" sbisName="Загрузить на сервер" HorizontalAlignment="Right" VerticalAlignment="Bottom" id="div_Cju9IsMSQxp" alignMargin="0,40,7,0" parentId="div_Drr9jZAHGu8">
+						<configuration>
+							<option name="tabindex" value="2"></option>
+							<option name="width" value="100%"></option>
+							<option name="height" value="100%"></option>
+							<option name="name" value="Загрузить на сервер"></option>
+							<option name="enable" value="false" type="boolean"></option>
+							<option name="imgAlign" value="left"></option>
+							<option name="renderStyle" value="classic"></option>
+							<option name="press" value="false" type="boolean"></option>
+							<option name="caption" value="Сохранить"></option>
+							<option name="handlers">
+								<option name="onActivated" value="/resources/WI.SBIS/hdl/scanApplet/onButtonUpload" type="function"></option>
+							</option>
+						</configuration>
+					</div>
+					<div wsControl="true" type="Control/Field:FieldButton" sbisName="windowTitleClose" HorizontalAlignment="Right" VerticalAlignment="Top" id="div_vyzFRNp76it" alignMargin="8,8,0,0" parentId="div_Drr9jZAHGu8">
+						<configuration>
+							<option name="tabindex" value="1"></option>
+							<option name="width" value="100%"></option>
+							<option name="height" value="100%"></option>
+							<option name="name" value="windowTitleClose"></option>
+							<option name="imgAlign" value="left"></option>
+							<option name="renderStyle" value="classic"></option>
+							<option name="press" value="false" type="boolean"></option>
+							<option name="caption" value=""></option>
+							<option name="handlers">
+								<option name="onActivated" value="close" type="command"></option>
+							</option>
+							<option name="img" value="ws:/titlebar-close.png"></option>
+						</configuration>
+					</div>
+					<div class="dt_cell_border"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<i class="ws-hidden" spec="{}"></i>
+</ws-template>

@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<ws-template sbisName="printWindow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" windowName="printWindow" border="true" width="Auto" height="Auto" autoWidth="true" autoHeight="true" title="Предварительный просмотр" editor="jinnee" resizeable="false" windowState="" isApplication="false" windowStyle="" minHeight="340" minWidth="420" origWidth="418" origHeight="338" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+	<style><![CDATA[
+#divTnsK0LquZF4
+{
+bottom: 0px;
+height: auto;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#divpnMJ6w7rWQK
+{
+height: 26px;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div079cECd4C8I
+{
+height: auto;
+left: 4px;
+position: absolute;
+top: 28px;
+width: auto;
+}]]></style>
+	<div wsControl="true" type="Control/Area/Grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" class="dt_layout dt_unfixedHeight dt_unfixedWidth" id="divTnsK0LquZF4" alignMargin="0,0,0,0">
+		<configuration>
+			<option name="tabindex" value="1"></option>
+			<option name="autoWidth" value="true" type="boolean"></option>
+			<option name="autoHeight" value="true" type="boolean"></option>
+			<option name="minHeight" value="0"></option>
+			<option name="minWidth" value="0"></option>
+			<option name="width" value="100%"></option>
+			<option name="height" value="100%"></option>
+			<option name="name" value=""></option>
+			<option name="rows" type="array">
+				<option type="array">
+					<option value="1"></option>
+					<option value="-0"></option>
+				</option>
+			</option>
+			<option name="columns" type="array">
+				<option type="array">
+					<option value="1"></option>
+					<option value="-0"></option>
+				</option>
+			</option>
+			<option name="minSizes">
+				<option name="columns" type="array">
+					<option value="0"></option>
+				</option>
+				<option name="rows" type="array">
+					<option value="0"></option>
+				</option>
+			</option>
+			<option name="maxSizes">
+				<option name="columns" type="array">
+					<option value="0"></option>
+				</option>
+				<option name="rows" type="array">
+					<option value="0"></option>
+				</option>
+			</option>
+			<option name="cells">
+				<option name="A0">
+					<option name="id" value="#cellzLhcubB3d66"></option>
+				</option>
+			</option>
+			<option name="display" type="array">
+				<option type="array">
+					<option value="A0"></option>
+				</option>
+			</option>
+		</configuration>
+		<div class="dt_cell dt_grid_cell_1_1" id="cellzLhcubB3d66">
+			<div wsControl="true" type="Control/Area:ToolBar" sbisName="printToolBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" id="divpnMJ6w7rWQK" alignMargin="0,0,0,0" parentId="divTnsK0LquZF4">
+				<configuration>
+					<option name="tabindex" value="1"></option>
+					<option name="autoWidth" value="true" type="boolean"></option>
+					<option name="btnCfg">
+						<option name="left" value="left"></option>
+						<option name="magrin" value="0 2px 0 0"></option>
+						<option name="height" value="20px"></option>
+					</option>
+					<option name="buttonsSide" value="left"></option>
+					<option name="buttons" type="array"></option>
+					<option name="width" value="100%"></option>
+					<option name="height" value="100%"></option>
+					<option name="name" value="printToolBar"></option>
+					<option name="handlers">
+						<option name="onInit" value="printActions/addPrintButton" type="function"></option>
+					</option>
+				</configuration>
+			</div>
+			<div wsControl="true" type="Control/Area:HTMLView" sbisName="ws-dataview-print-report" HorizontalAlignment="Left" VerticalAlignment="Top" id="div079cECd4C8I" alignMargin="28,0,0,4" parentId="divTnsK0LquZF4">
+				<configuration>
+					<option name="name" value="ws-dataview-print-report"></option>
+					<option name="autoWidth" value="true" type="boolean"></option>
+					<option name="autoHeight" value="true" type="boolean"></option>
+					<option name="minHeight" value="0"></option>
+					<option name="minWidth" value="0"></option>
+					<option name="tabindex" value="2"></option>
+				</configuration>
+			</div>
+		</div>
+	</div>
+</ws-template>

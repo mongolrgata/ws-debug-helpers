@@ -1,0 +1,43 @@
+{
+  "name": "Control/OperationsPanel",
+  "title": "Панель массовых операций",
+  "config": {
+    "option": {
+      "name": {
+        "title": "Имя",
+        "type": "string",
+        "default": ""
+      },
+      "linkedView": {
+        "title": "Связанное представление данных",
+        "type": "control",
+        "default": "",
+        "editor": "selectTableViewFromForm"
+      },
+      "massOperations": {
+        "title": "Массовые операции",
+        "type": "object",
+        "editor": "MassOperationsEditor"
+      },
+      "selectedOperations": {
+        "title": "Операции над отмеченными записями",
+        "type": "object",
+        "editor": "SelectedOperationsEditor"
+      },
+      "markOperations": {
+        "title": "Операции отметки",
+        "type": "object",
+        "editor": "MarkOperationsEditor"
+      },
+      "sumFields": {
+        "title": "Поля суммирования",
+        "type": "array",
+        "editor": "LinkedTableColumns"
+      },
+      "maxRecordsCount": {
+        "title": "Максимальное число записей на операцию",
+         "type": "number"
+      }
+    }
+  }
+}

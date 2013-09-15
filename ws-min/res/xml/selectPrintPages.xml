@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ws-template sbisName="Выбор страниц для печати" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" windowName="Выбор страниц для печати" border="true" width="234" height="123" title="Выберите страницы для печати реестра" editor="jinnee" resizeable="true" windowState="normal" isApplication="true" windowStyle="background-color:#f0f0f0;" minHeight="0" minWidth="0" origWidth="234" origHeight="123" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+	<style><![CDATA[
+#divkAYfAUIkUVq
+{
+bottom: 0px;
+height: auto;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#divH551mdzuBI8
+{
+height: 24px;
+left: 136px;
+position: absolute;
+top: 91px;
+width: 80px;
+}
+#divmDoPJaalXgO
+{
+height: 55px;
+left: 4px;
+position: absolute;
+top: 28px;
+width: 212px;
+}
+#div48RFUUHNSvH
+{
+height: auto;
+left: 4px;
+line-height: 1.2em;
+position: absolute;
+text-align: left;
+top: 8px;
+white-space: nowrap;
+width: 124px;
+}
+#divH551mdzuBI8 .btn
+{
+line-height: 1.2em;
+text-align: center;
+white-space: nowrap;
+}]]></style>
+	<div HorizontalAlignment="Stretch" VerticalAlignment="Stretch" class="dt_grid" id="divkAYfAUIkUVq" alignMargin="0,0,0,0">
+		<div wsControl="true" type="Control/Field:FieldButton" sbisName="print" HorizontalAlignment="Left" VerticalAlignment="Top" id="divH551mdzuBI8" alignMargin="91,0,0,136">
+			<configuration>
+				<option name="tabindex" value="2"></option>
+				<option name="width" value="100%"></option>
+				<option name="height" value="100%"></option>
+				<option name="name" value="print"></option>
+				<option name="renderStyle" value="classic"></option>
+				<option name="press" value="false" type="boolean"></option>
+				<option name="caption" value="OK"></option>
+				<option name="handlers">
+					<option name="onActivated" value="ok" type="command"></option>
+				</option>
+			</configuration>
+		</div>
+		<div wsControl="true" type="Control/Field:FieldRadio" sbisName="printPages" HorizontalAlignment="Left" VerticalAlignment="Top" id="divmDoPJaalXgO" alignMargin="28,0,0,4">
+			<configuration>
+				<option name="width" value="100%"></option>
+				<option name="height" value="100%"></option>
+				<option name="name" value="printPages"></option>
+				<option name="value" value="all"></option>
+				<option name="columnWidth" value="212"></option>
+				<option name="columnsCount" value="1"></option>
+				<option name="buttonDirection" value="auto"></option>
+				<option name="wordWrap" type="boolean" value="false"></option>
+				<option name="data">
+					<option name="all">
+						<option name="value" value="все страницы"></option>
+						<option name="label" value="все страницы"></option>
+						<option name="align" value="left"></option>
+					</option>
+					<option name="cur">
+						<option name="value" value="текущую страницу"></option>
+						<option name="label" value="текущую страницу"></option>
+						<option name="align" value="left"></option>
+					</option>
+				</option>
+				<option name="tabindex" value="3"></option>
+			</configuration>
+		</div>
+		<div sbisName="Печать" HorizontalAlignment="Left" VerticalAlignment="Top" origWidth="124" origHeight="16" class="ws-field-label ws-field-binding-none ws-field-valign-top" id="div48RFUUHNSvH" alignMargin="8,0,0,4">
+			<label for="fld-printPages">
+				<span>Печатать</span>
+			</label>
+		</div>
+	</div>
+</ws-template>

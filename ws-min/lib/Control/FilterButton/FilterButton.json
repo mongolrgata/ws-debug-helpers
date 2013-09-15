@@ -1,0 +1,107 @@
+{
+   "name"   : "FilterButton",
+   "title"  : "Кнопка фильтров",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "template": {
+               "title": "шаблон панели фильтрации",
+               "type": "string"
+            },
+            "browserId": {
+               "title": "связанная таблица",
+               "type": "string"
+            },
+            "singleFilterItem": {
+               "title": "Обработчик каждого элемента фильтра",
+               "type": "string"
+            },
+            "filterLine": {
+               "title": "Обработчик строки",
+               "type": "string"
+            },
+            "sendDefault": {
+               "title": "посылать значения по-умолчанию",
+               "type": "boolean",
+               "default": false
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onChange": {
+               "title": "при смене фильтра",
+               "editor": "handler"
+            },
+            "onBeforeShow": {
+               "title": "перед показом панели",
+               "editor": "handler"
+            },
+            "onRestoreFilter": {
+               "title": "перед восстановлением значений контролов",
+               "editor": "handler"
+            },
+            "onDrawLine": {
+               "title": "перед показом строки состояния фильтров",
+               "editor": "handler"
+            },
+            "onResetFilter": {
+               "title": "при очистке фильтра",
+               "editor": "handler"
+            },
+            "onSetQuery": {
+               "title": "при отправке запроса таблице",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

@@ -1,0 +1,110 @@
+{
+   "name"   : "FieldImage",
+   "title"  : "Картинка",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "urlTemplate": {
+               "title": "шаблон формирования URL",
+               "type": "string"
+            },
+            "allowSizeReduce": {
+               "title": "разрешено уменьшение размеров изображения",
+               "type": "boolean",
+               "default": false
+            },
+            "zoomEnabled": {
+               "title": "отображать кнопки увеличения/уменьшения изображения",
+               "type": "boolean",
+               "default": false
+            },
+            "filterParams": {
+               "title": "параметры фильтрации",
+               "type": "object"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onImageReady": {
+               "title": "при успешной загрузке изображения",
+               "editor": "handler"
+            },
+            "onError": {
+               "title": "при ошибке загрузки изображения",
+               "editor": "handler"
+            }
+         }
+      },
+      "ws-data": {
+         "title": "Источник данных",
+         "options": {
+            "filterParams": {
+               "title": "параметры фильтрации",
+               "type": "object"
+            },
+            "readerParams": {
+               "title": "доступ к данным",
+               "options": {
+                  "linkedObject": {
+                     "title": "имя базового объекта",
+                     "type": "string"
+                  },
+                  "queryName": {
+                     "title": "метод получения данных",
+                     "type": "string"
+                  }
+               }
+            }
+         }
+      }
+   }
+}

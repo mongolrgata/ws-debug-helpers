@@ -1,0 +1,87 @@
+{
+   "name"   : "Switcher",
+   "title"  : "Переключатель",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "value":{
+               "title": "Значение по умолчанию",
+               "type": "boolean",
+               "default": false
+            },
+            "textOff":{
+               "title": "Текст в выключенном состоянии",
+               "type": "string"
+            },
+            "textOn":{
+               "title": "Текст в включённом состоянии",
+               "type": "string"
+            },
+            "colorStyle":{
+               "title": "Внешний вид",
+               "type": {
+                  "gray": "в обоих состояниях серый",
+                  "colored": "в выключенном состоянии серый, в включённом - оранжевый"
+               },
+               "default": "gray"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onChange": {
+               "title": "при переключении",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

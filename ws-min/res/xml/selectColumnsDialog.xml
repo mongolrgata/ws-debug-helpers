@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<ws-template sbisName="selectColumnsDialog" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoHeight="true" windowName="selectColumnsDialog" responsible="Чистякова А.Д." last_changed="Адилов А.А." hasAccessArray="false" border="false" highlightFirstError="false" width="273" height="Auto" title="Выбранные столбцы" editor="jinnee" resizable="true" windowState="normal" isApplication="true" windowStyle="" minHeight="1" minWidth="1" origHeight="183" origWidth="273" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+	<style><![CDATA[
+#div_HNAl7xWFYQh .ws-art-border-table-helper td
+{
+border-top-width: 0px;
+}
+#div_HNAl7xWFYQh .ws-art-helper
+{
+border-width: 0px;
+bottom: 0;
+left: 0;
+margin: 0;
+padding: 0;
+position: absolute;
+right: 0;
+top: 0;
+}
+#div_cJYXAF3NFRI
+{
+bottom: 0px;
+height: auto!important;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_P6VNmT5my34
+{
+bottom: 0px;
+height: auto;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_f6WSSPMQhlO
+{
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 19px;
+font-weight: normal;
+height: 23px;
+line-height: 1.2em;
+overflow: hidden;
+text-align: left;
+white-space: normal;
+}
+#div_f6WSSPMQhlO pre
+{
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 19px;
+font-weight: normal;
+text-align: left;
+}
+#div_f6WSSPMQhlO
+{
+height: 23px;
+left: 20px;
+margin-top: -11px;
+position: absolute;
+top: 50%;
+width: 183px;
+}
+#div_Xr619WFvJnj
+{
+height: 24px;
+left: 50%;
+margin-left: -40px;
+margin-top: -12px;
+position: absolute;
+top: 50%;
+width: 80px;
+}
+#div_S0sUUGswPw3
+{
+height: 24px;
+position: absolute;
+right: 8px;
+top: 8px;
+width: 24px;
+}
+#div_HNAl7xWFYQh
+{
+height: 40px;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_vVovOoSyoMn
+{
+height: auto;
+left: 8px;
+position: absolute;
+right: 8px;
+top: 48px;
+width: auto!important;
+}
+#div_Xr619WFvJnj .btn,#div_S0sUUGswPw3 .btn
+{
+line-height: 1.2em;
+text-align: center;
+white-space: nowrap;
+}]]></style>
+	<div wsControl="true" type="Control/Area/Grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoWidth="true" autoHeight="true" origWidth="Auto" origHeight="Auto" class="dt_layout dt_unfixedHeight dt_unfixedWidth" id="div_P6VNmT5my34" alignMargin="0,0,0,0">
+		<configuration>
+			<option name="tabindex" value="2"></option>
+			<option name="autoHeight" value="true" type="boolean"></option>
+			<option name="autoWidth" value="true" type="boolean"></option>
+			<option name="width" value="100%"></option>
+			<option name="height" value="100%"></option>
+			<option name="rows" type="array">
+				<option value="auto"></option>
+				<option type="array">
+					<option value="0"></option>
+					<option value="46"></option>
+				</option>
+			</option>
+			<option name="columns" type="array">
+				<option type="array">
+					<option value="1"></option>
+					<option value="-0"></option>
+				</option>
+			</option>
+			<option name="minSizes">
+				<option name="rows" type="array">
+					<option value="137"></option>
+					<option value="0"></option>
+				</option>
+				<option name="columns" type="array">
+					<option value="0"></option>
+				</option>
+			</option>
+			<option name="maxSizes">
+				<option name="rows" type="array">
+					<option value="0"></option>
+					<option value="0"></option>
+				</option>
+				<option name="columns" type="array">
+					<option value="0"></option>
+				</option>
+			</option>
+			<option name="cells">
+				<option name="A0">
+					<option name="id" value="#cell_jvrngBa9cIm"></option>
+				</option>
+				<option name="B0">
+					<option name="id" value="#cell_KvM2YgFZ1SO"></option>
+				</option>
+			</option>
+			<option name="display" type="array">
+				<option type="array">
+					<option value="A0"></option>
+				</option>
+				<option type="array">
+					<option value="B0"></option>
+				</option>
+			</option>
+		</configuration>
+		<div class="dt_cell dt_grid_cell_1_1" id="cell_jvrngBa9cIm">
+			<div wsControl="true" type="Control/HTMLChunk" sbisName="ws-operations-panel-select-columns" HorizontalAlignment="Stretch" VerticalAlignment="Top" autoWidth="true" autoHeight="true" id="div_vVovOoSyoMn" class="ws-operations-panel-select-columns" alignMargin="48,8,0,8" parentId="div_P6VNmT5my34">
+				<configuration>
+					<option name="autoHeight" value="true" type="boolean"></option>
+					<option name="autoWidth" value="true" type="boolean"></option>
+					<option name="className" value="ws-operations-panel-select-columns"></option>
+					<option name="name" value="ws-operations-panel-select-columns"></option>
+					<option name="text" type="cdata"><![CDATA[]]></option>
+					<option name="tabindex" value="3"></option>
+				</configuration>
+			</div>
+			<div class="dt_cell_border"></div>
+		</div>
+		<div class="dt_cell dt_grid_cell_2_1" id="cell_KvM2YgFZ1SO">
+			<div wsControl="true" type="Control/Field:FieldButton" sbisName="okButton" HorizontalAlignment="Center" VerticalAlignment="Center" id="div_Xr619WFvJnj" alignMargin="0,0,0,0" parentId="div_P6VNmT5my34">
+				<configuration>
+					<option name="tabindex" value="2"></option>
+					<option name="width" value="100%"></option>
+					<option name="height" value="100%"></option>
+					<option name="name" value="okButton"></option>
+					<option name="renderStyle" value="classic"></option>
+					<option name="caption" value="ОК"></option>
+					<option name="handlers">
+						<option name="onActivated" value="ok" type="command"></option>
+					</option>
+					<option name="margin" value="-12px 0 0 -40px"></option>
+				</configuration>
+			</div>
+			<div class="dt_cell_border"></div>
+		</div>
+	</div>
+	<div class="ws-art-border ws-non-control" sbisName="windowTitleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Top" autoWidth="true" origHeight="40" id="div_HNAl7xWFYQh" alignMargin="0,0,0,0">
+		<div class="ws-art-helper">
+			<div wsControl="true" type="Control/Area/Grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoWidth="true" autoHeight="true" class=" dt_unfixedWidth dt_unfixedHeight" id="div_cJYXAF3NFRI" alignMargin="0,0,0,0">
+				<configuration>
+					<option name="tabindex" value="1"></option>
+					<option name="autoHeight" value="true" type="boolean"></option>
+					<option name="autoWidth" value="true" type="boolean"></option>
+					<option name="width" value="100%"></option>
+					<option name="height" value="100%"></option>
+					<option name="rows" type="array">
+						<option type="array">
+							<option value="1"></option>
+							<option value="-0"></option>
+						</option>
+					</option>
+					<option name="columns" type="array">
+						<option type="array">
+							<option value="1"></option>
+							<option value="-0"></option>
+						</option>
+					</option>
+					<option name="minSizes">
+						<option name="rows" type="array">
+							<option value="0"></option>
+						</option>
+						<option name="columns" type="array">
+							<option value="0"></option>
+						</option>
+					</option>
+					<option name="maxSizes">
+						<option name="rows" type="array">
+							<option value="0"></option>
+						</option>
+						<option name="columns" type="array">
+							<option value="0"></option>
+						</option>
+					</option>
+					<option name="cells">
+						<option name="A0">
+							<option name="id" value="#cell_qePzfT3vgr2"></option>
+						</option>
+					</option>
+					<option name="display" type="array">
+						<option type="array">
+							<option value="A0"></option>
+						</option>
+					</option>
+				</configuration>
+				<div class="dt_cell dt_grid_cell_1_1" id="cell_qePzfT3vgr2">
+					<div sbisName="windowTitle" HorizontalAlignment="Left" VerticalAlignment="Center" origWidth="183" origHeight="23" name="windowTitle" class="ws-text-container  ws-text-valign-top ws-non-control" id="div_f6WSSPMQhlO" alignMargin="0,0,0,20">
+						<span>
+							<span><pre>Выбранные столбцы</pre></span>
+						</span>
+					</div>
+					<div wsControl="true" type="Control/Field:FieldButton" sbisName="windowTitleClose" HorizontalAlignment="Right" VerticalAlignment="Top" id="div_S0sUUGswPw3" alignMargin="8,8,0,0" parentId="div_cJYXAF3NFRI">
+						<configuration>
+							<option name="tabindex" value="1"></option>
+							<option name="width" value="100%"></option>
+							<option name="height" value="100%"></option>
+							<option name="name" value="windowTitleClose"></option>
+							<option name="renderStyle" value="classic"></option>
+							<option name="caption" value=""></option>
+							<option name="handlers">
+								<option name="onActivated" value="close" type="command"></option>
+							</option>
+							<option name="img" value="ws:/titlebar-close.png"></option>
+						</configuration>
+					</div>
+					<div class="dt_cell_border"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ws-template>

@@ -1,0 +1,91 @@
+{
+   "title"  : "Путь",
+   "name"   : "PathSelector",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "config" : {
+      "option" : {
+         "name": {
+            "title" : "Имя",
+            "type" : "string"
+         },
+         "enable" : {
+            "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+            "type" : "boolean",
+            "default" : true
+         },
+         "allowChangeEnable" : {
+            "title" : "Позволить менять состояние",
+            "type" : "boolean",
+            "default" : true
+         },
+         "hidden" : {
+            "title" : "Скрыть компонент",
+            "type" : "boolean",
+            "default" : false
+         },
+         "tooltip" : {
+            "title" : "Текст всплывающей подсказки",
+            "type": "string",
+            "default" : ""
+         },
+         "rootNodeCaption":{
+            "title": "Заголовок корня",
+            "type": "string",
+            "default": ""
+         },
+         "rootNodeId":{
+            "title": "Идентификатор корня",
+            "type": "string"
+         },
+         "titleColumn":{
+            "title": "Колонка с именем папки",
+            "type": "string"
+         },
+         "cssClassName":{
+            "title": "CSS-класс",
+            "type": "string",
+            "default": ""
+         },
+         "handlers": {
+            "title": "Обработчики",
+            "type" : "group",
+            "option": {
+               "onInit": {
+                  "title": "После инициализации",
+                  "type": "function"
+               },
+               "onDestroy": {
+                  "title": "При разрушении",
+                  "type": "function"
+               },
+               "onReady": {
+                  "title": "При готовности",
+                  "type": "function"
+               },
+               "onKeyPressed": {
+                  "title": "На нажатие клавиши",
+                  "type": "function"
+               },
+               "onPathChange": {
+                  "title": "При клике на блок с именем папки",
+                  "type": "function"
+               },
+               "onDrawPoint": {
+                  "title": "При отрисовке кусочка пути(папки)",
+                  "type": "function"
+               },
+               "onArrowClick": {
+                  "title": "При клике на стрелку выбора списка папок",
+                  "type": "function"
+               }
+            }
+         },
+         "dataSource": {
+           "title": "Источник данных",
+           "type": "external_datasource",
+           "default": ""
+         }
+      }
+   }
+}

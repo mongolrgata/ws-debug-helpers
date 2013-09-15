@@ -1,0 +1,99 @@
+{
+   "name"   : "FieldString",
+   "title"  : "Строка",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "readonly": {
+               "title": "только для чтения",
+               "type": "boolean",
+               "default": false
+            },
+            "password": {
+               "title": "ввод пароля",
+               "type": "boolean",
+               "default": false
+            },
+            "inputFilter": {
+               "title": "фильтр ввода",
+               "type": "string"
+            },
+            "trim": {
+               "title": "Обрезать начальные и конечные пробелы",
+               "type": "boolean",
+               "default": false
+            },
+            "canNotBeEmpty": {
+               "title": "не может быть пустым",
+               "type": "boolean",
+               "default": false
+            },
+            "tooltipInside": {
+               "title": "отображать подсказку внутри поля",
+               "type": "boolean",
+               "default": false
+            },
+            "errorMessageFilling": {
+               "title": "сообщение об ошибке заполнения",
+               "type": "string"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": "ws-field-string"
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onChange": {
+               "title": "при изменении значения",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

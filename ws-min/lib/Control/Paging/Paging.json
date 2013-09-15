@@ -1,0 +1,93 @@
+{
+   "name"   : "Paging",
+   "title"  : "Пэйджинг",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "recordsPerPage":{
+               "title": "количество записей на странице",
+               "type": "number"
+            },
+            "currentPage":{
+               "title": "текущая страница",
+               "type": "number",
+               "default": 1
+            },
+            "recordsCount":{
+               "title": "количество записей",
+               "type": "number"
+            },
+            "pagesLeftRight":{
+               "title": "количество номеров страниц справа/слева от текущей",
+               "type": "number",
+               "default": 3
+            },
+            "onlyLeftSide":{
+               "title": "справа от текущей страницы может быть только стрелка",
+               "type": "boolean",
+               "default": false
+            },
+            "rightArrow":{
+               "title": "есть ли стрелка на переход вправо",
+               "type": "boolean"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onPageChange": {
+               "title": "при клике на блок с номером страницы",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

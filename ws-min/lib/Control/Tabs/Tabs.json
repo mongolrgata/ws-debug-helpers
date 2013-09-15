@@ -1,0 +1,113 @@
+{
+   "name"   : "Tabs",
+   "title"  : "Закладки",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "tabs":{
+               "title": "описание закладок",
+               "type": "array"
+            },
+            "scrollable":{
+               "title": "показывать все ярлыки в одну строку",
+               "type": "boolean",
+               "default": true
+            },
+            "instantLoad":{
+               "title": "загружать все заклдаки сразу",
+               "type": "boolean",
+               "default": false
+            },
+            "verticalText":{
+               "title": "отображать текст вертикально",
+               "type": "boolean",
+               "default": false
+            },
+            "hasBorder":{
+               "title": "отображать границы",
+               "type": "boolean",
+               "default": true
+            },
+            "showLabels":{
+               "title": "показывать ярлыки",
+               "type": "boolean",
+               "default": true
+            },
+            "position":{
+               "title": "позиция ярлыков",
+               "type": {
+                  "top": "сверху",
+                  "bottom": "снизу",
+                  "right": "справа",
+                  "left": "слева"
+               },
+               "default": "top"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onBeforeShowFirstTab": {
+               "title": "перед показом первой закладки",
+               "editor": "handler"
+            },
+            "onTabChange": {
+               "title": "при клике на блок с табом",
+               "editor": "handler"
+            },
+            "onTabLoaded": {
+               "title": "при загрузке шаблона вкладки",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

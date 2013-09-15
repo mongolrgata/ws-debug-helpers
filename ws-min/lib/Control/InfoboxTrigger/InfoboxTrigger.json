@@ -1,0 +1,87 @@
+{
+   "name"   : "InfoboxTrigger",
+   "title"  : "Всплывающая подсказка",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "text":{
+               "title": "текст подсказки",
+               "type": "string"
+            },
+            "img":{
+               "title": "изображение",
+               "type": "string"
+            },
+            "imgAlign":{
+               "title": "расположение изображения",
+               "type": {
+                  "left": "слева от текста",
+                  "right": "справа от текста"
+               },
+               "default": "left"
+            },
+            "tooltip":{
+               "title": "HTML-текст, отображаемый в подсказке",
+               "type": "string"
+            },
+            "showDelay":{
+               "title": "задержка перед показом подсказки",
+               "type": "number",
+               "default": 200
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": "ws-helper"
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

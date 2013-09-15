@@ -1,0 +1,132 @@
+{
+   "name"   : "FileButton",
+   "title"  : "FileButton",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "caption": {
+               "title": "Текст на кнопке",
+               "type": "string"
+            },
+            "img" : {
+               "title": "Изображение на кнопке",
+               "type": "string"
+            },
+            "imgAlign": {
+               "title": "Расположение изображения на кнопке",
+               "type": {
+                  "left": "слева",
+                  "center": "по центру",
+                  "right": "справа"
+               },
+               "default": "left"
+            },
+            "isDefault": {
+               "title": "Кнопка по-умолчанию",
+               "type": "boolean",
+               "default": false
+            },
+            "textAlign": {
+               "title": "Выравнивание текста на кнопке",
+               "type": {
+                  "left": "слева",
+                  "center": "по центру",
+                  "right": "справа"
+               }
+            },
+            "filterParams": {
+               "title": "параметры фильтрации",
+               "type": "array"
+            },
+            "paramsMapping": {
+               "title": "описание параметров фильтрации",
+               "type": "object"
+            },
+            "queryFilter": {
+               "title": "фильтр метода",
+               "type": "object"
+            },
+            "method": {
+               "title": "имя метода",
+               "type": "string"
+            },
+            "otherUrl": {
+               "title": "адрес сервиса",
+               "type": "string"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": ""
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onChange": {
+               "title": "при изменении значения",
+               "editor": "handler"
+            },
+            "onActivated": {
+               "title": "при нажатии на кнопку",
+               "editor": "handler"
+            },
+            "onLoadStarted": {
+               "title": "перед началом загрузки",
+               "editor": "handler"
+            },
+            "onLoaded": {
+               "title": "после окончания загрузки",
+               "editor": "handler"
+            },
+            "onAppletReady": {
+               "title": "при готовности апплета",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

@@ -1,0 +1,113 @@
+{
+   "name"   : "Button",
+   "title"  : "Кнопка",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "menuName": {
+               "title": "Меню, связанное с кнопкой",
+               "type": "string"
+            },
+            "caption": {
+               "title": "Текст на кнопке",
+               "type": "string"
+            },
+            "img" : {
+               "title": "Изображение на кнопке",
+               "type": "string"
+            },
+            "imgAlign": {
+               "title": "Расположение изображения на кнопке",
+               "type": {
+                  "left": "слева",
+                  "center": "по центру",
+                  "right": "справа"
+               },
+               "default": "left"
+            },
+            "press" : {
+               "title": "Двухпозиционная кнопка",
+               "type": "boolean",
+               "default": false
+            },
+            "isDefault": {
+               "title": "Кнопка по-умолчанию",
+               "type": "boolean",
+               "default": false
+            },
+            "textAlign": {
+               "title": "Выравнивание текста на кнопке",
+               "type": {
+                  "left": "слева",
+                  "center": "по центру",
+                  "right": "справа"
+               }
+            },
+            "openLink" : {
+               "title": "Открыть веб-страницу по нажатию на кнопку",
+               "type": "string"
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": "ws-field-button"
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onChange": {
+               "title": "при изменении значения",
+               "editor": "handler"
+            },
+            "onActivated": {
+               "title": "при нажатии на кнопку",
+               "editor": "handler"
+            }
+         }
+      }
+   }
+}

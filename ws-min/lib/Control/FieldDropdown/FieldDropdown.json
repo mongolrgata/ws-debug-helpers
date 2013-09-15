@@ -1,0 +1,157 @@
+{
+   "name"   : "FieldDropdown",
+   "title"  : "Выпадающий список",
+   "version": "1.0",
+   "spec"   : "1.0",
+   "properties": {
+      "ws-config":{
+         "title":"Базовая конфигурация",
+         "options":{
+            "name": {
+               "title": "Имя компонента",
+               "type": "string"
+            },
+            "enable" : {
+               "title" : "Разрешен ли элемент управления (возможно взаимодействие с ним)",
+               "type" : "boolean",
+               "default" : true
+            },
+            "allowChangeEnable" : {
+               "title" : "Позволить менять состояние",
+               "type" : "boolean",
+               "default" : true
+            },
+            "hidden" : {
+               "title" : "Скрыть компонент",
+               "type" : "boolean",
+               "default" : false
+            },
+            "tooltip" : {
+               "title" : "Текст всплывающей подсказки",
+               "default" : ""
+            },
+            "allowEmpty": {
+               "title": "разрешено пустое значение",
+               "type": "boolean",
+               "default": false
+            },
+            "emptyValue": {
+               "title": "текст пустого значения",
+               "type": "string"
+            },
+            "filterParams": {
+               "title": "параметры фильтрации",
+               "type": "object"
+            },
+            "valueRender": {
+               "title": "функция рендеринга",
+               "type": "string"
+            },
+            "displayColumn": {
+               "title": "отображаемая колонка",
+               "type": "string"
+            },
+            "data": {
+               "title": "данные для отображения",
+               "type": "object"
+            },
+            "itemValueColumn": {
+               "title": "колонка, содержащая ключ",
+               "type": "string"
+            },
+            "wordWrap": {
+               "title": "обрезать длинные строки",
+               "type": "boolean",
+               "default": false
+            },
+            "readonly": {
+               "title": "только для чтения",
+               "type": "boolean",
+               "default": false
+            },
+            "firstYear": {
+               "title": "начало периода",
+               "type": "number",
+               "default": 2008
+            },
+            "lastYear": {
+               "title": "конец периода",
+               "type": "number"
+            },
+            "tooltip": {
+               "title": "всплывающая подсказка",
+               "type": "string"
+            },
+            "mode": {
+               "title": "режим отображения",
+               "type": {
+                  "": "пользовательские данные",
+                  "month": "месяц",
+                  "year": "год"
+               },
+               "default": ""
+            },
+            "cssClassName":{
+               "title": "CSS-класс",
+               "type": "string",
+               "default": "ws-field-date"
+            }
+         }
+      },
+      "ws-handlers": {
+         "title": "Обработчики",
+         "options": {
+            "onInit": {
+               "title": "после инициализации",
+               "type": "handler"
+            },
+            "onDestroy": {
+               "title": "при разрушении",
+               "type": "handler"
+            },
+            "onReady": {
+               "title": "при готовности",
+               "type": "handler"
+            },
+            "onKeyPressed": {
+               "title": "на нажатие клавиши",
+               "editor": "handler"
+            },
+            "onBeforeLoad": {
+               "title": "перед загрузкой данных",
+               "editor": "handler"
+            },
+            "onAfterLoad": {
+               "title": "после загрузки данных",
+               "editor": "handler"
+            },
+            "onActivated": {
+               "title": "при активации",
+               "editor": "handler"
+            }
+         }
+      },
+      "ws-data": {
+         "title": "Источник данных",
+         "options": {
+            "filterParams": {
+               "title": "параметры фильтрации",
+               "type": "object"
+            },
+            "readerParams": {
+               "title": "доступ к данным",
+               "options": {
+                  "linkedObject": {
+                     "title": "имя базового объекта",
+                     "type": "string"
+                  },
+                  "queryName": {
+                     "title": "метод получения данных",
+                     "type": "string"
+                  }
+               }
+            }
+         }
+      }
+   }
+}

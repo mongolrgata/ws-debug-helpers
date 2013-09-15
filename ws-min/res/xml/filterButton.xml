@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<ws-template sbisName="Окно" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" windowName="Окно" border="true" highlightFirstError="false" width="Auto" height="Auto" autoWidth="true" autoHeight="true" title="" editor="jinnee" resizeable="true" windowState="normal" isApplication="true" windowStyle="" minHeight="0" minWidth="0" origWidth="400" origHeight="400" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+   <style><![CDATA[
+#div_xxgd1Ku3DFO
+{
+background: transparent none;
+bottom: 0px;
+height: auto!important;
+left: 0px;
+position: absolute;
+right: 0px;
+top: 0px;
+width: auto!important;
+}
+#div_Pr5EfZeFFkp .btn
+{
+color: #010101;
+line-height: 1.2em;
+text-align: center;
+white-space: nowrap;
+}
+#div_JaT6oSDkRNo
+{
+height: 24px;
+position: absolute;
+right: 143px;
+top: 8px;
+width: 121px;
+}
+#div_Pr5EfZeFFkp
+{
+height: 24px;
+position: absolute;
+right: 34px;
+top: 8px;
+width: 100px;
+}
+#div_mtaxJuFjMNm
+{
+height: 360px;
+left: 0px;
+position: absolute;
+top: 40px;
+width: 400px;
+}
+#div_JaT6oSDkRNo
+{
+line-height: 1.2em;
+text-align: right;
+white-space: nowrap;
+}
+#div_JaT6oSDkRNo .btn
+{
+text-align: right;
+}]]></style>
+   <div wsControl="true" type="Control/Area/Grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" origWidth="Auto" origHeight="Auto" class=" dt_unfixedWidth dt_unfixedHeight" id="div_xxgd1Ku3DFO" alignMargin="0,0,0,0">
+      <configuration>
+         <option name="tabindex" value="1"></option>
+         <option name="autoWidth" value="true" type="boolean"></option>
+         <option name="autoHeight" value="true" type="boolean"></option>
+         <option name="minHeight" value="0"></option>
+         <option name="minWidth" value="0"></option>
+         <option name="width" value="100%"></option>
+         <option name="height" value="100%"></option>
+         <option name="name" value=""></option>
+         <option name="rows" type="array">
+            <option value="auto"></option>
+         </option>
+         <option name="columns" type="array">
+            <option value="auto"></option>
+         </option>
+         <option name="minSizes">
+            <option name="rows" type="array">
+               <option value="0"></option>
+            </option>
+            <option name="columns" type="array">
+               <option value="0"></option>
+            </option>
+         </option>
+         <option name="maxSizes">
+            <option name="rows" type="array">
+               <option value="0"></option>
+            </option>
+            <option name="columns" type="array">
+               <option value="0"></option>
+            </option>
+         </option>
+         <option name="cells">
+            <option name="A0">
+               <option name="id" value="#cell_AhyezrhALxo"></option>
+            </option>
+         </option>
+         <option name="display" type="array">
+            <option type="array">
+               <option value="A0"></option>
+            </option>
+         </option>
+      </configuration>
+      <div class="dt_cell dt_grid_cell_1_1" id="cell_AhyezrhALxo">
+         <div wsControl="true" type="Control/Area:TemplatedArea" sbisName="filtersTemplate" HorizontalAlignment="Left" VerticalAlignment="Top" id="div_mtaxJuFjMNm" alignMargin="40,0,0,0" parentId="div_xxgd1Ku3DFO">
+            <configuration>
+               <option name="name" value="filtersTemplate"></option>
+               <option name="keepSize" value="true" type="boolean"></option>
+               <option name="expectedTemplates" type="array"></option>
+               <option name="tabindex" value="3"></option>
+            </configuration>
+         </div>
+         <div wsControl="true" type="Control/Field:FieldButton" sbisName="resetFilter" HorizontalAlignment="Right" VerticalAlignment="Top" id="div_JaT6oSDkRNo" alignMargin="12,155,0,0" parentId="div_xxgd1Ku3DFO">
+            <configuration>
+               <option name="tabindex" value="2"></option>
+               <option name="width" value="100%"></option>
+               <option name="height" value="100%"></option>
+               <option name="name" value="resetFilter"></option>
+               <option name="enable" value="false" type="boolean"></option>
+               <option name="renderStyle" value="asLink"></option>
+               <option name="press" value="false" type="boolean"></option>
+               <option name="caption" value="Очистить фильтр"></option>
+            </configuration>
+         </div>
+         <div wsControl="true" type="Control/Field:FieldButton" sbisName="applyFilter" HorizontalAlignment="Right" VerticalAlignment="Top" id="div_Pr5EfZeFFkp" alignMargin="12,47,0,0" parentId="div_xxgd1Ku3DFO">
+            <configuration>
+               <option name="tabindex" value="1"></option>
+               <option name="width" value="100%"></option>
+               <option name="height" value="100%"></option>
+               <option name="name" value="applyFilter"></option>
+               <option name="renderStyle" value="classic"></option>
+               <option name="isDefault" value="true" type="boolean"></option>
+               <option name="press" value="false" type="boolean"></option>
+               <option name="caption" value="Отобрать"></option>
+            </configuration>
+         </div>
+         <div class="dt_cell_border"></div>
+      </div>
+   </div>
+</ws-template>

@@ -1,0 +1,1 @@
+$ws.declareModule({namespace:"SBIS3.CORE",name:"Table",imports:["SBIS3.CORE.GridAbstract"]},function(a){$ws.proto.Table=a.extend({_updateResizer:function(){},_onResizeHandler:function(b,c){if(this._skipOnResizeHandler()){return;}if(this!==c){this._resizeChilds();}},_redraw:function(){}});return $ws.proto.Table;});
