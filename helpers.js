@@ -47,7 +47,7 @@
 
     //region Установка «таймеров»
     /**
-     *
+     * TODO описание
      * @param foo
      * @param delay
      * @private
@@ -141,6 +141,33 @@
                 return $ws.single.ControlStorage.getByName(controlNameOrId);
             if ($ws.single.ControlStorage.contains(controlNameOrId))
                 return $ws.single.ControlStorage.get(controlNameOrId);
+        },
+
+        /**
+         * TODO описание
+         */
+        damnControls : function () {
+            var storage = $ws.single.ControlStorage.getControls();
+            var data = [];
+            var columns = [
+                {property : 'control', label : 'Контрол'},
+                {property : 'name', label : 'Имя'},
+                {property : 'container', label : 'Контейнер'}
+            ];
+
+            for (let key in storage) {
+                if (storage.hasOwnProperty(key)) {
+                    let controlData = {
+                        control   : storage[key],
+                        name      : storage[key].getName(),
+                        container : storage[key].getContainer()
+                    };
+
+                    data.push(controlData);
+                }
+            }
+
+            console.table(data, columns);
         },
 
         /**

@@ -6,6 +6,7 @@
  */
 
 damnControl('controlName');
+damnControls();
 BLObjectC('objectName.methodName');
 BLObjectQ('objectName.methodName');
 selectControlGUI();
