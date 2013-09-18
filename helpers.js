@@ -11,7 +11,7 @@
 
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
-     * TODO описание
+     * Определение «родного» свойства у объекта (с конфигурацией как у стандартного свойства)
      * @param {Object} object объект
      * @param {String} propertyName имя свойства
      * @param {*} value значение свойства
@@ -47,14 +47,15 @@
 
     //region Установка «таймеров»
     /**
-     * TODO описание
-     * @param foo
-     * @param delay
+     * Вызов
+     * @param {Function} foo
+     * @param {Number} delay
      * @private
      */
     function _setIntervalImmediate(foo, delay) {
-        setInterval(foo, delay);
+        var id = setInterval(foo, delay);
         foo();
+        return id;
     }
 
     /**
@@ -133,7 +134,7 @@
     var helpersMap = {
         /**
          * Получение контрола по имени или идентификатору (с приоритетом по имени). Не кидает исключение, если контрол не найден
-         * @param controlNameOrId имя или идентификатор контрола
+         * @param {String} controlNameOrId имя или идентификатор контрола
          * @returns {undefined|$ws.proto.Control}
          */
         damnControl : function damnControl(controlNameOrId) {
