@@ -13,7 +13,7 @@
     /**
      * Определение «родного» свойства у объекта (с конфигурацией как у стандартного свойства)
      * @param {Object} object объект
-     * @param {String} propertyName имя свойства
+     * @param {string} propertyName имя свойства
      * @param {*} value значение свойства
      * @private
      */
@@ -28,6 +28,7 @@
         Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : value});
     }
 
+    /** Получение цепочки прототипов объекта */
     _defineStealthProperty(Object.prototype, 'getPrototypeChain', function () {
         var
             self = this,
@@ -40,6 +41,7 @@
         return res;
     });
 
+    /** Вывод массива в консоль */
     _defineStealthProperty(Array.prototype, 'toConsole', function () {
         // TODO
     });
@@ -47,12 +49,15 @@
 
     //region Установка «таймеров»
     /**
-     * Вызов
+     * Обёртка над стандартным setInterval, переданная функция вызывается сразу после установки интервала
      * @param {Function} foo
-     * @param {Number} delay
+     * @param {number} delay
+     * @returns {number}
      * @private
      */
     function _setIntervalImmediate(foo, delay) {
+        // Важно, что сначала устанавливается интервал, и только потом вызывается функция;
+        // это соответствует циклу стандартного setInterval
         var id = setInterval(foo, delay);
         foo();
         return id;
@@ -85,7 +90,7 @@
     }, 1000);
 
     /**
-     * TODO описание
+     * Генерация дерева наследования для классов платформы
      */
     _setIntervalImmediate(function () {
         var classHierarchy = {};
@@ -121,8 +126,8 @@
 
     /**
      * Разделение полного имени метода БЛ на имя объекта и имя метода
-     * @param {String} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
-     * @returns {{objectName: {String}, methodName: {String}}}
+     * @param {string} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
+     * @returns {{objectName: {string}, methodName: {string}}}
      * @private
      */
     function _splitMethodName(fullMethodName) {
@@ -130,11 +135,30 @@
         return {objectName : splitName[0], methodName : splitName[1]};
     }
 
+    /**
+     * Получение списка контролов
+     * @returns {Array}
+     * @private
+     */
+    function _getControlList() {
+        var
+            storage = $ws.single.ControlStorage.getControls(),
+            result = [];
+
+        for (let id in storage) {
+            if (storage.hasOwnProperty(id)) {
+                result.push(storage[id]);
+            }
+        }
+
+        return result;
+    }
+
     /** @lends window */
     var helpersMap = {
         /**
          * Получение контрола по имени или идентификатору (с приоритетом по имени). Не кидает исключение, если контрол не найден
-         * @param {String} controlNameOrId имя или идентификатор контрола
+         * @param {string} controlNameOrId имя или идентификатор контрола
          * @returns {undefined|$ws.proto.Control}
          */
         damnControl : function damnControl(controlNameOrId) {
@@ -145,35 +169,33 @@
         },
 
         /**
-         * TODO описание
+         * Вывод списка всех контролов в консоль
          */
         damnControls : function () {
-            var storage = $ws.single.ControlStorage.getControls();
-            var data = [];
-            var columns = [
+            var
+                controlList = _getControlList(),
+                data = [];
+
+            for (let i = 0; i < controlList.length; ++i) {
+                let control = controlList[i];
+
+                data.push({
+                    control   : control,
+                    name      : control.getName(),
+                    container : control.getContainer()
+                });
+            }
+
+            console.table(data, [
                 {property : 'control', label : 'Контрол'},
                 {property : 'name', label : 'Имя'},
                 {property : 'container', label : 'Контейнер'}
-            ];
-
-            for (let key in storage) {
-                if (storage.hasOwnProperty(key)) {
-                    let controlData = {
-                        control   : storage[key],
-                        name      : storage[key].getName(),
-                        container : storage[key].getContainer()
-                    };
-
-                    data.push(controlData);
-                }
-            }
-
-            console.table(data, columns);
+            ]);
         },
 
         /**
          * Вызов метода БЛ
-         * @param {String} fullMethodName полное имя метода БЛ
+         * @param {string} fullMethodName полное имя метода БЛ
          * @param {Object} [params={}] аргументы
          * @param {'asis'|'record'|'recordset'} [type='asis'] тип результата
          * @param args
@@ -181,32 +203,47 @@
          */
         BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
             var splitName = _splitMethodName(fullMethodName);
-            return $ws.proto.ClientBLObject.prototype.call.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}, $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]].concat(args));
+
+            return $ws.proto.ClientBLObject.prototype.call.apply(
+                new $ws.proto.BLObject(splitName.objectName),
+                [
+                    splitName.methodName,
+                    params || {},
+                    $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]
+                ].concat(args)
+            );
         },
 
         /**
          * Вызов списочного метода БЛ
-         * @param {String} fullMethodName полное имя списочного метода БЛ
+         * @param {string} fullMethodName полное имя списочного метода БЛ
          * @param {Object} [params={}] фильтр
          * @param args
          * @returns {$ws.proto.Deferred}
          */
         BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
             var splitName = _splitMethodName(fullMethodName);
-            return $ws.proto.ClientBLObject.prototype.query.apply(new $ws.proto.BLObject(splitName.objectName), [splitName.methodName, params || {}].concat(args));
+
+            return $ws.proto.ClientBLObject.prototype.query.apply(
+                new $ws.proto.BLObject(splitName.objectName),
+                [
+                    splitName.methodName,
+                    params || {}
+                ].concat(args)
+            );
         },
 
         /**
          * Выбор контрола мышкой (подобно Firebug)
          */
         selectControlGUI : function selectControlGUI() {
-            var storage = $ws.single.ControlStorage.getControls();
+            var controlList = _getControlList();
 
-            for (let key in storage) {
-                if (storage.hasOwnProperty(key) && typeof storage[key].getContainer === 'function') {
-                    let
-                        control = storage[key],
-                        controlContainer = control.getContainer();
+            for (let i = 0; i < controlList.length; ++i) {
+                let control = controlList[i];
+
+                if (typeof control.getContainer === 'function') {
+                    let controlContainer = control.getContainer();
 
                     controlContainer.append(
                         $('<div/>').css(
@@ -243,7 +280,7 @@
 
         /**
          * Вывод в консоль оповещений о наступлении какого-либо события у контрола
-         * @param {String} [controlNameOrId] имя или идентификатор контрола
+         * @param {string} [controlNameOrId] имя или идентификатор контрола
          */
         logControlEventsGUI : function (controlNameOrId) {
             if (arguments.length === 0) {
