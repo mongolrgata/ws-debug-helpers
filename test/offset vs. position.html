@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery-1.6.4</title>
+    <style>
+        .red {
+            background-color : red;
+        }
+
+        .green {
+            background-color : green;
+        }
+
+        .blue {
+            background-color : blue;
+        }
+
+        .big {
+            height : 256px;
+            width  : 256px;
+        }
+
+        .small {
+            height : 64px;
+            width  : 64px;
+        }
+
+        .static {
+            position : static;
+        }
+
+        .relative {
+            position : relative
+        }
+
+        .absolute {
+            position : absolute;
+            right    : 10px;
+            bottom   : 10px;
+        }
+
+        .fixed {
+            position : fixed;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('div').each(function (index, element) {
+                var $element = $(element);
+
+                console.log($element.offset(), $element.position());
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="red big static">
+    <div class="green small static"></div>
+</div>
+<div class="green big relative">
+    <div class="red small static"></div>
+</div>
+<div class="blue big absolute">
+    <div class="green small static"></div>
+</div>
+<div class="red big fixed">
+    <div class="green small static"></div>
+</div>
+</body>
+</html>

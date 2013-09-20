@@ -157,7 +157,8 @@
     /** @lends window */
     var helpersMap = {
         /**
-         * Получение контрола по имени или идентификатору (с приоритетом по имени). Не кидает исключение, если контрол не найден
+         * Получение контрола по имени или идентификатору (с приоритетом по имени).
+         * Не кидает исключение, если контрол не найден
          * @param {string} controlNameOrId имя или идентификатор контрола
          * @returns {undefined|$ws.proto.Control}
          */
@@ -273,6 +274,38 @@
                                 }
                             }
                         ).addClass('ws-debug-helpers div-cover')
+                    );
+                }
+            }
+        },
+
+        selectControlGUI_experimental : function selectControlGUI() {
+            var controlList = _getControlList();
+
+            for (let i = 0; i < controlList.length; ++i) {
+                let control = controlList[i];
+
+                if (typeof control.getContainer === 'function') {
+                    let controlContainer = control.getContainer();
+
+                    controlContainer.append(
+                        $('<div/>').css(
+                            {
+                                position   : 'absolute',
+                                left       : 0,
+                                top        : 0,
+                                width      : '10px',
+                                height     : '10px',
+                                background : 'rgba(255,0,0,0.2)'
+                            }
+                        ).bind(
+                            {
+                                click : function () {
+                                    // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
+                                    console.log(control, '"' + control.getName() + '"', control.getContainer());
+                                }
+                            }
+                        )
                     );
                 }
             }
