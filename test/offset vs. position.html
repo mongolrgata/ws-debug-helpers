@@ -2,48 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>jQuery-1.6.4</title>
-    <style>
-        .red {
-            background-color : red;
-        }
-
-        .green {
-            background-color : green;
-        }
-
-        .blue {
-            background-color : blue;
-        }
-
-        .big {
-            height : 256px;
-            width  : 256px;
-        }
-
-        .small {
-            height : 64px;
-            width  : 64px;
-        }
-
-        .static {
-            position : static;
-        }
-
-        .relative {
-            position : relative
-        }
-
-        .absolute {
-            position : absolute;
-            right    : 10px;
-            bottom   : 10px;
-        }
-
-        .fixed {
-            position : fixed;
-        }
-    </style>
+    <title>offset vs. position</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script>
         $(document).ready(function () {
@@ -56,17 +16,17 @@
     </script>
 </head>
 <body>
-<div class="red big static">
-    <div class="green small static"></div>
+<div class="red big-square static">
+    <div class="green small-square static"></div>
 </div>
-<div class="green big relative">
-    <div class="red small static"></div>
+<div class="green big-square relative">
+    <div class="red small-square static"></div>
 </div>
-<div class="blue big absolute">
-    <div class="green small static"></div>
+<div class="blue big-square absolute">
+    <div class="green small-square static"></div>
 </div>
-<div class="red big fixed">
-    <div class="green small static"></div>
+<div class="red big-square fixed">
+    <div class="green small-square static"></div>
 </div>
 </body>
 </html>

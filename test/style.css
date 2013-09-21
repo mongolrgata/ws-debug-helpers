@@ -1,0 +1,47 @@
+/* background-color */
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+
+/* size */
+.big-square {
+    height: 256px;
+    width: 256px;
+}
+
+.medium-square {
+    height: 128px;
+    width: 128px;
+}
+
+.small-square {
+    height: 64px;
+    width: 64px;
+}
+
+/* position */
+.static {
+    position: static;
+}
+
+.relative {
+    position: relative
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+/* offset */
