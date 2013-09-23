@@ -8,3 +8,7 @@
 - переделать test\offset vs. position.html
 - тащить! http://stackoverflow.com/questions/8569095/draggable-div-without-jquery-ui
 - создание iframe с содержимым из polygon\...
+
+[polygon\hover-menu.html]
+- функцию lol переделать в генератор цветов
+- добавление нового окна сверху «соседних»

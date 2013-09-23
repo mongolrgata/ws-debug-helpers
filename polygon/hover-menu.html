@@ -10,6 +10,7 @@
 
         .window {
             z-index : 2;
+            /*background-color: green;*/
         }
 
         .hover-menu {
@@ -21,6 +22,11 @@
             z-index : 1;
         }
 
+        body {
+            height           : 1000px;
+            background-color : red !important;
+        }
+
         .window:hover > .hover-menu {
             display : block;
         }
@@ -30,24 +36,37 @@
         }
 
         .button-close {
-            height : 8px;
-            width  : 8px;
-            top    : 4px;
-            right  : 4px;
+            height           : 8px;
+            width            : 8px;
+            top              : 4px;
+            right            : 4px;
+            background-color : black;
         }
 
     </style>
     <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script>
+        function lol() {
+            return Math.floor(Math.random() * 255);
+        }
+
         $(document).ready(function () {
-            $('.window').live('click', function () {
-                // TODO создание дочерних div.window и div.hover-menu
+            $('.window').live('click', function (e) {
+                e.stopImmediatePropagation();
+
                 $(this).prepend(
                         $('<div/>').addClass('window').append(
-                                $('<div/>').addClass('hover-menu').append(
-                                        $('<div/>').addClass('button-close')
-                                )
-                        ).width(Math.random()*10+20).height(Math.random()*10+20)
+                                        $('<div/>').addClass('hover-menu').append(
+                                                $('<div/>').addClass('button-close').click(function (e) {
+                                                    e.stopImmediatePropagation();
+                                                    $(this).parent().parent().remove()
+                                                })
+                                        )
+                                ).width($(this).width() / 2).height($(this).height() / 2).css({
+                                    'background-color' : 'rgb(' + lol() + ',' + lol() + ',' + lol() + ')',
+                                    'top'              : Math.random() * $(this).height() / 2,
+                                    'left'             : Math.random() * $(this).width() / 2
+                                })
                 );
             });
         });
@@ -56,4 +75,5 @@
 <body class='window'>
 
 </body>
+</html>
 </html>
