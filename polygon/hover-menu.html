@@ -46,14 +46,20 @@
     </style>
     <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script>
-        function lol() {
-            function rjust(str, n, ch) {
-                var arr = Array(Math.max(0, n - str.length + 1)).join(ch[0]);
-                return arr + str;
-            }
+        /**
+         * TODO описание
+         * @param {number} width TODO описание
+         * @param {string} [fill=' '] TODO описание
+         */
+        String.prototype.rightJustify = function (width, fill) {
+            "use strict";
 
+            return new Array(Math.max(0, width - this.length + 1)).join(fill[0]) + this;
+        };
+
+        function lol() {
             function getHex() {
-                return rjust(Math.floor(Math.random() * 256).toString(16), 2, '0');
+                return Math.floor(Math.random() * 256).toString(16).rightJustify(2, '0');
             }
 
             return '#' + getHex() + getHex() + getHex();
@@ -84,5 +90,4 @@
 <body class='window'>
 
 </body>
-</html>
 </html>
