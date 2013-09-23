@@ -7,3 +7,4 @@
 - вычисление координат элемента
 - переделать test\offset vs. position.html
 - тащить! http://stackoverflow.com/questions/8569095/draggable-div-without-jquery-ui
+- создание iframe с содержимым из polygon\...

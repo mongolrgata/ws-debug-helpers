@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>hover</title>
+    <style>
+        div {
+            position : absolute;
+        }
+
+        .window {
+            z-index : 2;
+        }
+
+        .hover-menu {
+            top     : 0;
+            left    : 0;
+            right   : 0;
+            bottom  : 0;
+            display : none;
+            z-index : 1;
+        }
+
+        .window:hover > .hover-menu {
+            display : block;
+        }
+
+        .window:hover ~ .hover-menu {
+            display : none;
+        }
+
+        .button-close {
+            height : 8px;
+            width  : 8px;
+            top    : 4px;
+            right  : 4px;
+        }
+
+    </style>
+    <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.window').live('click', function () {
+                // TODO создание дочерних div.window и div.hover-menu
+                $(this).prepend(
+                        $('<div/>').addClass('window').append(
+                                $('<div/>').addClass('hover-menu').append(
+                                        $('<div/>').addClass('button-close')
+                                )
+                        ).width(Math.random()*10+20).height(Math.random()*10+20)
+                );
+            });
+        });
+    </script>
+</head>
+<body class='window'>
+
+</body>
+</html>
