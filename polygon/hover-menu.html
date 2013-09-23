@@ -49,12 +49,13 @@
         /**
          * TODO описание
          * @param {number} width TODO описание
-         * @param {string} [fill=' '] TODO описание
+         * @param {string} [fill] символ-заполнитель
+         * @returns {string}
          */
         String.prototype.rightJustify = function (width, fill) {
             "use strict";
 
-            return new Array(Math.max(0, width - this.length + 1)).join(fill[0]) + this;
+            return new Array(Math.max(0, width - this.length + 1)).join((fill || ' ')[0]) + this;
         };
 
         function lol() {

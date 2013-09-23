@@ -137,7 +137,7 @@
 
     /**
      * Получение списка контролов
-     * @returns {Array}
+     * @returns {$ws.proto.Control[]}
      * @private
      */
     function _getControlList() {
@@ -199,7 +199,7 @@
          * @param {string} fullMethodName полное имя метода БЛ
          * @param {Object} [params={}] аргументы
          * @param {'asis'|'record'|'recordset'} [type='asis'] тип результата
-         * @param args
+         * @param {...*} [args]
          * @returns {$ws.proto.Deferred}
          */
         BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
@@ -219,7 +219,7 @@
          * Вызов списочного метода БЛ
          * @param {string} fullMethodName полное имя списочного метода БЛ
          * @param {Object} [params={}] фильтр
-         * @param args
+         * @param {...*} [args]
          * @returns {$ws.proto.Deferred}
          */
         BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
