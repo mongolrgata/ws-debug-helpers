@@ -47,7 +47,16 @@
     <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script>
         function lol() {
-            return Math.floor(Math.random() * 255);
+            function rjust(str, n, ch) {
+                var arr = Array(Math.max(0, n - str.length + 1)).join(ch[0]);
+                return arr + str;
+            }
+
+            function getHex() {
+                return rjust(Math.floor(Math.random() * 256).toString(16), 2, '0');
+            }
+
+            return '#' + getHex() + getHex() + getHex();
         }
 
         $(document).ready(function () {
@@ -63,7 +72,7 @@
                                                 })
                                         )
                                 ).width($(this).width() / 2).height($(this).height() / 2).css({
-                                    'background-color' : 'rgb(' + lol() + ',' + lol() + ',' + lol() + ')',
+                                    'background-color' : lol(),
                                     'top'              : Math.random() * $(this).height() / 2,
                                     'left'             : Math.random() * $(this).width() / 2
                                 })
