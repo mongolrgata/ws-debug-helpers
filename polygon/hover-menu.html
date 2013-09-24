@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>hover</title>
+    <title>hover-menu</title>
     <style>
         div {
             position : absolute;
@@ -22,9 +22,13 @@
             z-index : 1;
         }
 
-        body {
-            height           : 1000px;
-            background-color : red !important;
+        #main {
+            position         : fixed;
+            top              : 0;
+            left             : 0;
+            right            : 0;
+            bottom           : 0;
+            background-color : coral !important;
         }
 
         .window:hover > .hover-menu {
@@ -67,28 +71,33 @@
         }
 
         $(document).ready(function () {
+            $('.button-close').live('click', function (e) {
+                e.stopImmediatePropagation();
+                $(this).closest('.window').remove();
+            });
+
+            var $div =
+                    $('<div/>').addClass('window').append(
+                            $('<div/>').addClass('hover-menu').append(
+                                    $('<div/>').addClass('button-close')
+                            )
+                    );
+
             $('.window').live('click', function (e) {
                 e.stopImmediatePropagation();
 
                 $(this).prepend(
-                        $('<div/>').addClass('window').append(
-                                        $('<div/>').addClass('hover-menu').append(
-                                                $('<div/>').addClass('button-close').click(function (e) {
-                                                    e.stopImmediatePropagation();
-                                                    $(this).parent().parent().remove()
-                                                })
-                                        )
-                                ).width($(this).width() / 2).height($(this).height() / 2).css({
-                                    'background-color' : lol(),
-                                    'top'              : Math.random() * $(this).height() / 2,
-                                    'left'             : Math.random() * $(this).width() / 2
-                                })
+                        $div.clone().width($(this).width() / 2).height($(this).height() / 2).css({
+                            'background-color' : lol(),
+                            'top'              : Math.random() * $(this).height() / 2,
+                            'left'             : Math.random() * $(this).width() / 2
+                        })
                 );
             });
         });
     </script>
 </head>
-<body class='window'>
-
+<body>
+<div id="main" class="window"></div>
 </body>
 </html>
