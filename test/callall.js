@@ -5,6 +5,12 @@
  * Time: 21:48
  */
 
+({}).getPrototypeChain();
+[].toConsole();
+''.rJust(0);
+''.lJust(0);
+''.center(0);
+
 damnControl('controlName');
 damnControls();
 BLObjectC('objectName.methodName');

@@ -11,40 +11,97 @@
 
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
-     * Определение «родного» свойства у объекта (с конфигурацией как у стандартного свойства)
+     * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
      * @param {Object} object объект
-     * @param {string} propertyName имя свойства
-     * @param {*} value значение свойства
+     * @param {Object} propertyMap имя свойства : значение свойства
      * @private
      */
-    function _defineStealthProperty(object, propertyName, value) {
+    function _defineStealthProperties(object, propertyMap) {
         // TODO доработать вывод имени объекта (вариант с object.toString() не торт, например, для Array.prototype)
         // см. http://stackoverflow.com/questions/8024149/is-it-possible-to-get-the-non-enumerable-inherited-property-names-of-an-object
         // Object.getOwnPropertyNames — FTW!
-        if (propertyName in object) {
-            console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
-        }
 
-        Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : value});
+        for (let propertyName in propertyMap) {
+            if (propertyMap.hasOwnProperty(propertyName)) {
+                if (propertyName in object) {
+                    console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
+                }
+
+                Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : propertyMap[propertyName]});
+            }
+        }
     }
 
-    /** Получение цепочки прототипов объекта */
-    _defineStealthProperty(Object.prototype, 'getPrototypeChain', function () {
-        var
-            self = this,
-            res = [self];
+    _defineStealthProperties(Object.prototype,
+        /** @lends Object.prototype */
+        {
+            /**
+             * Получение цепочки прототипов объекта
+             * @returns {Array}
+             */
+            getPrototypeChain : function getPrototypeChain() {
+                var
+                    self = this,
+                    res = [self];
 
-        while (self) {
-            res.unshift(self = Object.getPrototypeOf(self));
+                while (self) {
+                    res.unshift(self = Object.getPrototypeOf(self));
+                }
+
+                return res;
+            }
         }
+    );
 
-        return res;
-    });
+    _defineStealthProperties(Array.prototype,
+        /** @lends Array.prototype */
+        {
+            /**
+             * Вывод массива в консоль
+             */
+            toConsole : function toConsole() {
+                // TODO сделать
+            }
+        }
+    );
 
-    /** Вывод массива в консоль */
-    _defineStealthProperty(Array.prototype, 'toConsole', function () {
-        // TODO
-    });
+    _defineStealthProperties(String.prototype,
+        /** @lends String.prototype */
+        {
+            /**
+             * Выравнивание строки по левому краю
+             * @param {number} width целевая ширина строки
+             * @param {string} [fill] символ-заполнитель
+             * @returns {string}
+             */
+            lJust : function lJust(width, fill) {
+                fill = (fill || ' ').charAt(0);
+                return new Array(Math.max(0, width - this.length + 1)).join(fill) + this;
+            },
+
+            /**
+             * Выравнивание строки по правому краю
+             * @param {number} width целевая ширина строки
+             * @param {string} [fill] символ-заполнитель
+             * @returns {string}
+             */
+            rJust : function rJust(width, fill) {
+                fill = (fill || ' ').charAt(0);
+                return this + new Array(Math.max(0, width - this.length + 1)).join(fill);
+            },
+
+            /**
+             * Выравнивание строки по центру
+             * @param {number} width целевая ширина строки
+             * @param {string} [fill] символ-заполнитель
+             * @returns {string}
+             */
+            center : function center(width, fill) {
+                fill = (fill || ' ').charAt(0);
+                return this.lJust(Math.floor((width + this.length) / 2), fill).rJust(width, fill);
+            }
+        }
+    );
     //endregion
 
     //region Установка «таймеров»
@@ -64,25 +121,26 @@
     }
 
     /**
-     * Определение метода toString для всех классов платформы,
+     * Анонимизация функции конструктора и определение метода toString для всех классов платформы,
      * чтобы в консоли Firebug выводились их имена, а не просто Object {...}
      *
      * _setIntervalImmediate потому, что модули платформы грузятся по необходимости, а не все сразу
      */
     _setIntervalImmediate(function () {
-        if (typeof $ws !== 'undefined' && $ws.proto) {
-            for (let className in $ws.proto) {
-                if ($ws.proto.hasOwnProperty(className) && typeof $ws.proto[className] === 'function') {
-                    if (typeof $ws.proto[className].prototype.constructor === 'function') {
-                        $ws.proto[className].prototype.constructor = _anonymize($ws.proto[className].prototype.constructor);
-                    }
+        if (typeof $ws === 'undefined' || !$ws.proto)
+            return;
 
-                    if (!$ws.proto[className].prototype.hasOwnProperty('toString')) {
-                        let objectClassName = '[object ' + className + ']';
+        for (let className in $ws.proto) {
+            if ($ws.proto.hasOwnProperty(className) && typeof $ws.proto[className] === 'function') {
+                if (typeof $ws.proto[className].prototype.constructor === 'function') {
+                    $ws.proto[className].prototype.constructor = _anonymize($ws.proto[className].prototype.constructor);
+                }
 
-                        $ws.proto[className].prototype.toString = function () {
-                            return objectClassName;
-                        }
+                if (!$ws.proto[className].prototype.hasOwnProperty('toString')) {
+                    let objectClassName = '[object ' + className + ']';
+
+                    $ws.proto[className].prototype.toString = function () {
+                        return objectClassName;
                     }
                 }
             }
@@ -93,6 +151,9 @@
      * Генерация дерева наследования для классов платформы
      */
     _setIntervalImmediate(function () {
+        if (typeof $ws === 'undefined' || !$ws.proto)
+            return;
+
         var classHierarchy = {};
 
         for (let classNameA in $ws.proto) {
@@ -340,7 +401,7 @@
     var global = (0 || eval)('this');
     for (let name in helpersMap) {
         if (helpersMap.hasOwnProperty(name)) {
-            _defineStealthProperty(global, name, helpersMap[name]);
+            _defineStealthProperties(global, name, helpersMap[name]);
         }
     }
 

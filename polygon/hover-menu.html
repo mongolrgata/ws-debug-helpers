@@ -8,9 +8,12 @@
             position : absolute;
         }
 
-        .window {
-            z-index : 2;
-            /*background-color: green;*/
+        #main {
+            position         : fixed;
+            top              : 0;
+            left             : 0;
+            right            : 0;
+            bottom           : 0;
         }
 
         .hover-menu {
@@ -22,13 +25,8 @@
             z-index : 1;
         }
 
-        #main {
-            position         : fixed;
-            top              : 0;
-            left             : 0;
-            right            : 0;
-            bottom           : 0;
-            background-color : coral !important;
+        .window {
+            z-index : 2;
         }
 
         .window:hover > .hover-menu {
@@ -51,8 +49,8 @@
     <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script>
         /**
-         * TODO описание
-         * @param {number} width TODO описание
+         * «Выравнивание» строки по правому краю
+         * @param {number} width ширина строки
          * @param {string} [fill] символ-заполнитель
          * @returns {string}
          */
