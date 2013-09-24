@@ -12,22 +12,22 @@
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
-     * @param {Object} object объект
-     * @param {Object} propertyMap имя свойства : значение свойства
+     * @param object
+     * @param properties
      * @private
      */
-    function _defineStealthProperties(object, propertyMap) {
+    function _defineStealthProperties(object, properties) {
         // TODO доработать вывод имени объекта (вариант с object.toString() не торт, например, для Array.prototype)
         // см. http://stackoverflow.com/questions/8024149/is-it-possible-to-get-the-non-enumerable-inherited-property-names-of-an-object
         // Object.getOwnPropertyNames — FTW!
 
-        for (let propertyName in propertyMap) {
-            if (propertyMap.hasOwnProperty(propertyName)) {
+        for (let propertyName in properties) {
+            if (properties.hasOwnProperty(propertyName)) {
                 if (propertyName in object) {
                     console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
                 }
 
-                Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : propertyMap[propertyName]});
+                Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
             }
         }
     }
@@ -98,7 +98,7 @@
              */
             center : function center(width, fill) {
                 fill = (fill || ' ').charAt(0);
-                return this.lJust(Math.floor((width + this.length) / 2), fill).rJust(width, fill);
+                return this.lJust((width + this.length) >> 1, fill).rJust(width, fill);
             }
         }
     );
@@ -233,7 +233,7 @@
         /**
          * Вывод списка всех контролов в консоль
          */
-        damnControls : function () {
+        damnControls : function damnControls() {
             var
                 controlList = _getControlList(),
                 data = [];
@@ -340,7 +340,7 @@
             }
         },
 
-        selectControlGUI_experimental : function selectControlGUI() {
+        selectControlGUI_experimental : function selectControlGUI_experimental() {
             var controlList = _getControlList();
 
             for (let i = 0; i < controlList.length; ++i) {
@@ -376,7 +376,7 @@
          * Вывод в консоль оповещений о наступлении какого-либо события у контрола
          * @param {string} [controlNameOrId] имя или идентификатор контрола
          */
-        logControlEventsGUI : function (controlNameOrId) {
+        logControlEventsGUI : function logControlEventsGUI(controlNameOrId) {
             if (arguments.length === 0) {
                 if ((controlNameOrId = prompt('Введите имя или идентификатор контрола')) === null) {
                     return;
@@ -399,11 +399,7 @@
     };
 
     var global = (0 || eval)('this');
-    for (let name in helpersMap) {
-        if (helpersMap.hasOwnProperty(name)) {
-            _defineStealthProperties(global, name, helpersMap[name]);
-        }
-    }
+    _defineStealthProperties(global, helpersMap);
 
     $(document).ready(function () {
         // TODO ну ты понел
