@@ -17,10 +17,6 @@
      * @private
      */
     function _defineStealthProperties(object, properties) {
-        // TODO доработать вывод имени объекта (вариант с object.toString() не торт, например, для Array.prototype)
-        // см. http://stackoverflow.com/questions/8024149/is-it-possible-to-get-the-non-enumerable-inherited-property-names-of-an-object
-        // Object.getOwnPropertyNames — FTW!
-
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
                 if (propertyName in object) {
@@ -60,7 +56,7 @@
              * Вывод массива в консоль
              */
             toConsole : function toConsole() {
-                // TODO сделать
+
             }
         }
     );
@@ -148,7 +144,7 @@
     }, 1000);
 
     /**
-     * Генерация дерева наследования для классов платформы
+     * Генерация дерева наследования классов платформы
      */
     _setIntervalImmediate(function () {
         if (typeof $ws === 'undefined' || !$ws.proto)
@@ -169,8 +165,6 @@
                 }
             }
         }
-
-        // TODO сохранение в localStorage
     }, 20000);
     //endregion
 
@@ -330,7 +324,6 @@
                                     event.stopPropagation();
                                     $('.ws-debug-helpers.div-cover').remove();
 
-                                    // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
                                     console.log(control, '"' + control.getName() + '"', control.getContainer());
                                 }
                             }
@@ -362,7 +355,6 @@
                         ).bind(
                             {
                                 click : function () {
-                                    // TODO сохранение выбранного контрола в глобальную переменную lastSelectedControl (или типа того)
                                     console.log(control, '"' + control.getName() + '"', control.getContainer());
                                 }
                             }
@@ -385,13 +377,12 @@
 
             var
                 control = damnControl(controlNameOrId),
-                controlEvents = control._events; // TODO Dr. HAX негодует
+                controlEvents = control._events; // Dr. HAX негодует
 
             for (let eventName in controlEvents) {
                 if (controlEvents.hasOwnProperty(eventName)) {
                     control.subscribe(eventName, function (eventObject) {
-                        // TODO доработать формат
-                        console.log(this.getName(), eventObject._eventName); // TODO Dr. HAX негодует
+                        console.log(this.getName(), eventObject._eventName); // Dr. HAX негодует
                     });
                 }
             }
