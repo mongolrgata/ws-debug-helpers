@@ -5,28 +5,33 @@
     <title>hover-menu</title>
     <style>
         div {
-            position : absolute;
+            overflow : hidden;
         }
 
         #main {
-            position : fixed;
+            position : absolute;
             top      : 0;
             left     : 0;
             right    : 0;
             bottom   : 0;
         }
 
-        .hover-menu {
-            top     : 0;
-            left    : 0;
-            right   : 0;
-            bottom  : 0;
+        #main > .hover-menu {
             display : none;
-            z-index : 1;
+        }
+
+        .hover-menu {
+            display  : none;
+            position : static;
+        }
+
+        .content {
+            position : static;
         }
 
         .window {
-            z-index : 2;
+            position : absolute;
+            z-index  : 100500;
         }
 
         .window:hover > .hover-menu {
@@ -38,6 +43,7 @@
         }
 
         .button-close {
+            position         : absolute;
             height           : 8px;
             width            : 8px;
             top              : 4px;
@@ -45,57 +51,79 @@
             background-color : black;
         }
 
+        .test-content {
+            position         : static;
+            height           : 16px;
+            margin           : 8px;
+            top              : 2px;
+            right            : 2px;
+            background-color : coral;
+        }
     </style>
     <script src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script>
         /**
-         * «Выравнивание» строки по правому краю
-         * @param {number} width ширина строки
+         * Выравнивание строки по правому краю
+         * @param {number} width целевая ширина строки
          * @param {string} [fill] символ-заполнитель
          * @returns {string}
          */
-        String.prototype.rightJustify = function (width, fill) {
-            "use strict";
-
-            return new Array(Math.max(0, width - this.length + 1)).join((fill || ' ')[0]) + this;
+        String.prototype.rJust = function rJust(width, fill) {
+            fill = (fill || ' ').charAt(0);
+            return new Array(Math.max(0, width - this.length + 1)).join(fill) + this;
         };
 
-        function lol() {
-            function getHex() {
-                return Math.floor(Math.random() * 256).toString(16).rightJustify(2, '0');
-            }
-
-            return '#' + getHex() + getHex() + getHex();
+        /**
+         * Генерация случайного цвета в HEX нотации
+         * @returns {string}
+         */
+        function randomColorHEX() {
+            return '#' + Math.floor(Math.random() * 0x1000000).toString(16).rJust(6, '0');
         }
 
         $(document).ready(function () {
-            $('.button-close').live('click', function (e) {
-                e.stopImmediatePropagation();
-                $(this).closest('.window').remove();
-            });
-
-            var $div =
+            var $window =
                     $('<div/>').addClass('window').append(
+                            $('<div/>').addClass('content').append(
+                                    $('<div/>').addClass('test-content'),
+                                    $('<div/>').addClass('test-content'),
+                                    $('<div/>').addClass('test-content')
+                            ),
                             $('<div/>').addClass('hover-menu').append(
                                     $('<div/>').addClass('button-close')
                             )
                     );
 
-            $('.window').live('click', function (e) {
+            $('.button-close').live('click', function (e) {
+                $(this).closest('.window').remove();
                 e.stopImmediatePropagation();
+            });
 
-                $(this).prepend(
-                        $div.clone().width($(this).width() / 2).height($(this).height() / 2).css({
-                            'background-color' : lol(),
-                            'top'              : Math.random() * $(this).height() / 2,
-                            'left'             : Math.random() * $(this).width() / 2
+            $('.window').live('click', function (e) {
+                var $newWindow = $window.clone();
+                $(this).children('.hover-menu').before(
+                        $newWindow.css({
+                            width           : '50%',
+                            height          : '50%',
+                            backgroundColor : randomColorHEX(),
+                            top             : ((Math.random() * 100) >> 1) + '%',
+                            left            : ((Math.random() * 100) >> 1) + '%'
                         })
                 );
+                $newWindow.children('.content').find('.test-content').css({
+                    backgroundColor : randomColorHEX()
+                });
+                e.stopImmediatePropagation();
             });
         });
     </script>
 </head>
 <body>
-<div id="main" class="window"></div>
+<div id="main" class="window">
+    <div class="content"></div>
+    <div class="hover-menu">
+        <div class="button-close"></div>
+    </div>
+</div>
 </body>
 </html>

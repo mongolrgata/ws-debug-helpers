@@ -72,7 +72,7 @@
              */
             lJust : function lJust(width, fill) {
                 fill = (fill || ' ').charAt(0);
-                return new Array(Math.max(0, width - this.length + 1)).join(fill) + this;
+                return this + new Array(Math.max(0, width - this.length + 1)).join(fill);
             },
 
             /**
@@ -83,7 +83,7 @@
              */
             rJust : function rJust(width, fill) {
                 fill = (fill || ' ').charAt(0);
-                return this + new Array(Math.max(0, width - this.length + 1)).join(fill);
+                return new Array(Math.max(0, width - this.length + 1)).join(fill) + this;
             },
 
             /**
@@ -94,7 +94,7 @@
              */
             center : function center(width, fill) {
                 fill = (fill || ' ').charAt(0);
-                return this.lJust((width + this.length) >> 1, fill).rJust(width, fill);
+                return this.rJust((width + this.length) >> 1, fill).lJust(width, fill);
             }
         }
     );

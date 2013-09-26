@@ -42,7 +42,7 @@
             $('.window').live('click', function (e) {
                 e.stopImmediatePropagation();
 
-                $(this).prepend(
+                $(this).children('.hover-menu').before(
                         $div.clone().width($(this).width() / 2).height($(this).height() / 2).css({
                             'background-color' : lol(),
                             'top'              : Math.random() * $(this).height() / 2,
@@ -52,31 +52,15 @@
             });
         });
     </script>
-    <style>
-        .hover-menu {
-            display : none;
-        }
-
-        .window {
-        }
-
-        .window:hover > .hover-menu {
-            display : block;
-        }
-
-        .window:hover ~ .hover-menu {
-            display : none;
-        }
-    </style>
 </head>
 <body>
 <div class="window absolute left-top right-bottom green">
     <!--<div class="content absolute left-top right-bottom">-->
         <!--<div class="absolute medium-square red right-top"></div>-->
     <!--</div>-->
-    <!--<div class="hover-menu static">-->
-        <!--<div class="absolute small-square blue right-bottom"></div>-->
-    <!--</div>-->
+    <div class="hover-menu static">
+        <div class="absolute small-square blue right-bottom"></div>
+    </div>
 </div>
 </body>
 </html>
