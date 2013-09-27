@@ -122,7 +122,7 @@
      *
      * _setIntervalImmediate потому, что модули платформы грузятся по необходимости, а не все сразу
      */
-    _setIntervalImmediate(function () {
+    _setIntervalImmediate(function wsProtoClassName() {
         if (typeof $ws === 'undefined' || !$ws.proto)
             return;
 
@@ -146,7 +146,7 @@
     /**
      * Генерация дерева наследования классов платформы
      */
-    _setIntervalImmediate(function () {
+    _setIntervalImmediate(function wsProtoClassTree() {
         if (typeof $ws === 'undefined' || !$ws.proto)
             return;
 
@@ -378,6 +378,8 @@
             var
                 control = damnControl(controlNameOrId),
                 controlEvents = control._events; // Dr. HAX негодует
+
+
 
             for (let eventName in controlEvents) {
                 if (controlEvents.hasOwnProperty(eventName)) {
