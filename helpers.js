@@ -94,7 +94,7 @@
              */
             center : function center(width, fill) {
                 fill = (fill || ' ').charAt(0);
-                return this.rJust((width + this.length) >> 1, fill).lJust(width, fill);
+                return this.rJust((+width + this.length) >> 1, fill).lJust(width, fill);
             }
         }
     );
