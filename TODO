@@ -14,8 +14,6 @@
     доработать вывод имени объекта (вариант с object.toString() не работает для Array.prototype)
     см. http://stackoverflow.com/questions/8024149/is-it-possible-to-get-the-non-enumerable-inherited-property-names-of-an-object
     Object.getOwnPropertyNames
-- wsProtoClassName:
-    проблема бесконечной анонимизации конструктора
 - wsProtoClassTree:
     сохранение результата в localStorage
 

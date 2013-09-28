@@ -98,6 +98,23 @@
             }
         }
     );
+
+    _defineStealthProperties(Function.prototype,
+        /** @lends Function.prototype */
+        {
+            /**
+             * Проверка функции на анонимность
+             * @returns {boolean}
+             */
+            isAnonymous : function isAnonymous() {
+                if ('name' in this) {
+                    return this.name === '';
+                }
+
+                return ('' + this).match(/function (.*)\(/)[1] === '';
+            }
+        }
+    );
     //endregion
 
     //region Установка «таймеров»
@@ -169,13 +186,13 @@
     //endregion
 
     /**
-     * «Анонимизация» функции
+     * «Анонимизация» функции (без повторной анонимизации)
      * @param {*} foo
      * @returns {Function}
      */
     function _anonymize(foo) {
         return function () {
-            return foo.apply(arguments);
+            return foo.isAnonymous() ? foo : foo.apply(this, arguments);
         }
     }
 
@@ -378,8 +395,6 @@
             var
                 control = damnControl(controlNameOrId),
                 controlEvents = control._events; // Dr. HAX негодует
-
-
 
             for (let eventName in controlEvents) {
                 if (controlEvents.hasOwnProperty(eventName)) {
