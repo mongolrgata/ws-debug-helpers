@@ -111,7 +111,7 @@
                     return this.name === '';
                 }
 
-                return ('' + this).match(/function (.*)\(/)[1] === '';
+                return ('' + this).match(/function (.*?)\(/)[1] === '';
             }
         }
     );
@@ -187,8 +187,9 @@
 
     /**
      * «Анонимизация» функции (без повторной анонимизации)
-     * @param {*} foo
+     * @param {Function} foo
      * @returns {Function}
+     * @private
      */
     function _anonymize(foo) {
         return function () {
@@ -197,9 +198,23 @@
     }
 
     /**
+     * TODO описание
+     * @param {Function} foo
+     * @param {Function} before
+     * @returns {Function}
+     * @private
+     */
+    function _extend(foo, before) {
+        return function () {
+            before();
+            return foo.apply(this, arguments);
+        }
+    }
+
+    /**
      * Разделение полного имени метода БЛ на имя объекта и имя метода
      * @param {string} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
-     * @returns {{objectName: {string}, methodName: {string}}}
+     * @returns {{objectName: string, methodName: string}}
      * @private
      */
     function _splitMethodName(fullMethodName) {
@@ -274,9 +289,8 @@
          * @param {...*} [args]
          * @returns {$ws.proto.Deferred}
          */
-        BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
+        BLObjectC : function BLObjectC(fullMethodName, params, type, args) {
             var splitName = _splitMethodName(fullMethodName);
-
             return $ws.proto.ClientBLObject.prototype.call.apply(
                 new $ws.proto.BLObject(splitName.objectName),
                 [
@@ -294,9 +308,8 @@
          * @param {...*} [args]
          * @returns {$ws.proto.Deferred}
          */
-        BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
+        BLObjectQ : function BLObjectQ(fullMethodName, params, args) {
             var splitName = _splitMethodName(fullMethodName);
-
             return $ws.proto.ClientBLObject.prototype.query.apply(
                 new $ws.proto.BLObject(splitName.objectName),
                 [
@@ -409,8 +422,8 @@
     var global = (0 || eval)('this');
     _defineStealthProperties(global, helpersMap);
 
-    $(document).ready(function () {
-        // TODO ну ты понел
-        console.log('Свистелки и перделки загружены');
-    });
+//    $(document).ready(function () {
+//        // TODO ну ты понел
+//        console.log('Свистелки и перделки загружены');
+//    });
 })();
