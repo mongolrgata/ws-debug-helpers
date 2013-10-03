@@ -119,17 +119,22 @@
 
     //region Установка «таймеров»
     /**
-     * Обёртка над стандартным setInterval, переданная функция вызывается сразу после установки интервала
+     * Обёртка над setInterval, переданная функция вызывается сразу после установки интервала
      * @param {Function} foo
      * @param {number} delay
      * @returns {number}
      * @private
      */
     function _setIntervalImmediate(foo, delay) {
+        var proxy = function () {
+            foo.call(this, id);
+        };
+
         // Важно, что сначала устанавливается интервал, и только потом вызывается функция;
-        // это соответствует циклу стандартного setInterval
-        var id = setInterval(foo, delay);
-        foo();
+        // это соответствует циклу обычного setInterval
+        var id = setInterval(proxy, delay);
+        proxy();
+
         return id;
     }
 
