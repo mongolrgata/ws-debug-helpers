@@ -9,103 +9,46 @@
 (function () {
     "use strict";
 
-    function doMagic(seekobj) {
-        var global = window;
-        var arr = [global];
-        var arr2 = [global.toString()];
-        var arr3 = [null];
+    /**
+     * TODO описание
+     * @param {Object} object
+     * @returns {string}
+     * @private
+     */
+    function _objectPath(object) {
+        var was = []; // массив посещённых объектов
 
-        var i = 0;
+        return (function dfs(root, rootName) {
+            if (root === object)
+                return rootName;
 
-        function foo(ind) {
-            var res = '';
-            while (arr3[ind] !== null) {
-                res = arr2[ind] + '.' + res;
-                ind = arr3[ind];
-            }
-            return arr2[ind] + '.' + res;
-        }
+            was.push(root);
 
-        while (i < arr.length) {
-            var curobj = arr[i];
-            if (curobj === seekobj)
-                return foo(i);
+            var propertyList = Object.getOwnPropertyNames(root);
 
-            var ololo = Object.getOwnPropertyNames(curobj);
-
-            for (var k = 0; k < ololo.length; k++) {
-                var key = ololo[k];
+            for (let i = 0, n = propertyList.length; i < n; i++) {
+                var property, node;
 
                 try {
-                    if (!(curobj[key] instanceof Object ||
-                        (typeof curobj[key] === 'object' && curobj[key] !== null)))
-                        continue;
+                    property = propertyList[i];
+                    node = root[property];
                 }
                 catch (e) {
-                    continue;
+                    continue; // не удалось получить доступ к свойству
                 }
 
-                var fl = true;
-                for (var j = 0; j < arr.length; ++j)
-                    if (arr[j] === curobj[key]) {
-                        fl = false;
-                        break;
-                    }
+                if (!(typeof node === 'object' && node !== null || node instanceof Object))
+                    continue; // узел не является объектом
 
-                if (fl) {
-                    arr.push(curobj[key]);
-                    arr2.push(key);
-                    arr3.push(i);
-                }
+                if (was.indexOf(node) !== -1)
+                    continue; // узел уже был посещён
+
+                var path = dfs(node, property);
+
+                if (typeof path !== 'undefined')
+                    return rootName + '.' + path;
             }
-            i++;
-        }
-
-        return '[undefined]';
-    }
-
-    function doMagicDeeper(seekobj) {
-        var curobj = window;
-        var arr = [window];
-
-
-        return (function deeper(curobj, d) {
-            //curobj.wasyawashere = true;
-            if (curobj === seekobj) {
-                return '';
-            }
-
-            arr.push(curobj);
-
-            /*            if(d > 6)
-             return*/
-
-//            console.log(curobj)
-            var ololo = Object.getOwnPropertyNames(curobj);
-
-            for (var k = 0; k < ololo.length; k++) {
-                let key = ololo[k];
-
-                try {
-                    if (!(curobj[key] instanceof Object ||
-                        (typeof curobj[key] === 'object' && curobj[key] !== null)))
-                        continue;
-                }
-                catch (e) {
-                    continue;
-                }
-
-                /*                if(curobj[key].wasyawashere)
-                 continue;*/
-                if (arr.indexOf(curobj[key]) !== -1)
-                    continue;
-
-                let res = deeper(curobj[key], d+1);
-                if (typeof res === 'string') {
-                    return key + '|' + res;
-                }
-            }
-        })(curobj, 0);
+        })(window, 'window');
     }
 
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
@@ -119,7 +62,7 @@
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
                 if (propertyName in object) {
-                    console.warn('Попытка %s свойство %s%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', doMagicDeeper(object), propertyName);
+                    console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', _objectPath(object), propertyName);
                 }
 
                 Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
@@ -492,6 +435,9 @@
             }
         },
 
+        /**
+         * TODO описание
+         */
         selectControlGUI_experimental : function selectControlGUI_experimental() {
             var controlList = _getControlList();
 
