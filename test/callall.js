@@ -13,10 +13,10 @@
 (function () {
 }).isAnonymous();
 
-damnControl('controlName');
+damnControl('controlNameOrId');
 damnControls();
 BLObjectC('objectName.methodName');
 BLObjectQ('objectName.methodName');
 selectControlGUI();
-logControlEventsGUI();
 selectControlGUI_experimental();
+logControlEventsGUI();
