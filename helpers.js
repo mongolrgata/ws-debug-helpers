@@ -9,6 +9,48 @@
 (function () {
     "use strict";
 
+    /**
+     * TODO описание
+     * @param {Object} object
+     * @returns {string}
+     * @private
+     */
+    function _objectPath(object) {
+        var was = []; // массив посещённых объектов
+
+        return (function dfs(root, rootName) {
+            if (root === object)
+                return rootName;
+
+            was.push(root);
+
+            var propertyList = Object.getOwnPropertyNames(root);
+
+            for (let i = 0, n = propertyList.length; i < n; i++) {
+                var property, node;
+
+                try {
+                    property = propertyList[i];
+                    node = root[property];
+                }
+                catch (e) {
+                    continue; // не удалось получить доступ к свойству
+                }
+
+                if (!(typeof node === 'object' && node !== null || node instanceof Object))
+                    continue; // узел не является объектом
+
+                if (was.indexOf(node) !== -1)
+                    continue; // узел уже был посещён
+
+                var path = dfs(node, property);
+
+                if (typeof path !== 'undefined')
+                    return rootName + '.' + path;
+            }
+        })(window, 'window');
+    }
+
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
@@ -20,7 +62,7 @@
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
                 if (propertyName in object) {
-                    console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
+                    console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', _objectPath(object), propertyName);
                 }
 
                 Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
@@ -137,6 +179,31 @@
 
         return id;
     }
+
+    /**
+     * TODO описание
+     */
+    _setIntervalImmediate(function wsSingleControlStorageExtend(id) {
+        if (typeof $ws === 'undefined' || !$ws.single || !$ws.single.ControlStorage)
+            return;
+
+        var controlList = _getControlList();
+
+        $ws.single.ControlStorage.store = _extend($ws.single.ControlStorage.store, function (control) {
+            controlList.push(control);
+        });
+
+        $ws.single.ControlStorage.remove = _extend($ws.single.ControlStorage.remove, function (control) {
+            for (let i = 0; i < controlList.length; ++i) {
+                if (control === controlList[i]) {
+                    controlList.splice(i, 1);
+                    break;
+                }
+            }
+        });
+
+        clearInterval(id);
+    }, 1000);
 
     /**
      * Анонимизация функции конструктора и определение метода toString для всех классов платформы,
@@ -368,6 +435,9 @@
             }
         },
 
+        /**
+         * TODO описание
+         */
         selectControlGUI_experimental : function selectControlGUI_experimental() {
             var controlList = _getControlList();
 
@@ -424,8 +494,7 @@
         }
     };
 
-    var global = (0 || eval)('this');
-    _defineStealthProperties(global, helpersMap);
+    _defineStealthProperties(window, helpersMap);
 
     $(document).ready(function () {
         // TODO ну ты понел
