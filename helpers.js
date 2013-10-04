@@ -9,6 +9,60 @@
 (function () {
     "use strict";
 
+    function doMagic(seekobj) {
+        var global = window;
+        var arr = [global];
+        var arr2 = [global.toString()];
+        var arr3 = [null];
+
+        var i = 0;
+
+        function foo(ind) {
+            var res = '';
+            while (arr3[ind] !== null) {
+                res = arr2[ind] + '.' + res;
+                ind = arr3[ind];
+            }
+            return arr2[ind] + '.' + res;
+        }
+
+        while (i < arr.length) {
+            var curobj = arr[i];
+            if (curobj === seekobj)
+                return foo(i);
+
+            var ololo = Object.getOwnPropertyNames(curobj);
+
+            for (var k = 0; k < ololo.length; k++) {
+                var key = ololo[k];
+
+                try {
+                    if ((typeof curobj[key] !== 'object' || curobj[key] === null))
+                        continue;
+                }
+                catch (e) {
+                    continue;
+                }
+
+                var fl = true;
+                for (var j = 0; j < arr.length; ++j)
+                    if (arr[j] === curobj[key]) {
+                        fl = false;
+                        break;
+                    }
+
+                if (fl) {
+                    arr.push(curobj[key]);
+                    arr2.push(key);
+                    arr3.push(i);
+                }
+            }
+            i++;
+        }
+
+        return '[undefined]';
+    }
+
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
@@ -20,7 +74,7 @@
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
                 if (propertyName in object) {
-                    console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', object.toString(), propertyName);
+                    console.warn('Попытка %s свойство %s%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', doMagic(object), propertyName);
                 }
 
                 Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
@@ -449,8 +503,7 @@
         }
     };
 
-    var global = (0 || eval)('this');
-    _defineStealthProperties(global, helpersMap);
+    _defineStealthProperties(window, helpersMap);
 
     $(document).ready(function () {
         // TODO ну ты понел

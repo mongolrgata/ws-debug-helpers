@@ -11,10 +11,7 @@
     Запретить повторную установку интервала.
 6.  `damnControls` и `selectControlGUI`  
     Определить общий формат вывода в консоль.
-7.  `_defineStealthProperties`  
-    Сообщение с предупреждением плохо работает, например, для Array.prototype.  
-    (см. [Is it possible to get the non-enumerable inherited property names of an object?](http://stackoverflow.com/questions/8024149/is-it-possible-to-get-the-non-enumerable-inherited-property-names-of-an-object)).
-8.  `wsProtoClassTree`  
+8.  `wsProtoClassTree`
     Сохранение результата в `localStorage`.
 
 ### offset vs. position ###
