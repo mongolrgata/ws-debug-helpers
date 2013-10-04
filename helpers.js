@@ -37,7 +37,8 @@
                 var key = ololo[k];
 
                 try {
-                    if ((typeof curobj[key] !== 'object' || curobj[key] === null))
+                    if (!(curobj[key] instanceof Object ||
+                        (typeof curobj[key] === 'object' && curobj[key] !== null)))
                         continue;
                 }
                 catch (e) {
@@ -63,6 +64,50 @@
         return '[undefined]';
     }
 
+    function doMagicDeeper(seekobj) {
+        var curobj = window;
+        var arr = [window];
+
+
+        return (function deeper(curobj, d) {
+            //curobj.wasyawashere = true;
+            if (curobj === seekobj) {
+                return '';
+            }
+
+            arr.push(curobj);
+
+            /*            if(d > 6)
+             return*/
+
+//            console.log(curobj)
+            var ololo = Object.getOwnPropertyNames(curobj);
+
+            for (var k = 0; k < ololo.length; k++) {
+                let key = ololo[k];
+
+                try {
+                    if (!(curobj[key] instanceof Object ||
+                        (typeof curobj[key] === 'object' && curobj[key] !== null)))
+                        continue;
+                }
+                catch (e) {
+                    continue;
+                }
+
+                /*                if(curobj[key].wasyawashere)
+                 continue;*/
+                if (arr.indexOf(curobj[key]) !== -1)
+                    continue;
+
+                let res = deeper(curobj[key], d+1);
+                if (typeof res === 'string') {
+                    return key + '|' + res;
+                }
+            }
+        })(curobj, 0);
+    }
+
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
@@ -74,7 +119,7 @@
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
                 if (propertyName in object) {
-                    console.warn('Попытка %s свойство %s%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', doMagic(object), propertyName);
+                    console.warn('Попытка %s свойство %s%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', doMagicDeeper(object), propertyName);
                 }
 
                 Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
