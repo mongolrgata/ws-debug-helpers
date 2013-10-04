@@ -139,6 +139,31 @@
     }
 
     /**
+     * TODO описание
+     */
+    _setIntervalImmediate(function wsSingleControlStorageExtend(id) {
+        if (typeof $ws === 'undefined' || !$ws.single || !$ws.single.ControlStorage)
+            return;
+
+        var controlList = _getControlList();
+
+        $ws.single.ControlStorage.store = _extend($ws.single.ControlStorage.store, function (control) {
+            controlList.push(control);
+        });
+
+        $ws.single.ControlStorage.remove = _extend($ws.single.ControlStorage.remove, function (control) {
+            for (let i = 0; i < controlList.length; ++i) {
+                if (control === controlList[i]) {
+                    controlList.splice(i, 1);
+                    break;
+                }
+            }
+        });
+
+        clearInterval(id);
+    }, 1000);
+
+    /**
      * Анонимизация функции конструктора и определение метода toString для всех классов платформы,
      * чтобы в консоли Firebug выводились их имена, а не просто Object {...}
      *
