@@ -9,7 +9,7 @@
 (function () {
     "use strict";
 
-    //region Добавление новых свойств и методов к стандартным объектам JavaScript
+    //region Приватные функции-помощники
     /**
      * Поиск некоторого пути до объекта относительно глобального объекта <code>window</code> обходом в глубину.
      * @param {Object} object искомый объект
@@ -70,6 +70,84 @@
         }
     }
 
+    /**
+     * Обёртка над setInterval, переданная функция вызывается сразу после установки интервала
+     * @param {Function} foo
+     * @param {number} delay
+     * @returns {number}
+     * @private
+     */
+    function _setIntervalImmediate(foo, delay) {
+        var proxy = function () {
+            foo.call(this, id);
+        };
+
+        // Важно, что сначала устанавливается интервал, и только потом вызывается функция;
+        // это соответствует циклу обычного setInterval
+        var id = setInterval(proxy, delay);
+        proxy();
+
+        return id;
+    }
+
+    /**
+     * «Анонимизация» функции (без повторной анонимизации)
+     * @param {Function} foo
+     * @returns {Function}
+     * @private
+     */
+    function _anonymize(foo) {
+        return function () {
+            return foo.isAnonymous() ? foo : foo.apply(this, arguments);
+        }
+    }
+
+    /**
+     * TODO описание
+     * @param {Function} foo
+     * @param {Function} before
+     * @returns {Function}
+     * @private
+     */
+    function _extend(foo, before) {
+        return function () {
+            before();
+            return foo.apply(this, arguments);
+        }
+    }
+
+    /**
+     * Разделение полного имени метода БЛ на имя объекта и имя метода
+     * @param {string} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
+     * @returns {{objectName: string, methodName: string}}
+     * @private
+     */
+    function _splitMethodName(fullMethodName) {
+        var splitName = fullMethodName.split('.');
+        return {objectName : splitName[0], methodName : splitName[1]};
+    }
+
+    /**
+     * Получение списка контролов
+     * @returns {$ws.proto.Control[]}
+     * @private
+     */
+    function _getControlList() {
+        var
+            storage = $ws.single.ControlStorage.getControls(),
+            result = [];
+
+        for (let id in storage) {
+            if (storage.hasOwnProperty(id)) {
+                result.push(storage[id]);
+            }
+        }
+
+        return result;
+    }
+    //endregion
+
+    //region Добавление новых свойств и методов к стандартным объектам JavaScript
     _defineStealthProperties(Object.prototype,
         /** @lends Object.prototype */
         {
@@ -157,29 +235,192 @@
             }
         }
     );
+
+    _defineStealthProperties(window,
+        /** @lends window */
+        {
+            /**
+             * Получение контрола по имени или идентификатору (с приоритетом по имени).
+             * Не кидает исключение, если контрол не найден
+             * @param {string} controlNameOrId имя или идентификатор контрола
+             * @returns {undefined|$ws.proto.Control}
+             */
+            damnControl : function damnControl(controlNameOrId) {
+                if ($ws.single.ControlStorage.containsByName(controlNameOrId))
+                    return $ws.single.ControlStorage.getByName(controlNameOrId);
+                if ($ws.single.ControlStorage.contains(controlNameOrId))
+                    return $ws.single.ControlStorage.get(controlNameOrId);
+            },
+
+            /**
+             * Вывод списка всех контролов в консоль
+             */
+            damnControls : function damnControls() {
+                var
+                    controlList = _getControlList(),
+                    data = [];
+
+                for (let i = 0, n = controlList.length; i < n; ++i) {
+                    let control = controlList[i];
+
+                    data.push({
+                        control   : control,
+                        name      : control.getName(),
+                        container : control.getContainer()
+                    });
+                }
+
+                console.table(data, [
+                    {property : 'control', label : 'Контрол'},
+                    {property : 'name', label : 'Имя'},
+                    {property : 'container', label : 'Контейнер'}
+                ]);
+            },
+
+            /**
+             * Вызов метода БЛ
+             * @param {string} fullMethodName полное имя метода БЛ
+             * @param {Object} [params={}] аргументы
+             * @param {'asis'|'record'|'recordset'} [type='asis'] тип результата
+             * @param {...*} [args]
+             * @returns {$ws.proto.Deferred}
+             */
+            BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
+                var splitName = _splitMethodName(fullMethodName);
+                return $ws.proto.ClientBLObject.prototype.call.apply(
+                    new $ws.proto.BLObject(splitName.objectName),
+                    [
+                        splitName.methodName,
+                        params || {},
+                        $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]
+                    ].concat(args)
+                );
+            },
+
+            /**
+             * Вызов списочного метода БЛ
+             * @param {string} fullMethodName полное имя списочного метода БЛ
+             * @param {Object} [params={}] фильтр
+             * @param {...*} [args]
+             * @returns {$ws.proto.Deferred}
+             */
+            BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
+                var splitName = _splitMethodName(fullMethodName);
+                return $ws.proto.ClientBLObject.prototype.query.apply(
+                    new $ws.proto.BLObject(splitName.objectName),
+                    [
+                        splitName.methodName,
+                        params || {}
+                    ].concat(args)
+                );
+            },
+
+            /**
+             * Выбор контрола мышкой (подобно Firebug)
+             */
+            selectControlGUI : function selectControlGUI() {
+                var controlList = _getControlList();
+
+                for (let i = 0, n = controlList.length; i < n; ++i) {
+                    let control = controlList[i];
+
+                    if (typeof control.getContainer === 'function') {
+                        let controlContainer = control.getContainer();
+
+                        controlContainer.append(
+                            $('<div/>').css(
+                                {
+                                    position : 'absolute',
+                                    bottom   : 0,
+                                    left     : 0,
+                                    right    : 0,
+                                    top      : 0
+                                }
+                            ).bind(
+                                {
+                                    mouseenter : function () {
+                                        $(this).css('background', 'rgba(255,0,0,0.5)');
+                                    },
+
+                                    mouseleave : function () {
+                                        $(this).css('background', 'transparent');
+                                    },
+
+                                    click : function (event) {
+                                        event.stopPropagation();
+                                        $('.ws-debug-helpers.div-cover').remove();
+
+                                        console.log(control, '"' + control.getName() + '"', control.getContainer());
+                                    }
+                                }
+                            ).addClass('ws-debug-helpers div-cover')
+                        );
+                    }
+                }
+            },
+
+            /**
+             * TODO описание
+             */
+            selectControlGUI_experimental : function selectControlGUI_experimental() {
+                var controlList = _getControlList();
+
+                for (let i = 0, n = controlList.length; i < n; ++i) {
+                    let control = controlList[i];
+
+                    if (typeof control.getContainer === 'function') {
+                        let controlContainer = control.getContainer();
+
+                        controlContainer.append(
+                            $('<div/>').css(
+                                {
+                                    position   : 'absolute',
+                                    left       : 0,
+                                    top        : 0,
+                                    width      : '10px',
+                                    height     : '10px',
+                                    background : 'rgba(255,0,0,0.2)'
+                                }
+                            ).bind(
+                                {
+                                    click : function () {
+                                        console.log(control, '"' + control.getName() + '"', control.getContainer());
+                                    }
+                                }
+                            )
+                        );
+                    }
+                }
+            },
+
+            /**
+             * Вывод в консоль оповещений о наступлении какого-либо события у контрола
+             * @param {string} [controlNameOrId] имя или идентификатор контрола
+             */
+            logControlEventsGUI : function logControlEventsGUI(controlNameOrId) {
+                if (arguments.length === 0) {
+                    if ((controlNameOrId = prompt('Введите имя или идентификатор контрола')) === null) {
+                        return;
+                    }
+                }
+
+                var
+                    control = damnControl(controlNameOrId),
+                    controlEvents = control._events; // Dr. HAX негодует
+
+                for (let eventName in controlEvents) {
+                    if (controlEvents.hasOwnProperty(eventName)) {
+                        control.subscribe(eventName, function (eventObject) {
+                            console.log(this.getName(), eventObject._eventName); // Dr. HAX негодует
+                        });
+                    }
+                }
+            }
+        }
+    );
     //endregion
 
     //region Установка «таймеров»
-    /**
-     * Обёртка над setInterval, переданная функция вызывается сразу после установки интервала
-     * @param {Function} foo
-     * @param {number} delay
-     * @returns {number}
-     * @private
-     */
-    function _setIntervalImmediate(foo, delay) {
-        var proxy = function () {
-            foo.call(this, id);
-        };
-
-        // Важно, что сначала устанавливается интервал, и только потом вызывается функция;
-        // это соответствует циклу обычного setInterval
-        var id = setInterval(proxy, delay);
-        proxy();
-
-        return id;
-    }
-
     /**
      * TODO описание
      */
@@ -256,245 +497,6 @@
         }
     }, 20000);
     //endregion
-
-    /**
-     * «Анонимизация» функции (без повторной анонимизации)
-     * @param {Function} foo
-     * @returns {Function}
-     * @private
-     */
-    function _anonymize(foo) {
-        return function () {
-            return foo.isAnonymous() ? foo : foo.apply(this, arguments);
-        }
-    }
-
-    /**
-     * TODO описание
-     * @param {Function} foo
-     * @param {Function} before
-     * @returns {Function}
-     * @private
-     */
-    function _extend(foo, before) {
-        return function () {
-            before();
-            return foo.apply(this, arguments);
-        }
-    }
-
-    /**
-     * Разделение полного имени метода БЛ на имя объекта и имя метода
-     * @param {string} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
-     * @returns {{objectName: string, methodName: string}}
-     * @private
-     */
-    function _splitMethodName(fullMethodName) {
-        var splitName = fullMethodName.split('.');
-        return {objectName : splitName[0], methodName : splitName[1]};
-    }
-
-    /**
-     * Получение списка контролов
-     * @returns {$ws.proto.Control[]}
-     * @private
-     */
-    function _getControlList() {
-        var
-            storage = $ws.single.ControlStorage.getControls(),
-            result = [];
-
-        for (let id in storage) {
-            if (storage.hasOwnProperty(id)) {
-                result.push(storage[id]);
-            }
-        }
-
-        return result;
-    }
-
-    /** @lends window */
-    var helpersMap = {
-        /**
-         * Получение контрола по имени или идентификатору (с приоритетом по имени).
-         * Не кидает исключение, если контрол не найден
-         * @param {string} controlNameOrId имя или идентификатор контрола
-         * @returns {undefined|$ws.proto.Control}
-         */
-        damnControl : function damnControl(controlNameOrId) {
-            if ($ws.single.ControlStorage.containsByName(controlNameOrId))
-                return $ws.single.ControlStorage.getByName(controlNameOrId);
-            if ($ws.single.ControlStorage.contains(controlNameOrId))
-                return $ws.single.ControlStorage.get(controlNameOrId);
-        },
-
-        /**
-         * Вывод списка всех контролов в консоль
-         */
-        damnControls : function damnControls() {
-            var
-                controlList = _getControlList(),
-                data = [];
-
-            for (let i = 0, n = controlList.length; i < n; ++i) {
-                let control = controlList[i];
-
-                data.push({
-                    control   : control,
-                    name      : control.getName(),
-                    container : control.getContainer()
-                });
-            }
-
-            console.table(data, [
-                {property : 'control', label : 'Контрол'},
-                {property : 'name', label : 'Имя'},
-                {property : 'container', label : 'Контейнер'}
-            ]);
-        },
-
-        /**
-         * Вызов метода БЛ
-         * @param {string} fullMethodName полное имя метода БЛ
-         * @param {Object} [params={}] аргументы
-         * @param {'asis'|'record'|'recordset'} [type='asis'] тип результата
-         * @param {...*} [args]
-         * @returns {$ws.proto.Deferred}
-         */
-        BLObjectC : function BLObjectC(fullMethodName, params, type, ...args) {
-            var splitName = _splitMethodName(fullMethodName);
-            return $ws.proto.ClientBLObject.prototype.call.apply(
-                new $ws.proto.BLObject(splitName.objectName),
-                [
-                    splitName.methodName,
-                    params || {},
-                    $ws.proto.BLObject['RETURN_TYPE_' + (type || 'ASIS').toUpperCase()]
-                ].concat(args)
-            );
-        },
-
-        /**
-         * Вызов списочного метода БЛ
-         * @param {string} fullMethodName полное имя списочного метода БЛ
-         * @param {Object} [params={}] фильтр
-         * @param {...*} [args]
-         * @returns {$ws.proto.Deferred}
-         */
-        BLObjectQ : function BLObjectQ(fullMethodName, params, ...args) {
-            var splitName = _splitMethodName(fullMethodName);
-            return $ws.proto.ClientBLObject.prototype.query.apply(
-                new $ws.proto.BLObject(splitName.objectName),
-                [
-                    splitName.methodName,
-                    params || {}
-                ].concat(args)
-            );
-        },
-
-        /**
-         * Выбор контрола мышкой (подобно Firebug)
-         */
-        selectControlGUI : function selectControlGUI() {
-            var controlList = _getControlList();
-
-            for (let i = 0, n = controlList.length; i < n; ++i) {
-                let control = controlList[i];
-
-                if (typeof control.getContainer === 'function') {
-                    let controlContainer = control.getContainer();
-
-                    controlContainer.append(
-                        $('<div/>').css(
-                            {
-                                position : 'absolute',
-                                bottom   : 0,
-                                left     : 0,
-                                right    : 0,
-                                top      : 0
-                            }
-                        ).bind(
-                            {
-                                mouseenter : function () {
-                                    $(this).css('background', 'rgba(255,0,0,0.5)');
-                                },
-
-                                mouseleave : function () {
-                                    $(this).css('background', 'transparent');
-                                },
-
-                                click : function (event) {
-                                    event.stopPropagation();
-                                    $('.ws-debug-helpers.div-cover').remove();
-
-                                    console.log(control, '"' + control.getName() + '"', control.getContainer());
-                                }
-                            }
-                        ).addClass('ws-debug-helpers div-cover')
-                    );
-                }
-            }
-        },
-
-        /**
-         * TODO описание
-         */
-        selectControlGUI_experimental : function selectControlGUI_experimental() {
-            var controlList = _getControlList();
-
-            for (let i = 0, n = controlList.length; i < n; ++i) {
-                let control = controlList[i];
-
-                if (typeof control.getContainer === 'function') {
-                    let controlContainer = control.getContainer();
-
-                    controlContainer.append(
-                        $('<div/>').css(
-                            {
-                                position   : 'absolute',
-                                left       : 0,
-                                top        : 0,
-                                width      : '10px',
-                                height     : '10px',
-                                background : 'rgba(255,0,0,0.2)'
-                            }
-                        ).bind(
-                            {
-                                click : function () {
-                                    console.log(control, '"' + control.getName() + '"', control.getContainer());
-                                }
-                            }
-                        )
-                    );
-                }
-            }
-        },
-
-        /**
-         * Вывод в консоль оповещений о наступлении какого-либо события у контрола
-         * @param {string} [controlNameOrId] имя или идентификатор контрола
-         */
-        logControlEventsGUI : function logControlEventsGUI(controlNameOrId) {
-            if (arguments.length === 0) {
-                if ((controlNameOrId = prompt('Введите имя или идентификатор контрола')) === null) {
-                    return;
-                }
-            }
-
-            var
-                control = damnControl(controlNameOrId),
-                controlEvents = control._events; // Dr. HAX негодует
-
-            for (let eventName in controlEvents) {
-                if (controlEvents.hasOwnProperty(eventName)) {
-                    control.subscribe(eventName, function (eventObject) {
-                        console.log(this.getName(), eventObject._eventName); // Dr. HAX негодует
-                    });
-                }
-            }
-        }
-    };
-
-    _defineStealthProperties(window, helpersMap);
 
     $(document).ready(function () {
         // TODO ну ты понел
