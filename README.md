@@ -1,31 +1,31 @@
 ### Доступно ###
 
 #### Object.prototype ####
-*   `getPrototypeChain()`
+*   `getPrototypeChain()`  
     Получение цепочки прототипов объекта
 
 #### String.prototype ####
-*   `lJust(width, fill)`
+*   `lJust(width, fill)`  
     Выравнивание строки по левому краю
-*   `rJust(width, fill)`
+*   `rJust(width, fill)`  
     Выравнивание строки по правому краю
-*   `center(width, fill)`
+*   `center(width, fill)`  
     Выравнивание строки по центру
 
 #### Function.prototype ####
-*   `isAnonymous()`
+*   `isAnonymous()`  
     Проверка функции на анонимность
 
 #### window ####
-*   `damnControl(controlNameOrId)`
+*   `damnControl(controlNameOrId)`  
     Получение контрола по имени или идентификатору (с приоритетом по имени)
-*   `damnControls()`
+*   `damnControls()`  
     Вывод списка всех контролов в консоль
-*   `BLObjectC(fullMethodName, params, type, ...args)`
+*   `BLObjectC(fullMethodName, params, type, ...args)`  
     Вызов метода БЛ
-*   `BLObjectQ(fullMethodName, params, ...args)`
+*   `BLObjectQ(fullMethodName, params, ...args)`  
     Вызов списочного метода БЛ
-*   `logControlEventsGUI()`
+*   `logControlEventsGUI()`  
     Вывод в консоль оповещений о наступлении какого-либо события у контрола
  
 ---
@@ -33,11 +33,11 @@
 ### Ожидается ###
 
 #### Array.prototype ####
-*   `toConsole()`
+*   `toConsole()`  
     Вывод массива в консоль
 
 #### window ####
-*   `selectControlGUI()`
+*   `selectControlGUI()`  
     Выбор контрола
 
 ---
