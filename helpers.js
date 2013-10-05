@@ -71,6 +71,36 @@
     }
 
     /**
+     * Получение списка контролов
+     * @returns {$ws.proto.Control[]}
+     * @private
+     */
+    function _getControlList() {
+        var
+            storage = $ws.single.ControlStorage.getControls(),
+            result = [];
+
+        for (let id in storage) {
+            if (storage.hasOwnProperty(id)) {
+                result.push(storage[id]);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Разделение полного имени метода БЛ на имя объекта и имя метода
+     * @param {string} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
+     * @returns {{objectName: string, methodName: string}}
+     * @private
+     */
+    function _splitMethodName(fullMethodName) {
+        var splitName = fullMethodName.split('.');
+        return {objectName : splitName[0], methodName : splitName[1]};
+    }
+
+    /**
      * Обёртка над setInterval, переданная функция вызывается сразу после установки интервала
      * @param {Function} foo
      * @param {number} delay
@@ -91,18 +121,6 @@
     }
 
     /**
-     * «Анонимизация» функции (без повторной анонимизации)
-     * @param {Function} foo
-     * @returns {Function}
-     * @private
-     */
-    function _anonymize(foo) {
-        return function () {
-            return foo.isAnonymous() ? foo : foo.apply(this, arguments);
-        }
-    }
-
-    /**
      * TODO описание
      * @param {Function} foo
      * @param {Function} before
@@ -117,33 +135,15 @@
     }
 
     /**
-     * Разделение полного имени метода БЛ на имя объекта и имя метода
-     * @param {string} fullMethodName полное имя метода БЛ (вместе с именем объекта через точку)
-     * @returns {{objectName: string, methodName: string}}
+     * «Анонимизация» функции (без повторной анонимизации)
+     * @param {Function} foo
+     * @returns {Function}
      * @private
      */
-    function _splitMethodName(fullMethodName) {
-        var splitName = fullMethodName.split('.');
-        return {objectName : splitName[0], methodName : splitName[1]};
-    }
-
-    /**
-     * Получение списка контролов
-     * @returns {$ws.proto.Control[]}
-     * @private
-     */
-    function _getControlList() {
-        var
-            storage = $ws.single.ControlStorage.getControls(),
-            result = [];
-
-        for (let id in storage) {
-            if (storage.hasOwnProperty(id)) {
-                result.push(storage[id]);
-            }
+    function _anonymize(foo) {
+        return function () {
+            return foo.isAnonymous() ? foo : foo.apply(this, arguments);
         }
-
-        return result;
     }
     //endregion
 
