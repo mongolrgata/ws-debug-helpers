@@ -9,9 +9,10 @@
 (function () {
     "use strict";
 
+    //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
-     * TODO описание
-     * @param {Object} object
+     * Поиск некоторого пути до объекта относительно глобального объекта <code>window</code> обходом в глубину.
+     * @param {Object} object искомый объект
      * @returns {string}
      * @private
      */
@@ -51,7 +52,6 @@
         })(window, 'window');
     }
 
-    //region Добавление новых свойств и методов к стандартным объектам JavaScript
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
      * @param object
@@ -194,7 +194,7 @@
         });
 
         $ws.single.ControlStorage.remove = _extend($ws.single.ControlStorage.remove, function (control) {
-            for (let i = 0; i < controlList.length; ++i) {
+            for (let i = 0, n = controlList.length; i < n; ++i) {
                 if (control === controlList[i]) {
                     controlList.splice(i, 1);
                     break;
@@ -203,7 +203,7 @@
         });
 
         clearInterval(id);
-    }, 1000);
+    }, 200);
 
     /**
      * Анонимизация функции конструктора и определение метода toString для всех классов платформы,
@@ -336,7 +336,7 @@
                 controlList = _getControlList(),
                 data = [];
 
-            for (let i = 0; i < controlList.length; ++i) {
+            for (let i = 0, n = controlList.length; i < n; ++i) {
                 let control = controlList[i];
 
                 data.push({
@@ -397,7 +397,7 @@
         selectControlGUI : function selectControlGUI() {
             var controlList = _getControlList();
 
-            for (let i = 0; i < controlList.length; ++i) {
+            for (let i = 0, n = controlList.length; i < n; ++i) {
                 let control = controlList[i];
 
                 if (typeof control.getContainer === 'function') {
@@ -441,7 +441,7 @@
         selectControlGUI_experimental : function selectControlGUI_experimental() {
             var controlList = _getControlList();
 
-            for (let i = 0; i < controlList.length; ++i) {
+            for (let i = 0, n = controlList.length; i < n; ++i) {
                 let control = controlList[i];
 
                 if (typeof control.getContainer === 'function') {

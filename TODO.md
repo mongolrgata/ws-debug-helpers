@@ -13,9 +13,8 @@
     Определить общий формат вывода в консоль.
 8.  `wsProtoClassTree`
     Сохранение результата в `localStorage`.
-9.  Заменить `for (let i = 0; i < controlList.length; ++i)` на `for (let i = 0, n = controlList.length; i < n; ++i)`
 10. `_findObjectPath`
-    Попробовать заменить массив `was` на хеш.
+    Попробовать заменить массив `was` на некий хеш.
 
 ### offset vs. position ###
 -   переместить в `polygon`
