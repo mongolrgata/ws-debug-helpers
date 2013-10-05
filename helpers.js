@@ -187,34 +187,34 @@
             /**
              * Выравнивание строки по левому краю
              * @param {number} width целевая ширина строки
-             * @param {string} [fill] символ-заполнитель
+             * @param {string} [fillChar] символ-заполнитель
              * @returns {string}
              */
-            lJust : function lJust(width, fill) {
-                fill = (fill || ' ').charAt(0);
-                return this + new Array(Math.max(0, width - this.length + 1)).join(fill);
+            lJust : function lJust(width, fillChar) {
+                fillChar = (fillChar || ' ').charAt(0);
+                return this + new Array(Math.max(0, width - this.length + 1)).join(fillChar);
             },
 
             /**
              * Выравнивание строки по правому краю
              * @param {number} width целевая ширина строки
-             * @param {string} [fill] символ-заполнитель
+             * @param {string} [fillChar] символ-заполнитель
              * @returns {string}
              */
-            rJust : function rJust(width, fill) {
-                fill = (fill || ' ').charAt(0);
-                return new Array(Math.max(0, width - this.length + 1)).join(fill) + this;
+            rJust : function rJust(width, fillChar) {
+                fillChar = (fillChar || ' ').charAt(0);
+                return new Array(Math.max(0, width - this.length + 1)).join(fillChar) + this;
             },
 
             /**
              * Выравнивание строки по центру
              * @param {number} width целевая ширина строки
-             * @param {string} [fill] символ-заполнитель
+             * @param {string} [fillChar] символ-заполнитель
              * @returns {string}
              */
-            center : function center(width, fill) {
-                fill = (fill || ' ').charAt(0);
-                return this.rJust((+width + this.length) >> 1, fill).lJust(width, fill);
+            center : function center(width, fillChar) {
+                fillChar = (fillChar || ' ').charAt(0);
+                return this.rJust((+width + this.length) >> 1, fillChar).lJust(width, fillChar);
             }
         }
     );
@@ -500,7 +500,12 @@
     //endregion
 
     $(document).ready(function () {
-        // TODO ну ты понел
-        console.log('Свистелки и перделки загружены');
+        $('body').append(
+            $('div').css({
+                
+            }).append(
+                    
+                )
+        );
     });
 })();

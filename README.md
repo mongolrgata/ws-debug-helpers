@@ -1,46 +1,43 @@
-### Доступно ###
-
+Доступно
+---
 #### Object.prototype ####
-*   `getPrototypeChain()`  
-    Получение цепочки прототипов объекта
+*   `getPrototypeChain`( )  
+    Получение цепочки прототипов объекта.
 
 #### String.prototype ####
-*   `lJust(width, fill)`  
-    Выравнивание строки по левому краю
-*   `rJust(width, fill)`  
-    Выравнивание строки по правому краю
-*   `center(width, fill)`  
-    Выравнивание строки по центру
+*   `lJust`( _width_ **[** , _fillChar_ **]** )  
+    Выравнивание строки по левому краю.
+*   `rJust`( _width_ **[** , _fillChar_ **]** )  
+    Выравнивание строки по правому краю.
+*   `center`( _width_ **[** , _fillChar_ **]** )  
+    Выравнивание строки по центру.
 
 #### Function.prototype ####
-*   `isAnonymous()`  
-    Проверка функции на анонимность
+*   `isAnonymous`( )  
+    Проверка функции на анонимность.
 
 #### window ####
-*   `damnControl(controlNameOrId)`  
-    Получение контрола по имени или идентификатору (с приоритетом по имени)
-*   `damnControls()`  
-    Вывод списка всех контролов в консоль
-*   `BLObjectC(fullMethodName, params, type, ...args)`  
-    Вызов метода БЛ
-*   `BLObjectQ(fullMethodName, params, ...args)`  
-    Вызов списочного метода БЛ
-*   `logControlEventsGUI()`  
-    Вывод в консоль оповещений о наступлении какого-либо события у контрола
- 
+*   `damnControl`( _controlNameOrId_ )  
+    Получение контрола по имени или идентификатору (с приоритетом по имени).
+*   `damnControls`( )  
+    Вывод списка всех контролов в консоль.
+*   `BLObjectC`( _fullMethodName_ **[** , _params_, _type_, _...args_ **]** )  
+    Вызов метода БЛ.
+*   `BLObjectQ`( _fullMethodName_ **[** , _params_, _...args_ **]** )  
+    Вызов списочного метода БЛ.
+*   `logControlEventsGUI`( )  
+    Вывод в консоль оповещений о наступлении какого-либо события у контрола.
+
+Ожидается
 ---
-
-### Ожидается ###
-
 #### Array.prototype ####
-*   `toConsole()`  
-    Вывод массива в консоль
+*   `toConsole`( )  
+    Вывод массива в консоль.
 
 #### window ####
-*   `selectControlGUI()`  
-    Выбор контрола
+*   `selectControlGUI`( )  
+    Выбор контрола.
 
+Использование
 ---
-
-### Использование ###
 ![](http://puu.sh/4GTgP.jpg)
