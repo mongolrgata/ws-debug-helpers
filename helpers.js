@@ -144,7 +144,7 @@
         return function () {
             return foo.isAnonymous() ? foo : foo.apply(this, arguments);
         }
-    }
+    };
     //endregion
 
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
@@ -270,6 +270,7 @@
                     });
                 }
 
+                console.clear();
                 console.table(data, [
                     {property : 'control', label : 'Контрол'},
                     {property : 'name', label : 'Имя'},
