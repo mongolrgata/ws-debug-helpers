@@ -1,4 +1,5 @@
-### helpers.js ###
+helpers.js
+---
 1.  `selectControlGUI`  
     Добавить сохранение последнего выбранного контрола в глобальную переменную.
 2.  `_extend(foo, before)`  
@@ -12,21 +13,28 @@
     Запретить повторную установку интервала.
 6.  `damnControls` и `selectControlGUI`  
     Определить общий формат вывода в консоль.
-8.  `wsProtoClassTree`
+7.  `wsProtoClassTree`  
     Сохранение результата в `localStorage`.
-10. `_findObjectPath`
+8.  `_findObjectPath`  
     Попробовать заменить массив `was` на некий хеш.
-11. `wsSingleControlStorageExtend`
+9.  `wsSingleControlStorageExtend`  
     Проверить применение «функции-расширитель» (название временное),
-    в параметр-функцию `before` при её вызове сейчас не передается никаких параметров
+    в параметр-функцию `before` при её вызове сейчас не передается никаких параметров.
+10. `$divMessage`
+    -   добавить удаление из DOM после скрытия
+    -   добавить поиск максимального zIndex
+    -   добавить крестик закрывающий сообщение
 
-### offset vs. position ###
+offset vs. position
+---
 -   переместить в `polygon`
 -   выводить координаты элемента рядом с ним (`$(elem).offset()` и `$(elem).position()`)
--   реализовать перетаскивание элемента: [Draggable div without jQuery UI](http://stackoverflow.com/questions/8569095/draggable-div-without-jquery-ui).
+-   реализовать перетаскивание элемента: [Draggable div without jQuery UI](http://stackoverflow.com/questions/8569095/draggable-div-without-jquery-ui)
 
-### polygon ###
--   создание `iframe` с любым демо из `polygon`.
+polygon
+---
+-   создание `iframe` с любым демо из `polygon`
 
-### hover-menu ###
--   привести в порядок.
+hover-menu
+---
+-   привести в порядок

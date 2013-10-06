@@ -500,12 +500,33 @@
     //endregion
 
     $(document).ready(function () {
+        var $divMessage = $('<div/>')
+            .css({
+                position   : 'fixed',
+                top        : '16px',
+                left       : '16px',
+                padding    : '16px',
+                zIndex     : 100500,
+                background : 'indigo',
+                boxShadow  : '0 0 16px rgba(0,0,0,0.5)',
+                font       : 'normal normal normal 16px Segoe UI, sans-serif',
+                color      : 'white'
+            });
+
         $('body').append(
-            $('div').css({
-                
-            }).append(
-                    
-                )
+            $divMessage.append(
+                'Свистелки и перделки загружены. ',
+                '<a target="_blank" href="https://github.com/mongolrgata/ws-debug-helpers/blob/master/README.md#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE">Что это?</a>'
+            )
         );
+
+        $divMessage.hover(
+            function () {
+                $(this).stop(true, true).fadeIn(0);
+            },
+            function () {
+                $(this).stop(true, true).delay(800).fadeOut(1600);
+            }
+        ).trigger('mouseleave');
     });
 })();
