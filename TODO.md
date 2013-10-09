@@ -21,7 +21,9 @@ helpers.js
 10. `$divMessage`
     Добавить крестик закрывающий сообщение
 11. `_maxZIndex`
-    Сделать поиск элемента в ноде с максимальным zIndex
+    Сделать поиск элемента в ноде с максимальным zIndex.
+12. `Object.prototype.getPath`
+    Сделать. Решить проблему зависимости от _defineStealthProperties.
 
 offset vs. position
 ---
