@@ -70,48 +70,6 @@
     }
 
     /**
-     * Поиск некоторого пути до объекта относительно глобального объекта <code>window</code> обходом в глубину.
-     * @param {Object} object искомый объект
-     * @returns {string}
-     * @private
-     */
-    function _objectPath(object) {
-        var was = []; // массив посещённых объектов
-
-        return (function dfs(root, rootName) {
-            if (root === object)
-                return rootName;
-
-            was.push(root);
-
-            var propertyList = Object.getOwnPropertyNames(root);
-
-            for (let i = 0, n = propertyList.length; i < n; i++) {
-                var property, node;
-
-                try {
-                    property = propertyList[i];
-                    node = root[property];
-                }
-                catch (e) {
-                    continue; // не удалось получить доступ к свойству
-                }
-
-                if (!(typeof node === 'object' && node !== null || node instanceof Object))
-                    continue; // узел не является объектом
-
-                if (was.indexOf(node) !== -1)
-                    continue; // узел уже был посещён
-
-                var path = dfs(node, property);
-
-                if (typeof path !== 'undefined')
-                    return rootName + '.' + path;
-            }
-        })(window, 'window');
-    }
-
-    /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
      * @param object
      * @param properties
@@ -120,11 +78,15 @@
     function _defineStealthProperties(object, properties) {
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
-                if (propertyName in object) {
-                    console.warn('Попытка %s свойство %s.%s', object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть', _objectPath(object), propertyName);
-                }
+//                let tmp;
+//
+//                if (propertyName in object)
+//                    tmp = object.hasOwnProperty(propertyName);
 
                 Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
+//
+//                if (tmp !== undefined)
+//                    console.warn('Попытка %s свойство %s.%s', tmp ? 'переопределить' : 'перекрыть', object.getPath(), propertyName);
             }
         }
     }
@@ -224,6 +186,48 @@
                 }
 
                 return res;
+            },
+
+            /**
+             * Поиск некоторого пути до объекта относительно глобального объекта <code>window</code> обходом в глубину.
+             * @param {Object} [rootObject=window]
+             * @returns {string}
+             */
+            getPath : function getPath(rootObject) {
+                var was = [getPath]; // массив посещённых объектов
+                var object = this;
+
+                return (function dfs(root, rootName) {
+                    if (object === root)
+                        return rootName;
+
+                    was.push(root);
+
+                    var propertyList = Object.getOwnPropertyNames(root);
+
+                    for (let i = 0, n = propertyList.length; i < n; i++) {
+                        var property, node;
+
+                        try {
+                            property = propertyList[i];
+                            node = root[property];
+                        }
+                        catch (e) {
+                            continue; // не удалось получить доступ к свойству
+                        }
+
+                        if (!(typeof node === 'object' && node !== null || node instanceof Object))
+                            continue; // узел не является объектом
+
+                        if (was.indexOf(node) !== -1)
+                            continue; // узел уже был посещён
+
+                        var path = dfs(node, property);
+
+                        if (typeof path !== 'undefined')
+                            return rootName + '.' + path;
+                    }
+                })(rootObject || window, 'window');
             }
         }
     );
