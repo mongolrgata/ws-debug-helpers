@@ -5,6 +5,7 @@
  * Time: 21:48
  */
 
+({}).getPath();
 ({}).getPrototypeChain();
 [].toConsole();
 ''.rJust(0);

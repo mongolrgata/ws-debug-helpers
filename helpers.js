@@ -78,15 +78,20 @@
     function _defineStealthProperties(object, properties) {
         for (let propertyName in properties) {
             if (properties.hasOwnProperty(propertyName)) {
-//                let tmp;
-//
-//                if (propertyName in object)
-//                    tmp = object.hasOwnProperty(propertyName);
+                var defineType = 'определить';
+                if (propertyName in object)
+                    defineType = object.hasOwnProperty(propertyName) ? 'переопределить' : 'перекрыть';
 
-                Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
-//
-//                if (tmp !== undefined)
-//                    console.warn('Попытка %s свойство %s.%s', tmp ? 'переопределить' : 'перекрыть', object.getPath(), propertyName);
+                try {
+                    Object.defineProperty(object, propertyName, {configurable : true, enumerable : false, writable : true, value : properties[propertyName]});
+                } catch (e) {
+                    console.exception(e);
+                    continue;
+                }
+
+                if (object[propertyName] !== properties[propertyName]) {
+                    console.warn('Не удалось %s свойство %s', defineType, propertyName);
+                }
             }
         }
     }
