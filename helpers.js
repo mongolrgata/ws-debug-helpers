@@ -194,17 +194,20 @@
             },
 
             /**
-             * Поиск некоторого пути до объекта относительно глобального объекта <code>window</code> обходом в глубину.
+             * Поиск некоторого пути до объекта относительно объекта <code>rootObject</code> обходом в глубину.
              * @param {Object} [rootObject=window]
-             * @returns {string}
+             * @returns {string[]}
              */
             getPath : function getPath(rootObject) {
                 var was = [getPath]; // массив посещённых объектов
                 var object = this;
+                var path;
 
-                return (function dfs(root, rootName) {
-                    if (object === root)
-                        return rootName;
+                (function dfs(root) {
+                    if (object === root) {
+                        path = [];
+                        return;
+                    }
 
                     was.push(root);
 
@@ -227,12 +230,16 @@
                         if (was.indexOf(node) !== -1)
                             continue; // узел уже был посещён
 
-                        var path = dfs(node, property);
+                        dfs(node);
 
-                        if (typeof path !== 'undefined')
-                            return rootName + '.' + path;
+                        if (path !== undefined) {
+                            path.unshift(property);
+                            return;
+                        }
                     }
-                })(rootObject || window, 'window');
+                })(rootObject || window);
+
+                return path;
             }
         }
     );
