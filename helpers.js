@@ -199,13 +199,14 @@
              * @returns {string[]}
              */
             getPath : function getPath(rootObject) {
-                var was = [getPath]; // массив посещённых объектов
-                var object = this;
-                var path;
+                var
+                    self = this,
+                    was = [], // массив посещённых узлов
+                    result = null;
 
                 (function dfs(root) {
-                    if (object === root) {
-                        path = [];
+                    if (root === self) {
+                        result = [];
                         return;
                     }
 
@@ -232,14 +233,14 @@
 
                         dfs(node);
 
-                        if (path !== undefined) {
-                            path.unshift(property);
+                        if (result !== null) {
+                            result.unshift(property);
                             return;
                         }
                     }
                 })(rootObject || window);
 
-                return path;
+                return result;
             }
         }
     );
@@ -252,6 +253,10 @@
              */
             toConsole : function toConsole() {
 
+            },
+
+            joinPath : function joinPath() {
+                return '["' + this.join('"]["') + '"]';
             }
         }
     );

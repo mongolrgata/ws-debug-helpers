@@ -24,6 +24,8 @@ helpers.js
     Сделать поиск элемента в ноде с максимальным zIndex.
 12. `Object.prototype.getPath`
     Сделать. Решить проблему зависимости от _defineStealthProperties.
+13. `Array.prototype.joinPath`
+    Склеивать свойства-идентификаторы через точку.
 
 offset vs. position
 ---
