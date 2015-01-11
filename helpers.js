@@ -9,21 +9,21 @@
 (function () {
     "use strict";
 
-    if (window.wsDebugHelpers && window.wsDebugHelpers.ready) {
-        _showReadyMessage();
-        return;
-    }
+    //if (window.wsDebugHelpers && window.wsDebugHelpers.ready) {
+    //    _showReadyMessage();
+    //    return;
+    //}
 
     //region Приватные функции
-    /**
-     * TODO описание
-     * @param {jQuery} $node
-     * @returns {number}
-     * @private
-     */
-    function _maxZIndex($node) {
-        return 100500;
-    }
+    ///**
+    // *
+    // * @param {jQuery} $node
+    // * @returns {number}
+    // * @private
+    // */
+    //function _maxZIndex($node) {
+    //    return 100500;
+    //}
 
     /**
      * TODO описание
@@ -38,7 +38,7 @@
                     top        : '16px',
                     left       : '16px',
                     padding    : '16px',
-                    zIndex     : _maxZIndex($body) + 1,
+                    zIndex     : 100500, // _maxZIndex($body) + 1,
                     font       : 'normal normal normal 16px Segoe UI, sans-serif',
                     background : 'indigo',
                     boxShadow  : '0 0 16px rgba(0,0,0,0.5)',
@@ -102,6 +102,7 @@
      * @private
      */
     function _getControlList() {
+        // TODO переделать без использования $ws.single.ControlStorage
         var
             storage = $ws.single.ControlStorage.getControls(),
             result = [];
@@ -146,19 +147,19 @@
         return id;
     }
 
-    /**
-     * TODO описание
-     * @param {Function} foo
-     * @param {Function} before
-     * @returns {Function}
-     * @private
-     */
-    function _extend(foo, before) {
-        return function () {
-            before();
-            return foo.apply(this, arguments);
-        }
-    }
+    ///**
+    // *
+    // * @param {Function} foo
+    // * @param {Function} before
+    // * @returns {Function}
+    // * @private
+    // */
+    //function _extend(foo, before) {
+    //    return function () {
+    //        before();
+    //        return foo.apply(this, arguments);
+    //    }
+    //}
 
     /**
      * «Анонимизация» функции (без повторной анонимизации)
@@ -170,7 +171,7 @@
         return function () {
             return foo.isAnonymous() ? foo : foo.apply(this, arguments);
         }
-    };
+    }
     //endregion
 
     //region Добавление новых свойств и методов к стандартным объектам JavaScript
@@ -326,6 +327,7 @@
              * @returns {undefined|$ws.proto.Control}
              */
             damnControl : function damnControl(controlNameOrId) {
+                // TODO перейти на $ws.proto.AreaAbstract.getChildControlByName и $ws.proto.AreaAbstract.getChildControlById
                 if ($ws.single.ControlStorage.containsByName(controlNameOrId))
                     return $ws.single.ControlStorage.getByName(controlNameOrId);
                 if ($ws.single.ControlStorage.contains(controlNameOrId))
@@ -487,7 +489,7 @@
 
                 var
                     control = damnControl(controlNameOrId),
-                    controlEvents = control._events; // Dr. HAX негодует
+                    controlEvents = control._eventBusChannel._events; // Dr. HAX негодует
 
                 for (let eventName in controlEvents) {
                     if (controlEvents.hasOwnProperty(eventName)) {
@@ -496,40 +498,40 @@
                         });
                     }
                 }
-            },
-
-            wsDebugHelpers : {
-                ready : true
             }
+
+            //wsDebugHelpers : {
+            //    ready : true
+            //}
         }
     );
     //endregion
 
     //region Установка «таймеров»
-    /**
-     * TODO описание
-     */
-    _setIntervalImmediate(function wsSingleControlStorageExtend(id) {
-        if (typeof $ws === 'undefined' || !$ws.single || !$ws.single.ControlStorage)
-            return;
-
-        var controlList = _getControlList();
-
-        $ws.single.ControlStorage.store = _extend($ws.single.ControlStorage.store, function (control) {
-            controlList.push(control);
-        });
-
-        $ws.single.ControlStorage.remove = _extend($ws.single.ControlStorage.remove, function (control) {
-            for (let i = 0, n = controlList.length; i < n; ++i) {
-                if (control === controlList[i]) {
-                    controlList.splice(i, 1);
-                    break;
-                }
-            }
-        });
-
-        clearInterval(id);
-    }, 200);
+    ///**
+    // *
+    // */
+    //_setIntervalImmediate(function wsSingleControlStorageExtend(id) {
+    //    if (typeof $ws === 'undefined' || !$ws.single || !$ws.single.ControlStorage)
+    //        return;
+    //
+    //    var controlList = _getControlList();
+    //
+    //    $ws.single.ControlStorage.store = _extend($ws.single.ControlStorage.store, function (control) {
+    //        controlList.push(control);
+    //    });
+    //
+    //    $ws.single.ControlStorage.remove = _extend($ws.single.ControlStorage.remove, function (control) {
+    //        for (let i = 0, n = controlList.length; i < n; ++i) {
+    //            if (control === controlList[i]) {
+    //                controlList.splice(i, 1);
+    //                break;
+    //            }
+    //        }
+    //    });
+    //
+    //    clearInterval(id);
+    //}, 200);
 
     /**
      * Анонимизация функции конструктора и определение метода toString для всех классов платформы,
