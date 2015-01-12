@@ -13,11 +13,3 @@
 ''.center(0);
 (function () {
 }).isAnonymous();
-
-damnControl('controlNameOrId');
-damnControls();
-BLObjectC('objectName.methodName');
-BLObjectQ('objectName.methodName');
-selectControlGUI();
-selectControlGUI_experimental();
-logControlEventsGUI();

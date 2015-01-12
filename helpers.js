@@ -44,7 +44,7 @@
                     boxShadow  : '0 0 16px rgba(0,0,0,0.5)',
                     color      : 'white'
                 }),
-                $a = $('<a target="_blank" href="https://github.com/mongolrgata/ws-debug-helpers/blob/master/README.md#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE">ЧЗХ?</a>').css({
+                $a = $('<a target="_blank" href="https://github.com/mongolrgata/ws-debug-helpers/blob/master/README.md#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE">ШТА?</a>').css({
                     fontWeight : 'bold',
                     color      : 'white'
                 });
