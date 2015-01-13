@@ -37,7 +37,3 @@
 #### window ####
 *   `selectControlGUI` ( )  
     Выбор контрола.
-
-Использование
----
-![](http://puu.sh/4GTgP.jpg)

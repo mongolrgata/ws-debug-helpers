@@ -11,5 +11,4 @@
 ''.rJust(0);
 ''.lJust(0);
 ''.center(0);
-(function () {
-}).isAnonymous();
+(function () {}).isAnonymous();

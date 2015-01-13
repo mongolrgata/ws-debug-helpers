@@ -26,17 +26,3 @@ helpers.js
     Сделать. Решить проблему зависимости от _defineStealthProperties.
 13. `Array.prototype.joinPath`
     Склеивать свойства-идентификаторы через точку.
-
-offset vs. position
----
--   переместить в `polygon`
--   выводить координаты элемента рядом с ним (`$(elem).offset()` и `$(elem).position()`)
--   реализовать перетаскивание элемента: [Draggable div without jQuery UI](http://stackoverflow.com/questions/8569095/draggable-div-without-jquery-ui)
-
-polygon
----
--   создание `iframe` с любым демо из `polygon`
-
-hover-menu
----
--   привести в порядок
