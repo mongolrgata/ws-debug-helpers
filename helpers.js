@@ -15,60 +15,6 @@
     //}
 
     //region Приватные функции
-    ///**
-    // *
-    // * @param {jQuery} $node
-    // * @returns {number}
-    // * @private
-    // */
-    //function _maxZIndex($node) {
-    //    return 100500;
-    //}
-
-    /**
-     * TODO описание
-     * @private
-     */
-    function _showReadyMessage() {
-        $(document).ready(function () {
-            var
-                $body = $('body'),
-                $divMessageBox = $('<div/>').css({
-                    position   : 'fixed',
-                    top        : '16px',
-                    left       : '16px',
-                    padding    : '16px',
-                    zIndex     : 100500, // _maxZIndex($body) + 1,
-                    font       : 'normal normal normal 16px Segoe UI, sans-serif',
-                    background : 'indigo',
-                    boxShadow  : '0 0 16px rgba(0,0,0,0.5)',
-                    color      : 'white'
-                }),
-                $a = $('<a target="_blank" href="https://github.com/mongolrgata/ws-debug-helpers/blob/master/README.md#%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE">ШТА?</a>').css({
-                    fontWeight : 'bold',
-                    color      : 'white'
-                });
-
-            $body.append(
-                $divMessageBox.append(
-                    'Свистелки и перделки загружены. ',
-                    $a
-                )
-            );
-
-            $divMessageBox.hover(
-                function () {
-                    $divMessageBox.stop(true).animate({opacity : 1}, 0);
-                },
-                function () {
-                    $divMessageBox.stop(true).delay(800).animate({opacity : 0}, 1600, function () {
-                        $divMessageBox.remove();
-                    });
-                }
-            ).trigger('mouseleave');
-        });
-    }
-
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
      * @param object
@@ -146,20 +92,6 @@
 
         return id;
     }
-
-    ///**
-    // *
-    // * @param {Function} foo
-    // * @param {Function} before
-    // * @returns {Function}
-    // * @private
-    // */
-    //function _extend(foo, before) {
-    //    return function () {
-    //        before();
-    //        return foo.apply(this, arguments);
-    //    }
-    //}
 
     /**
      * «Анонимизация» функции (без повторной анонимизации)
@@ -327,7 +259,7 @@
              * @returns {undefined|$ws.proto.Control}
              */
             damnControl : function damnControl(controlNameOrId) {
-                // TODO перейти на $ws.proto.AreaAbstract.getChildControlByName и $ws.proto.AreaAbstract.getChildControlById
+                // TODO переделать без использования $ws.single.ControlStorage
                 if ($ws.single.ControlStorage.containsByName(controlNameOrId))
                     return $ws.single.ControlStorage.getByName(controlNameOrId);
                 if ($ws.single.ControlStorage.contains(controlNameOrId))
@@ -508,31 +440,6 @@
     //endregion
 
     //region Установка «таймеров»
-    ///**
-    // *
-    // */
-    //_setIntervalImmediate(function wsSingleControlStorageExtend(id) {
-    //    if (typeof $ws === 'undefined' || !$ws.single || !$ws.single.ControlStorage)
-    //        return;
-    //
-    //    var controlList = _getControlList();
-    //
-    //    $ws.single.ControlStorage.store = _extend($ws.single.ControlStorage.store, function (control) {
-    //        controlList.push(control);
-    //    });
-    //
-    //    $ws.single.ControlStorage.remove = _extend($ws.single.ControlStorage.remove, function (control) {
-    //        for (let i = 0, n = controlList.length; i < n; ++i) {
-    //            if (control === controlList[i]) {
-    //                controlList.splice(i, 1);
-    //                break;
-    //            }
-    //        }
-    //    });
-    //
-    //    clearInterval(id);
-    //}, 200);
-
     /**
      * Анонимизация функции конструктора и определение метода toString для всех классов платформы,
      * чтобы в консоли Firebug выводились их имена, а не просто Object {...}
@@ -585,5 +492,5 @@
     }, 20000);
     //endregion
 
-    _showReadyMessage();
+    window.wsDebugHelpers.showReadyMessage();
 })();
