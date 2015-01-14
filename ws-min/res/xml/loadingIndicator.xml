@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ws-template width="520" height="70" title="" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" autoWidth="true" autoHeight="true">
-   <div id="winIndicator" class="ws-win-loadingIndicator">
-   </div>
-</ws-template>
