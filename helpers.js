@@ -9,11 +9,6 @@
 (function () {
     "use strict";
 
-    //if (window.wsDebugHelpers && window.wsDebugHelpers.ready) {
-    //    _showReadyMessage();
-    //    return;
-    //}
-
     //region Приватные функции
     /**
      * Определение «родных» свойств у объекта (с конфигурацией как у стандартного свойства)
@@ -431,10 +426,6 @@
                     }
                 }
             }
-
-            //wsDebugHelpers : {
-            //    ready : true
-            //}
         }
     );
     //endregion
@@ -492,5 +483,5 @@
     }, 20000);
     //endregion
 
-    window.wsDebugHelpers.showReadyMessage();
+    window.WsDebugHelpers.prototype.showReadyMessage();
 })();

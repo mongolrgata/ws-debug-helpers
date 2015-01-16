@@ -4,22 +4,21 @@
 
 ;
 (function () {
-    ///**
-    // *
-    // * @param {jQuery} $node
-    // * @returns {number}
-    // * @private
-    // */
-    //function _maxZIndex($node) {
-    //    return 100500;
-    //}
-
-    window.wsDebugHelpers = {
+    class WsDebugHelpers {
         /**
          * TODO описание
-         * @lends window.wsDebugHelpers
+         * @param $node
+         * @returns {number}
          */
-        showReadyMessage: function showReadyMessage() {
+        maxZIndex($node) {
+            // TODO
+            return 100500;
+        }
+
+        /**
+         * TODO описание
+         */
+        showReadyMessage() {
             $(document).ready(function () {
                 var
                     $body = $('body'),
@@ -28,7 +27,7 @@
                         top: '16px',
                         left: '16px',
                         padding: '16px',
-                        zIndex: 100500, // _maxZIndex($body) + 1,
+                        zIndex: maxZIndex($body) + 1,
                         font: 'normal normal normal 16px Segoe UI, sans-serif',
                         background: 'indigo',
                         boxShadow: '0 0 16px rgba(0,0,0,0.5)',

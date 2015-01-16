@@ -3,7 +3,12 @@ System.registerModule("../paint.js", [], function(require) {
   var __moduleName = "../paint.js";
   ;
   (function() {
-    window.wsDebugHelpers = {showReadyMessage: function showReadyMessage() {
+    var WsDebugHelpers = function WsDebugHelpers() {};
+    ($traceurRuntime.createClass)(WsDebugHelpers, {
+      maxZIndex: function($node) {
+        return 100500;
+      },
+      showReadyMessage: function() {
         $(document).ready(function() {
           var $body = $('body'),
               $divMessageBox = $('<div/>').css({
@@ -11,7 +16,7 @@ System.registerModule("../paint.js", [], function(require) {
                 top: '16px',
                 left: '16px',
                 padding: '16px',
-                zIndex: 100500,
+                zIndex: maxZIndex($body) + 1,
                 font: 'normal normal normal 16px Segoe UI, sans-serif',
                 background: 'indigo',
                 boxShadow: '0 0 16px rgba(0,0,0,0.5)',
@@ -30,7 +35,8 @@ System.registerModule("../paint.js", [], function(require) {
             });
           }).trigger('mouseleave');
         });
-      }};
+      }
+    }, {});
   })();
   return {};
 });

@@ -287,7 +287,7 @@ System.registerModule("../helpers.js", [], function(require) {
           }
         }
     }, 20000);
-    window.wsDebugHelpers.showReadyMessage();
+    window.WsDebugHelpers.prototype.showReadyMessage();
   })();
   return {};
 });
