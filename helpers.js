@@ -437,50 +437,50 @@
      *
      * _setIntervalImmediate потому, что модули платформы грузятся по необходимости, а не все сразу
      */
-    _setIntervalImmediate(function wsProtoClassName() {
-        if (typeof $ws === 'undefined' || !$ws.proto)
-            return;
-
-        for (let className in $ws.proto) {
-            if ($ws.proto.hasOwnProperty(className) && typeof $ws.proto[className] === 'function') {
-                if (typeof $ws.proto[className].prototype.constructor === 'function') {
-                    $ws.proto[className].prototype.constructor = _anonymize($ws.proto[className].prototype.constructor);
-                }
-
-                if (!$ws.proto[className].prototype.hasOwnProperty('toString')) {
-                    let objectClassName = '[object ' + className + ']';
-
-                    $ws.proto[className].prototype.toString = function () {
-                        return objectClassName;
-                    }
-                }
-            }
-        }
-    }, 1000);
+    //_setIntervalImmediate(function wsProtoClassName() {
+    //    if (typeof $ws === 'undefined' || !$ws.proto)
+    //        return;
+    //
+    //    for (let className in $ws.proto) {
+    //        if ($ws.proto.hasOwnProperty(className) && typeof $ws.proto[className] === 'function') {
+    //            if (typeof $ws.proto[className].prototype.constructor === 'function') {
+    //                $ws.proto[className].prototype.constructor = _anonymize($ws.proto[className].prototype.constructor);
+    //            }
+    //
+    //            if (!$ws.proto[className].prototype.hasOwnProperty('toString')) {
+    //                let objectClassName = '[object ' + className + ']';
+    //
+    //                $ws.proto[className].prototype.toString = function () {
+    //                    return objectClassName;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}, 1000);
 
     /**
      * Генерация дерева наследования классов платформы
      */
-    _setIntervalImmediate(function wsProtoClassTree() {
-        if (typeof $ws === 'undefined' || !$ws.proto)
-            return;
-
-        var classHierarchy = {};
-
-        for (let classNameA in $ws.proto) {
-            if ($ws.proto.hasOwnProperty(classNameA) && typeof $ws.proto[classNameA] === 'function') {
-                classHierarchy[classNameA] = [];
-
-                for (let classNameB in $ws.proto) {
-                    if ($ws.proto.hasOwnProperty(classNameB) && typeof $ws.proto[classNameB] === 'function') {
-                        if ($ws.proto[classNameA].prototype instanceof $ws.proto[classNameB]) {
-                            classHierarchy[classNameA].push(classNameB);
-                        }
-                    }
-                }
-            }
-        }
-    }, 20000);
+    //_setIntervalImmediate(function wsProtoClassTree() {
+    //    if (typeof $ws === 'undefined' || !$ws.proto)
+    //        return;
+    //
+    //    var classHierarchy = {};
+    //
+    //    for (let classNameA in $ws.proto) {
+    //        if ($ws.proto.hasOwnProperty(classNameA) && typeof $ws.proto[classNameA] === 'function') {
+    //            classHierarchy[classNameA] = [];
+    //
+    //            for (let classNameB in $ws.proto) {
+    //                if ($ws.proto.hasOwnProperty(classNameB) && typeof $ws.proto[classNameB] === 'function') {
+    //                    if ($ws.proto[classNameA].prototype instanceof $ws.proto[classNameB]) {
+    //                        classHierarchy[classNameA].push(classNameB);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}, 20000);
     //endregion
 
     window.WsDebugHelpers.prototype.showReadyMessage();
